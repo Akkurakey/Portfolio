@@ -80,15 +80,23 @@ const Window: React.FC<WindowProps> = ({
     const isMobile = window.innerWidth < 640;
     
     const centerX = (window.innerWidth - currentSize.width) / 2;
-    // For mobile, place windows a bit lower than desktop center to clear menu
-    const centerY = isMobile ? (isAbout ? 60 : 40) : Math.max(40, (window.innerHeight - currentSize.height) / 2);
+    const centerY = (window.innerHeight - currentSize.height) / 2;
+
+    // Special case: About window should be perfectly centered with no offset/staggering
+    if (isAbout) {
+      return {
+        x: centerX,
+        y: Math.max(40, centerY)
+      };
+    }
     
     const staggerIndex = Math.max(0, zIndex - 10);
     const offset = isMobile ? 0 : (staggerIndex % 6) * 25; 
 
+    // For other windows, we apply the staggering logic
     return {
       x: centerX + offset,
-      y: centerY + offset
+      y: Math.max(isMobile ? 40 : 40, centerY + offset)
     };
   };
 
