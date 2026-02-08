@@ -32,7 +32,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
   );
 
   return (
-    <div className="p-6 sm:p-10 md:p-12 lg:p-16 max-w-5xl mx-auto bg-white shadow-inner min-h-full font-serif text-gray-900 overflow-x-hidden">
+    <div className="p-6 sm:p-8 md:p-10 lg:p-10 max-w-4xl mx-auto bg-white shadow-inner min-h-full font-serif text-gray-900 overflow-x-hidden">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start border-b-2 border-gray-900 pb-8 mb-10 gap-6">
         <div>
@@ -46,8 +46,8 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
         </div>
       </div>
 
-      {/* Main Grid: 8/12 and 4/12 split - items-start ensures top alignment */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 lg:gap-x-20 gap-y-16 items-start">
+      {/* Main Grid: 8/12 and 4/12 split */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 lg:gap-x-12 gap-y-16 items-start">
         {/* Left Column (Main Content) */}
         <div className="lg:col-span-8 space-y-16">
           {/* Education */}
@@ -180,7 +180,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
         </div>
       </div>
 
-      {/* Footer / CTA - Centered properly below the balanced columns */}
+      {/* Footer / CTA */}
       <div className="flex justify-center pt-20 no-print">
         <a 
           href={pdfUrl}
