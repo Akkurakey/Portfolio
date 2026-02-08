@@ -157,9 +157,9 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
               </div>
               <div>
                 <p className="text-xs font-bold font-sans uppercase tracking-tight text-gray-900 leading-tight mb-1">
-                  <LinkSpan id="gd-album">Kan Tai-Keung Design Award</LinkSpan>
+                  <LinkSpan id="gd-album">Kan Tai-Keung Design Award '21</LinkSpan>
                 </p>
-                <span className="block text-[10px] text-rose-600 font-black uppercase tracking-wider">Winning Work '21</span>
+                <span className="block text-[10px] text-rose-600 font-black uppercase tracking-wider">Winning Work</span>
               </div>
             </div>
           </section>
