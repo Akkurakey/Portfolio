@@ -1,71 +1,61 @@
 import { motion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 interface DesktopIconProps {
   name: string;
   id: string;
-  initialX?: number;
-  initialY?: number;
+  x: number;
+  y: number;
+  isSelected?: boolean;
   onDoubleClick: () => void;
-  onPositionChange: (id: string, x: number, y: number) => void;
+  onMouseDown: (e: React.MouseEvent, id: string) => void;
+  onDrag: (id: string, dx: number, dy: number) => void;
 }
 
-const DesktopIcon: React.FC<DesktopIconProps> = ({ name, id, initialX = 0, initialY = 0, onDoubleClick, onPositionChange }) => {
-  const [pos, setPos] = useState({ x: initialX, y: initialY });
+const DesktopIcon: React.FC<DesktopIconProps> = ({ 
+  name, 
+  id, 
+  x, 
+  y, 
+  isSelected = false,
+  onDoubleClick, 
+  onMouseDown,
+  onDrag
+}) => {
   const [isDragging, setIsDragging] = useState(false);
-  const dragRef = useRef<{ startX: number; startY: number; startPos: { x: number; y: number } } | null>(null);
-
-  // Sync with initial position if it changes from outside (e.g. window resize)
-  useEffect(() => {
-    if (!isDragging) {
-      setPos({ x: initialX, y: initialY });
-    }
-  }, [initialX, initialY, isDragging]);
+  const dragStartRef = useRef<{ x: number; y: number } | null>(null);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Only drag with left click
+    // Left click only
     if (e.button !== 0) return;
     
+    // Call parent handler for selection
+    onMouseDown(e, id);
+    
     setIsDragging(true);
-    dragRef.current = {
-      startX: e.clientX,
-      startY: e.clientY,
-      startPos: { x: pos.x, y: pos.y }
-    };
-  };
+    dragStartRef.current = { x: e.clientX, y: e.clientY };
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging || !dragRef.current) return;
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      if (!dragStartRef.current) return;
+      const dx = moveEvent.clientX - dragStartRef.current.x;
+      const dy = moveEvent.clientY - dragStartRef.current.y;
       
-      const deltaX = e.clientX - dragRef.current.startX;
-      const deltaY = e.clientY - dragRef.current.startY;
+      // Update starting point for next delta
+      dragStartRef.current = { x: moveEvent.clientX, y: moveEvent.clientY };
       
-      setPos({
-        x: dragRef.current.startPos.x + deltaX,
-        y: dragRef.current.startPos.y + deltaY
-      });
+      onDrag(id, dx, dy);
     };
 
     const handleMouseUp = () => {
-      if (isDragging) {
-        setIsDragging(false);
-        if (dragRef.current) {
-          onPositionChange(id, pos.x, pos.y);
-        }
-        dragRef.current = null;
-      }
-    };
-
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    }
-    return () => {
+      setIsDragging(false);
+      dragStartRef.current = null;
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, pos, id, onPositionChange]);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  };
 
   return (
     <motion.div
@@ -75,18 +65,17 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ name, id, initialX = 0, initi
       animate={{ opacity: 1 }}
       style={{ 
         position: 'absolute',
-        left: pos.x, 
-        top: pos.y,
+        left: x, 
+        top: y,
         cursor: 'default',
-        zIndex: isDragging ? 100 : 10,
-        // Disable transition during drag to feel responsive
-        transition: isDragging ? 'none' : 'left 0.2s ease-out, top 0.2s ease-out'
+        zIndex: isDragging ? 1000 : 10,
+        touchAction: 'none'
       }}
       className="flex flex-col items-center justify-center w-24 h-24 sm:w-28 sm:h-28 select-none group pointer-events-auto"
     >
-      <div className="relative pointer-events-none">
+      <div className={`relative p-2 rounded-lg transition-all duration-200 ${isSelected ? 'bg-blue-500/30' : ''}`}>
         <svg
-          className={`w-12 h-12 sm:w-16 sm:h-16 folder-icon-glow ${isDragging ? 'text-blue-300' : 'text-blue-400'} group-hover:text-blue-300 transition-colors`}
+          className={`w-12 h-12 sm:w-16 sm:h-16 folder-icon-glow ${isSelected ? 'text-blue-300' : (isDragging ? 'text-blue-200' : 'text-blue-400')} group-hover:text-blue-300 transition-colors`}
           viewBox="0 0 24 24"
           fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +83,7 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ name, id, initialX = 0, initi
           <path d="M10 4L12 6H20C21.1 6 22 6.9 22 8V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4H10Z" />
         </svg>
       </div>
-      <span className="mt-1 text-[11px] sm:text-[13px] text-white font-medium text-center px-1.5 py-0.5 rounded group-hover:bg-blue-600/40 drop-shadow-md break-words max-w-full leading-tight pointer-events-none whitespace-pre-line">
+      <span className={`mt-1 text-[11px] sm:text-[13px] font-medium text-center px-1.5 py-0.5 rounded drop-shadow-md break-words max-w-full leading-tight pointer-events-none whitespace-pre-line transition-all duration-200 ${isSelected ? 'bg-blue-600 text-white' : 'text-white group-hover:bg-blue-600/40'}`}>
         {name}
       </span>
     </motion.div>
