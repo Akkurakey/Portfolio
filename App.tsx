@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { WindowState, WindowID, Project } from './types';
@@ -32,23 +32,33 @@ const App: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   
+  // Selection/Drag State
+  const [selection, setSelection] = useState<{ startX: number; startY: number; endX: number; endY: number; active: boolean }>({
+    startX: 0, startY: 0, endX: 0, endY: 0, active: false
+  });
+  const [selectedFolderIds, setSelectedFolderIds] = useState<string[]>([]);
+  const desktopRef = useRef<HTMLDivElement>(null);
+
   const getInitialPositions = useCallback(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (typeof window === 'undefined') return {};
+    const isMobile = window.innerWidth < 768;
     const iconSize = isMobile ? 80 : 130; 
-    const padding = isMobile ? 10 : 60;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     const topBarHeight = 32;
-    const width = typeof window !== 'undefined' ? window.innerWidth : 1200;
-    const height = typeof window !== 'undefined' ? window.innerHeight : 800;
 
     const positions: Record<string, { x: number; y: number }> = {};
     
-    // Explicitly place folders in a single column on the right edge
-    const rightX = width - iconSize - (isMobile ? 10 : 30);
+    // Position folders clearly to the right side
+    // Desktop: ~82% width, centered vertically
+    // Mobile: ~75% width
+    const startX = isMobile ? width * 0.75 : width * 0.82;
+    const startY = isMobile ? topBarHeight + 40 : height * 0.22;
     
     FOLDERS.forEach((f, idx) => {
       positions[f.id] = { 
-        x: rightX, 
-        y: topBarHeight + padding + (idx * (isMobile ? iconSize + 5 : iconSize - 10)) 
+        x: startX, 
+        y: startY + (idx * (isMobile ? iconSize + 10 : iconSize - 5)) 
       };
     });
     return positions;
@@ -66,11 +76,76 @@ const App: React.FC = () => {
     };
   }, [getInitialPositions]);
 
-  const updateFolderPosition = (id: string, x: number, y: number) => {
-    setFolderPositions(prev => ({
-      ...prev,
-      [id]: { x, y }
-    }));
+  // Group Drag Logic
+  const handleIconDrag = (id: string, dx: number, dy: number) => {
+    setFolderPositions(prev => {
+      const next = { ...prev };
+      const idsToMove = selectedFolderIds.includes(id) ? selectedFolderIds : [id];
+      
+      idsToMove.forEach(targetId => {
+        if (next[targetId]) {
+          next[targetId] = {
+            x: next[targetId].x + dx,
+            y: next[targetId].y + dy
+          };
+        }
+      });
+      return next;
+    });
+  };
+
+  const handleIconMouseDown = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    if (e.shiftKey) {
+      setSelectedFolderIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+    } else if (!selectedFolderIds.includes(id)) {
+      setSelectedFolderIds([id]);
+    }
+  };
+
+  // Marquee Selection Logic
+  const handleDesktopMouseDown = (e: React.MouseEvent) => {
+    if (e.target !== desktopRef.current) return;
+    
+    setSelection({
+      startX: e.clientX,
+      startY: e.clientY,
+      endX: e.clientX,
+      endY: e.clientY,
+      active: true
+    });
+    setSelectedFolderIds([]);
+  };
+
+  const handleDesktopMouseMove = (e: React.MouseEvent) => {
+    if (!selection.active) return;
+    
+    const newEnd = { endX: e.clientX, endY: e.clientY };
+    setSelection(prev => ({ ...prev, ...newEnd }));
+
+    // Selection logic
+    const rect = {
+      l: Math.min(selection.startX, e.clientX),
+      r: Math.max(selection.startX, e.clientX),
+      t: Math.min(selection.startY, e.clientY),
+      b: Math.max(selection.startY, e.clientY)
+    };
+
+    const isMobile = window.innerWidth < 768;
+    const w = isMobile ? 80 : 110;
+    const h = isMobile ? 80 : 110;
+
+    const newlySelected = FOLDERS.filter(f => {
+      const pos = folderPositions[f.id];
+      if (!pos) return false;
+      return !(rect.l > pos.x + w || rect.r < pos.x || rect.t > pos.y + h || rect.b < pos.y);
+    }).map(f => f.id);
+
+    setSelectedFolderIds(newlySelected);
+  };
+
+  const handleDesktopMouseUp = () => {
+    setSelection(prev => ({ ...prev, active: false }));
   };
 
   const openWindow = (id: WindowID) => {
@@ -150,10 +225,9 @@ const App: React.FC = () => {
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}></div>
 
       {/* Top Menu Bar */}
-      <div className="absolute top-0 w-full h-8 macos-glass flex items-center justify-between px-4 z-[1000] border-b border-white/5 text-[12px] md:text-[13px] font-medium text-gray-200">
+      <div className="absolute top-0 w-full h-8 macos-glass flex items-center justify-between px-4 z-[1000] border-b border-white/5 text-[11px] sm:text-[13px] font-medium text-gray-200">
         <div className="flex items-center space-x-3 md:space-x-6">
           <div className="flex items-center space-x-2">
-            {/* Lamb Logo */}
             <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
               <path d="M11,16V17.5C11,18.33 11.67,19 12.5,19C13.33,19 14,18.33 14,17.5V16H18V17.5C18,18.33 18.67,19 19.5,19C20.33,19 21,18.33 21,17.5V16C22.66,16 24,14.66 24,13C24,11.34 22.66,10 21,10C21,8.34 19.66,7 18,7C17.75,7 17.5,7.03 17.26,7.09C16.32,5.26 14.41,4 12.2,4C9.99,4 8.08,5.26 7.14,7.09C6.9,7.03 6.65,7 6.4,7C4.74,7 3.4,8.34 3.4,10C1.74,10 0.4,11.34 0.4,13C0.4,14.66 1.74,16 3.4,16H11M15.5,10.5C16.05,10.5 16.5,10.95 16.5,11.5C16.5,12.05 16.05,12.5 15.5,12.5C14.95,12.5 14.5,12.05 14.5,11.5C14.5,10.95 14.95,10.5 15.5,10.5M8.9,10.5C9.45,10.5 9.9,10.95 9.9,11.5C9.9,12.05 9.45,12.5 8.9,12.5C8.35,12.5 7.9,12.05 7.9,11.5C7.9,10.95 8.35,10.5 8.9,10.5Z" />
             </svg>
@@ -169,17 +243,43 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Desktop Content */}
-      <div className="relative w-full h-full pt-12 pointer-events-none">
+      {/* Desktop Container */}
+      <div 
+        ref={desktopRef}
+        onMouseDown={handleDesktopMouseDown}
+        onMouseMove={handleDesktopMouseMove}
+        onMouseUp={handleDesktopMouseUp}
+        className="relative w-full h-full pt-12"
+      >
+        {/* Selection Box */}
+        {selection.active && (
+          <div 
+            style={{
+              position: 'fixed',
+              left: Math.min(selection.startX, selection.endX),
+              top: Math.min(selection.startY, selection.endY),
+              width: Math.abs(selection.startX - selection.endX),
+              height: Math.abs(selection.startY - selection.endY),
+              backgroundColor: 'rgba(59, 130, 246, 0.15)',
+              border: '1.5px solid rgba(59, 130, 246, 0.4)',
+              zIndex: 9999,
+              pointerEvents: 'none'
+            }}
+          />
+        )}
+
+        {/* Folder Icons */}
         {FOLDERS.map((folder) => (
           <DesktopIcon 
             key={folder.id} 
             name={folder.name} 
             id={folder.id}
-            initialX={folderPositions[folder.id]?.x || 0} 
-            initialY={folderPositions[folder.id]?.y || 0} 
+            isSelected={selectedFolderIds.includes(folder.id)}
+            x={folderPositions[folder.id]?.x || 0} 
+            y={folderPositions[folder.id]?.y || 0} 
             onDoubleClick={() => openWindow(folder.id)} 
-            onPositionChange={updateFolderPosition}
+            onMouseDown={handleIconMouseDown}
+            onDrag={handleIconDrag}
           />
         ))}
       </div>
@@ -195,8 +295,8 @@ const App: React.FC = () => {
           onClose={() => closeWindow(win.id)}
           onMinimize={() => closeWindow(win.id)}
           onFocus={() => focusWindow(win.id)}
-          initialWidth={win.type === 'project' ? 950 : win.type === 'about' ? 340 : (win.id === 'certification' ? 150 : undefined)}
-          initialHeight={win.type === 'project' ? 650 : win.type === 'about' ? 520 : (win.id === 'certification' ? 180 : undefined)}
+          initialWidth={win.type === 'project' ? 950 : win.type === 'about' ? 340 : (win.id === 'cv' ? 800 : (win.id === 'certification' ? 150 : undefined))}
+          initialHeight={win.type === 'project' ? 650 : win.type === 'about' ? 520 : (win.id === 'cv' ? 850 : (win.id === 'certification' ? 180 : undefined))}
         >
           {win.type === 'about' && <AboutContent onViewCV={() => openWindow('cv')} onOpenCertification={() => openWindow('certification')} />}
           {win.type === 'cv' && <CVContent onOpenFolder={openWindow} onOpenProjectById={openProjectById} />}
