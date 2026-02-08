@@ -31,6 +31,7 @@ const Window: React.FC<WindowProps> = ({
   const [isInteracting, setIsInteracting] = useState(false);
   const isAbout = id === 'about';
   const isCertification = id === 'certification';
+  const isCV = id === 'cv';
   
   const getResponsiveSize = () => {
     if (typeof window === 'undefined') return { width: 800, height: 500 };
@@ -40,16 +41,18 @@ const Window: React.FC<WindowProps> = ({
     const isTablet = wWidth >= 640 && wWidth < 1024;
 
     if (isMobile) {
-      if (isAbout) return { width: wWidth * 0.9, height: 480 };
+      if (isAbout) return { width: wWidth * 0.9, height: Math.min(480, wHeight * 0.7) };
       if (isCertification) return { width: 180, height: 240 };
+      // Mobile takes near full screen
       return { 
         width: wWidth - 16, 
-        height: wHeight - 110 
+        height: wHeight - 120 
       };
     }
 
     if (isTablet) {
       if (isAbout) return { width: 340, height: 520 };
+      if (isCV) return { width: Math.min(800, wWidth - 60), height: wHeight - 120 };
       const baseW = initialWidth || 700;
       const baseH = initialHeight || 550;
       return {
@@ -58,11 +61,13 @@ const Window: React.FC<WindowProps> = ({
       };
     }
     
-    let w = initialWidth || (isAbout ? 340 : 850);
-    let h = initialHeight || (isAbout ? 520 : 600);
+    // Desktop sizing
+    let w = initialWidth || (isAbout ? 340 : (isCV ? 800 : 850));
+    let h = initialHeight || (isAbout ? 520 : (isCV ? Math.min(850, wHeight - 80) : 600));
     
+    // Safety check for viewport
     w = Math.min(w, wWidth - 40);
-    h = Math.min(h, wHeight - 80);
+    h = Math.min(h, wHeight - 60);
     
     return { width: w, height: h };
   };
@@ -75,10 +80,11 @@ const Window: React.FC<WindowProps> = ({
     const isMobile = window.innerWidth < 640;
     
     const centerX = (window.innerWidth - currentSize.width) / 2;
+    // For mobile, place windows a bit lower than desktop center to clear menu
     const centerY = isMobile ? (isAbout ? 60 : 40) : Math.max(40, (window.innerHeight - currentSize.height) / 2);
     
     const staggerIndex = Math.max(0, zIndex - 10);
-    const offset = isMobile ? 0 : (staggerIndex % 8) * 20; 
+    const offset = isMobile ? 0 : (staggerIndex % 6) * 25; 
 
     return {
       x: centerX + offset,
@@ -99,7 +105,7 @@ const Window: React.FC<WindowProps> = ({
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isMaximized, initialWidth, isAbout]);
+  }, [isMaximized, initialWidth, isAbout, isCV]);
 
   const interactionRef = useRef<{ 
     type: 'resize' | 'drag' | null; 
@@ -158,8 +164,8 @@ const Window: React.FC<WindowProps> = ({
       
       if (interactionRef.current.type === 'resize') {
         setSize({
-          width: Math.max(160, interactionRef.current.startW + deltaX),
-          height: Math.max(120, interactionRef.current.startH + deltaY)
+          width: Math.max(200, interactionRef.current.startW + deltaX),
+          height: Math.max(150, interactionRef.current.startH + deltaY)
         });
       } else if (interactionRef.current.type === 'drag') {
         const nextX = interactionRef.current.startXPos + deltaX;
