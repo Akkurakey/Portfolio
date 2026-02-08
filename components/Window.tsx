@@ -82,11 +82,19 @@ const Window: React.FC<WindowProps> = ({
     const centerX = (window.innerWidth - currentSize.width) / 2;
     const centerY = (window.innerHeight - currentSize.height) / 2;
 
-    // Special case: About window should be perfectly centered with no offset/staggering
+    // Special case: About window should be perfectly centered
     if (isAbout) {
       return {
         x: centerX,
         y: Math.max(40, centerY)
+      };
+    }
+
+    // Special case: CV window should be vertically centered but shifted to the right
+    if (isCV && !isMobile) {
+      return {
+        x: window.innerWidth - currentSize.width - 40, // 40px padding from the right edge
+        y: centerY
       };
     }
     
