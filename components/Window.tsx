@@ -86,6 +86,13 @@ const Window: React.FC<WindowProps> = ({
       };
     }
 
+    if (isCertification && !isMobile) {
+      return {
+        x: Math.max(40, centerX - 180),
+        y: centerY
+      };
+    }
+
     if (isCV && !isMobile) {
       return {
         x: window.innerWidth - currentSize.width - 40,
