@@ -4,15 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rakey Yang | Personal Portfolio</title>
+    <!-- Custom SVG Favicon (matches the menu bar logo) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M11,16V17.5C11,18.33 11.67,19 12.5,19C13.33,19 14,18.33 14,17.5V16H18V17.5C18,18.33 18.67,19 19.5,19C20.33,19 21,18.33 21,17.5V16C22.66,16 24,14.66 24,13C24,11.34 22.66,10 21,10C21,8.34 19.66,7 18,7C17.75,7 17.5,7.03 17.26,7.09C16.32,5.26 14.41,4 12.2,4C9.99,4 8.08,5.26 7.14,7.09C6.9,7.03 6.65,7 6.4,7C4.74,7 3.4,8.34 3.4,10C1.74,10 0.4,11.34 0.4,13C0.4,14.66 1.74,16 3.4,16H11M15.5,10.5C16.05,10.5 16.5,10.95 16.5,11.5C16.5,12.05 16.05,12.5 15.5,12.5C14.95,12.5 14.5,12.05 14.5,11.5C14.5,10.95 14.95,10.5 15.5,10.5M8.9,10.5C9.45,10.5 9.9,10.95 9.9,11.5C9.9,12.05 9.45,12.5 8.9,12.5C8.35,12.5 7.9,12.05 7.9,11.5C7.9,10.95 8.35,10.5 8.9,10.5Z' /%3E%3C/svg%3E">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+      :root {
+        /* Classic Mac Black Arrow Pointer */
+        --classic-cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgCAYAAAAbpR8uAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFXSURBVHgB7VUxbsMwDPyAnpAl79G9/yM9IkvukL1mD9n7P/IjvUf2mD1kr96QveU98ge1R0C2LMo0RUkH6IuFQI90unskUonIidY6v7RjXdfY7Xaf1uByveHj8Yiu6xL8fD7Tsm2LLMvovR6KstYSnU4nkiSJWVzXNYYhwGAsS/V9D86fTidp244MAn+S6D/M9K4P7XmI632+79N8Pqfb7YaiKOiaS5ZliXFzYRiS9327XU6vM17Y9z2ZptmI+Iit1YvG7HlE/O05f886f7/fF/PneU6SJH/fO8Y66/V6v99ZliUajQYhL27z69W3G7LzGbeMIdYm1ubP2Zf9M9P5m80m7fdrsh9vH3/LInuXWOf36pUxb869rU/X6/8fVf3WcR2M2W/uXdbPInsvf9u6M9M9P99XF3+vK2vunf+7XG63W7Rty6+vI3fA97wB0U8K9/Ym21UAAAAASUVORK5CYII=") 0 0, auto;
+        /* Classic Mac Pointer Finger */
+        --classic-pointer: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAgCAYAAAAbpR8uAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGdSURBVHgB7VWxbYMwEP0InrAlX+K9/pGe8pZ+qV6yJWv8JX7KV77SL33KWvIkXuId79At75A96h0KREIsB9yTToI0N37nztfH596J1nq88e390I5VVeG83/vSjnmZ4v1YI0kSvj9PZZ4XpOs6XJclmWWJ2WzWzH6Mv89is8D6o7AsS+IsI6vWizS/SIs6P4uInV9ExM4fImLnNxGxeV88599ut0X/eZ6RZ9f8ee000/F4vM7/73eI+d1uR7bb7e97p8iI67oiIs6u6yS6XpXxeunX3/fL2D8iInp7pUjY87v9X8YeH3p5W14P7+tY74fL7Xaby/F4vMrXmSdgL3Lz1asHsvMMp8YQcxNr09ucl/kzXWc0GiXuN1+z9fV75vR7WpY5e9N769N1v7f17vru635Zbe/l7Vr3Y7ofvXf6M9X96M366v73vLLm7fU+mR/97P97XfayWq2i0Wjw9Xv0LfieOyD6BQgY7g7S7T9cAAAAASUVORK5CYII=") 7 0, pointer;
+      }
+
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         overflow: hidden;
         user-select: none;
         background-color: #0a0a0a;
+        cursor: var(--classic-cursor);
       }
+      
+      a, button, [role="button"], .cursor-pointer {
+        cursor: var(--classic-pointer) !important;
+      }
+
+      /* Keep the system cursor for windows when resizing/dragging */
+      .window-header, .cursor-nwse-resize, input {
+        cursor: inherit;
+      }
+
       .macos-glass {
         background: rgba(30, 30, 30, 0.4);
         backdrop-filter: blur(40px) saturate(200%);
@@ -56,10 +77,8 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+  </body>
 </html>
