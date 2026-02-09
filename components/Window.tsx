@@ -238,7 +238,7 @@ const Window: React.FC<WindowProps> = ({
             ...windowStyles,
             transition: isInteracting ? 'none' : 'width 0.25s cubic-bezier(0.2, 0, 0, 1), height 0.25s cubic-bezier(0.2, 0, 0, 1), top 0.25s cubic-bezier(0.2, 0, 0, 1), left 0.25s cubic-bezier(0.2, 0, 0, 1), border-radius 0.2s ease, opacity 0.2s ease'
           }}
-          className={`fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none overflow-hidden`}
+          className={`fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden'}`}
         >
           {/* Header Bar */}
           <div 
@@ -279,7 +279,7 @@ const Window: React.FC<WindowProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className={`flex-grow select-text touch-auto overflow-y-auto overflow-x-hidden custom-scrollbar ${isAbout ? 'bg-transparent' : 'bg-white'}`}>
+          <div className={`flex-grow select-text touch-auto custom-scrollbar ${isAbout ? 'bg-transparent overflow-y-visible overflow-x-visible' : 'bg-white overflow-y-auto overflow-x-hidden'}`}>
             {children}
           </div>
 
