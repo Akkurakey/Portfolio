@@ -67,8 +67,7 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
             <div className="group relative inline-block cursor-help">
               <span className="hover:text-white transition-colors">HCI Researcher</span>
               <div className="absolute top-0 right-[calc(100%+20px)] w-48 sm:w-64 p-4 bg-white text-gray-900 text-[10px] sm:text-[11px] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[200] font-serif normal-case tracking-normal leading-relaxed border border-black/5 text-left italic">
-                <p className="mb-2">I’m interested in wearable devices and</p>
-                <p className="mb-2">XR experiences.</p>
+                <p className="mb-2">I’m interested in wearable devices and XR experiences.</p>
                 <p className="mb-2">My work involves XR prototyping, user studies, and experience evaluation.</p>
                 <p>I’m currently exploring applications in mental health and accessible support.</p>
                 {/* Arrow pointing to the text from the right */}
