@@ -96,12 +96,12 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
           <div className="flex justify-center text-[12px] sm:text-[13px] gap-3">
             <span className="text-white text-right w-[42%] font-semibold">Instagram</span>
             <a 
-              href="https://www.instagram.com/rakeyyang" 
+              href="https://www.instagram.com/rakeyang" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-blue-400 hover:text-blue-300 hover:underline text-left w-[58%] transition-colors truncate"
             >
-              @rakeyyang
+              @rakeyang
             </a>
           </div>
           <div className="flex justify-center text-[12px] sm:text-[13px] gap-3">
