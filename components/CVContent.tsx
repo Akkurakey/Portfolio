@@ -73,7 +73,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
 
           {/* Publications & Research */}
           <section>
-            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-6 border-b border-gray-100 pb-2">Publications & Research</h2>
+            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-6 border-b border-gray-100 pb-2">ACADEMIC PAPERS</h2>
             <div className="space-y-8">
               <div className="group">
                 <p className="text-sm text-gray-700 leading-relaxed">
