@@ -50,8 +50,6 @@ const App: React.FC = () => {
     const positions: Record<string, { x: number; y: number }> = {};
     
     // Position folders clearly to the right side
-    // Desktop: ~82% width, centered vertically
-    // Mobile: ~75% width
     const startX = isMobile ? width * 0.75 : width * 0.82;
     const startY = isMobile ? topBarHeight + 40 : height * 0.22;
     
@@ -295,8 +293,18 @@ const App: React.FC = () => {
           onClose={() => closeWindow(win.id)}
           onMinimize={() => closeWindow(win.id)}
           onFocus={() => focusWindow(win.id)}
-          initialWidth={win.type === 'project' ? 950 : win.type === 'about' ? 340 : (win.id === 'cv' ? 800 : (win.id === 'certification' ? 150 : undefined))}
-          initialHeight={win.type === 'project' ? 650 : win.type === 'about' ? 520 : (win.id === 'cv' ? 850 : (win.id === 'certification' ? 180 : undefined))}
+          initialWidth={
+            win.id === 'certification' ? 240 : 
+            win.type === 'project' ? 950 : 
+            win.type === 'about' ? 340 : 
+            (win.id === 'cv' ? 900 : undefined)
+          }
+          initialHeight={
+            win.id === 'certification' ? 240 : 
+            win.type === 'project' ? 650 : 
+            win.type === 'about' ? 520 : 
+            (win.id === 'cv' ? 850 : undefined)
+          }
         >
           {win.type === 'about' && <AboutContent onViewCV={() => openWindow('cv')} onOpenCertification={() => openWindow('certification')} />}
           {win.type === 'cv' && <CVContent onOpenFolder={openWindow} onOpenProjectById={openProjectById} />}
