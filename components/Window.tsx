@@ -43,7 +43,6 @@ const Window: React.FC<WindowProps> = ({
     if (isMobile) {
       if (isAbout) return { width: wWidth * 0.9, height: Math.min(480, wHeight * 0.7) };
       if (isCertification) return { width: 180, height: 240 };
-      // Mobile takes near full screen
       return { 
         width: wWidth - 16, 
         height: wHeight - 120 
@@ -61,11 +60,9 @@ const Window: React.FC<WindowProps> = ({
       };
     }
     
-    // Desktop sizing
     let w = initialWidth || (isAbout ? 340 : (isCV ? 800 : 850));
     let h = initialHeight || (isAbout ? 520 : (isCV ? Math.min(850, wHeight - 80) : 600));
     
-    // Safety check for viewport
     w = Math.min(w, wWidth - 40);
     h = Math.min(h, wHeight - 60);
     
@@ -82,7 +79,6 @@ const Window: React.FC<WindowProps> = ({
     const centerX = (window.innerWidth - currentSize.width) / 2;
     const centerY = (window.innerHeight - currentSize.height) / 2;
 
-    // Special case: About window should be perfectly centered
     if (isAbout) {
       return {
         x: centerX,
@@ -90,10 +86,9 @@ const Window: React.FC<WindowProps> = ({
       };
     }
 
-    // Special case: CV window should be vertically centered but shifted to the right
     if (isCV && !isMobile) {
       return {
-        x: window.innerWidth - currentSize.width - 40, // 40px padding from the right edge
+        x: window.innerWidth - currentSize.width - 40,
         y: centerY
       };
     }
@@ -101,7 +96,6 @@ const Window: React.FC<WindowProps> = ({
     const staggerIndex = Math.max(0, zIndex - 10);
     const offset = isMobile ? 0 : (staggerIndex % 6) * 25; 
 
-    // For other windows, we apply the staggering logic
     return {
       x: centerX + offset,
       y: Math.max(isMobile ? 40 : 40, centerY + offset)
@@ -134,8 +128,8 @@ const Window: React.FC<WindowProps> = ({
   } | null>(null);
 
   const startResizing = (e: React.MouseEvent | React.TouchEvent) => {
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
     
     setIsInteracting(true);
     interactionRef.current = {
@@ -152,8 +146,8 @@ const Window: React.FC<WindowProps> = ({
 
   const startDragging = (e: React.MouseEvent | React.TouchEvent) => {
     if (isMaximized) return;
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
 
     setIsInteracting(true);
     hasBeenMoved.current = true;
@@ -237,7 +231,7 @@ const Window: React.FC<WindowProps> = ({
             ...windowStyles,
             transition: isInteracting ? 'none' : 'width 0.25s cubic-bezier(0.2, 0, 0, 1), height 0.25s cubic-bezier(0.2, 0, 0, 1), top 0.25s cubic-bezier(0.2, 0, 0, 1), left 0.25s cubic-bezier(0.2, 0, 0, 1), border-radius 0.2s ease, opacity 0.2s ease'
           }}
-          className={`fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden'}`}
+          className={`fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none overflow-hidden`}
         >
           {/* Header Bar */}
           <div 
@@ -278,18 +272,18 @@ const Window: React.FC<WindowProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className={`flex-grow select-text touch-auto ${isAbout ? 'overflow-visible' : 'overflow-y-auto custom-scrollbar bg-white'}`}>
+          <div className={`flex-grow select-text touch-auto overflow-y-auto overflow-x-hidden custom-scrollbar ${isAbout ? 'bg-transparent' : 'bg-white'}`}>
             {children}
           </div>
 
-          {/* Resize Handle */}
-          {!isMaximized && window.innerWidth >= 1024 && !isAbout && (
+          {/* Resize Handle - Restored to original clean styling */}
+          {!isMaximized && (
             <div 
               onMouseDown={startResizing}
               onTouchStart={startResizing}
-              className="absolute bottom-0 right-0 w-6 h-6 cursor-nwse-resize z-[100] bg-transparent flex items-end justify-end p-1"
+              className="absolute bottom-0 right-0 w-8 h-8 cursor-nwse-resize z-[100] bg-transparent flex items-end justify-end p-1"
             >
-              <div className="w-3 h-3 border-r-2 border-b-2 border-black/10 rounded-br-[2px]" />
+              <div className="w-3.5 h-3.5 border-r-2 border-b-2 border-black/10 rounded-br-[2px]" />
             </div>
           )}
         </motion.div>
