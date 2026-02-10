@@ -302,7 +302,7 @@ const App: React.FC = () => {
           initialHeight={
             win.id === 'certification' ? 320 : 
             win.type === 'project' ? 650 : 
-            win.type === 'about' ? 520 : 
+            win.type === 'about' ? 600 : 
             (win.id === 'cv' ? 850 : undefined)
           }
         >
