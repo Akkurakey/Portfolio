@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Download, Mail, Phone, Globe, ArrowUpRight } from 'lucide-react';
-import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { WindowID } from '../types';
 import { PROJECTS } from '../constants';
 
@@ -12,51 +12,13 @@ interface CVContentProps {
 interface QuickLookPreviewProps {
   projectId: string;
   isVisible: boolean;
-  mouseX: any; // MotionValue<number>
-  mouseY: any; // MotionValue<number>
 }
 
 // Quick Look Preview Component for Project Snapshots
 const QuickLookPreview = ({ 
   projectId, 
-  isVisible,
-  mouseX,
-  mouseY
+  isVisible
 }: QuickLookPreviewProps) => {
-  const [windowSize, setWindowSize] = useState({ w: 0, h: 0 });
-
-  useEffect(() => {
-    const updateSize = () => setWindowSize({ w: window.innerWidth, h: window.innerHeight });
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-
-  // Constants for clamping
-  const cardWidth = 260; 
-  const cardHeight = 320; // Estimated height for boundary calculation
-  const padding = 12; // Gap from screen edges
-  const offsetX = 20;
-  const offsetY = -280; // Default vertical offset (positioned above cursor)
-
-  // Use transforms with clamping logic to keep the card within the viewport
-  const finalX = useTransform(mouseX, (val: number) => {
-    const targetX = val + offsetX;
-    // Clamp between padding and (windowWidth - cardWidth - padding)
-    return Math.max(padding, Math.min(targetX, windowSize.w - cardWidth - padding));
-  });
-
-  const finalY = useTransform(mouseY, (val: number) => {
-    const targetY = val + offsetY;
-    // Clamp between padding and (windowHeight - cardHeight - padding)
-    return Math.max(padding, Math.min(targetY, windowSize.h - cardHeight - padding));
-  });
-
-  // Smooth the final derived coordinates for a premium feel
-  const springConfig = { damping: 45, stiffness: 400, mass: 0.6 };
-  const smoothX = useSpring(finalX, springConfig);
-  const smoothY = useSpring(finalY, springConfig);
-
   const allProjects = Object.values(PROJECTS).flat();
   const project = allProjects.find(p => p.id === projectId);
 
@@ -66,20 +28,18 @@ const QuickLookPreview = ({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-          transition={{ duration: 0.15, ease: [0.23, 1, 0.32, 1] }}
+          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            x: smoothX,
-            y: smoothY,
-            zIndex: 3000000,
+            position: 'absolute',
+            bottom: 'calc(100% + 12px)',
+            right: '0',
+            zIndex: 3000,
             pointerEvents: 'none',
           }}
-          className="w-[260px] overflow-hidden rounded-[20px] bg-white/95 backdrop-blur-3xl shadow-[0_30px_90px_rgba(0,0,0,0.35),0_0_0_1px_rgba(0,0,0,0.05)] border border-white/20 flex flex-col"
+          className="w-[260px] overflow-hidden rounded-[20px] bg-white/95 backdrop-blur-3xl shadow-[0_15px_45px_rgba(0,0,0,0.2),0_0_0_1px_rgba(0,0,0,0.05)] border border-white/20 flex flex-col"
         >
           {/* Project Snapshot Image */}
           <div className="w-full aspect-video bg-gray-100 overflow-hidden relative">
@@ -109,18 +69,9 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
   const pdfUrl = "https://drive.google.com/file/d/1XJmqgCbdfOjyt9DO1MjjNL1_9wJEGjjQ/view?usp=sharing";
   
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
 
-  const handleMouseEnter = (e: React.MouseEvent, id: string) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
+  const handleMouseEnter = (id: string) => {
     setHoveredProjectId(id);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
   };
 
   const handleMouseLeave = () => {
@@ -137,8 +88,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
 
   const LinkSpan = ({ children, id }: { children?: React.ReactNode; id: string }) => (
     <span 
-      onMouseEnter={(e) => handleMouseEnter(e, id)}
-      onMouseMove={handleMouseMove}
+      onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={handleMouseLeave}
       onClick={() => handleProjectLink(id)}
       className="underline decoration-gray-300 hover:decoration-blue-500 hover:text-blue-600 cursor-pointer transition-colors relative"
@@ -149,13 +99,6 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
 
   return (
     <div className="p-6 sm:p-8 md:p-10 lg:p-10 max-w-4xl mx-auto bg-white shadow-inner min-h-full font-serif text-gray-900 overflow-visible relative">
-      <QuickLookPreview 
-        projectId={hoveredProjectId || ''} 
-        isVisible={!!hoveredProjectId} 
-        mouseX={mouseX}
-        mouseY={mouseY}
-      />
-
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start border-b-2 border-gray-900 pb-8 mb-10 gap-6">
         <div>
@@ -197,12 +140,20 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
           <section>
             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-6 border-b border-gray-100 pb-2">ACADEMIC PAPERS</h2>
             <div className="space-y-8">
-              <div className="group">
+              <div className="group relative">
+                <QuickLookPreview 
+                  projectId="hci-1" 
+                  isVisible={hoveredProjectId === 'hci-1'} 
+                />
                 <p className="text-sm text-gray-700 leading-relaxed">
                   <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1">"Comparative Effectiveness of Virtual Reality and Augmented Reality for Virtual Exposure Therapy Applications."</LinkSpan> <span className="italic">Virtual Reality</span>, under review, 2025.
                 </p>
               </div>
-              <div className="group">
+              <div className="group relative">
+                <QuickLookPreview 
+                  projectId="hci-2" 
+                  isVisible={hoveredProjectId === 'hci-2'} 
+                />
                 <p className="text-sm text-gray-700 leading-relaxed">
                   S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <LinkSpan id="hci-2">"AIs or Humans in Luxury Shopping? A Design Study of VR Shopping Assistants."</LinkSpan> <span className="italic">IEEE Conference on Virtual Reality and 3D User Interfaces (IEEE VR)</span>, poster accepted, 2026.
                 </p>
