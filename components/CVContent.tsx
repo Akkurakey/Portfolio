@@ -182,11 +182,11 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
             <div className="space-y-6 font-sans text-[11px] leading-relaxed">
               <div>
                 <h4 className="font-black text-gray-300 mb-1.5 tracking-widest text-[9px] uppercase">Hci</h4>
-                <p className="text-gray-700">Experimental Design / User Studies / Questionnaire Design / Semi-structured Interviewing / Ethnographic Methods</p>
+                <p className="text-gray-700">Experimental Design / User Studies / Questionnaire Design / Semi-structured Interview / Ethnographic Methods</p>
               </div>
               <div>
                 <h4 className="font-black text-gray-300 mb-1.5 tracking-widest text-[9px] uppercase">Implement</h4>
-                <p className="text-gray-700">XR Prototyping (Unity, C#) / Spark AR / Git & Version Control</p>
+                <p className="text-gray-700">XR Prototyping (Unity, C#; Spark AR) / Git & Version Control</p>
               </div>
               <div>
                 <h4 className="font-black text-gray-300 mb-1.5 tracking-widest text-[9px] uppercase">Research</h4>
