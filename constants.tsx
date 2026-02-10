@@ -185,7 +185,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       imageUrl: 'https://lh3.googleusercontent.com/d/1CzQRxfTWNXiY5hAjx01dJkKBltMNbGmd',
       images: [
         'https://lh3.googleusercontent.com/d/1BmcPz4rD45myKxlIAzZUxbsJvNTWfd3Z',
-        'https://lh3.googleusercontent.com/d/1g0fcLKlWFbTEIO2x3MpichZvDF-I2tII',
+        'https://lh3.googleusercontent.com/d/1g0fcLKlWFbTEIO2x3MpichZvDFI2tII',
         'https://lh3.googleusercontent.com/d/16_txnQOjcuIFemxTXiPI2SGhwD6a633j'
       ],
       tags: ['Graphic', 'Poster', 'Live Show', 'Branding'],
@@ -229,7 +229,12 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       images: ['https://lh3.googleusercontent.com/d/121NS1c6EPRDz3iFFBWYEYslR4SJfufs3'],
       tags: ['Audio', 'Language', 'Culture'],
       externalUrl: 'https://mandarin-fm.com/'
-    },
+    }
+  ],
+  about: [],
+  cv: [],
+  // Projects that are not displayed in any folder but are linked from other sections (like CV)
+  hidden: [
     {
       id: 'ai-5',
       title: "AI-Generated Educational Video",
@@ -240,7 +245,5 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       externalUrl: 'https://xiao-shan-ai-slides.vercel.app/',
       galleryUrl: 'https://cambridge-edtech-society.org/digital-gallery.html'
     }
-  ],
-  about: [],
-  cv: []
+  ]
 };
