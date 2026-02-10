@@ -131,17 +131,17 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
             <div className="space-y-8">
               <div>
                 <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="font-bold text-lg">University of Nottingham</h3>
+                  <h3 className="font-bold text-base">University of Nottingham</h3>
                   <span className="text-gray-400 font-sans text-[10px]">2023 — 2024</span>
                 </div>
-                <p className="text-gray-700 font-medium italic">MSc Human-Computer Interaction (Distinction)</p>
+                <p className="text-gray-700 font-medium italic text-sm">MSc Human-Computer Interaction (Distinction)</p>
               </div>
               <div>
                 <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="font-bold text-lg">Ningbo University</h3>
+                  <h3 className="font-bold text-base">Ningbo University</h3>
                   <span className="text-gray-400 font-sans text-[10px]">2018 — 2022</span>
                 </div>
-                <p className="text-gray-700 font-medium italic">BSc Logistics and Supply Chain Management</p>
+                <p className="text-gray-700 font-medium italic text-sm">BSc Logistics and Supply Chain Management</p>
               </div>
             </div>
           </section>
@@ -171,15 +171,15 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
             </div>
           </section>
 
-          {/* Experience */}
+          {/* Professional Experience */}
           <section>
-            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-6 border-b border-gray-100 pb-2">Experience</h2>
+            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-6 border-b border-gray-100 pb-2">Professional Experience</h2>
             <div>
               <div className="flex justify-between items-baseline mb-1">
-                <h3 className="font-bold text-lg uppercase tracking-tight">AI Video Specialist</h3>
+                <h3 className="font-bold text-base uppercase tracking-tight">AI Video Specialist</h3>
                 <span className="text-gray-400 font-sans text-[10px]">Aug 2024 — Nov 2024</span>
               </div>
-              <p className="text-gray-700 italic text-sm">
+              <p className="text-gray-700 italic text-[13px]">
                 <a href="https://oshaped.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors underline decoration-gray-300 underline-offset-2">O Shaped</a> • London, UK
               </p>
             </div>
