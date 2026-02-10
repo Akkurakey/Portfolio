@@ -50,7 +50,7 @@ const Window: React.FC<WindowProps> = ({
     }
 
     if (isTablet) {
-      if (isAbout) return { width: 340, height: 560 };
+      if (isAbout) return { width: 340, height: 600 };
       if (isCV) return { width: Math.min(800, wWidth - 60), height: wHeight - 120 };
       const baseW = initialWidth || 700;
       const baseH = initialHeight || 550;
