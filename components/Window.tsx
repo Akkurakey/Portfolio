@@ -40,17 +40,9 @@ const Window: React.FC<WindowProps> = ({
     const isMobile = wWidth < 640;
     const isTablet = wWidth >= 640 && wWidth < 1024;
 
-    // Use specific overrides for certification
-    if (isCertification) {
-      if (isMobile) {
-        const side = Math.min(220, wWidth * 0.7);
-        return { width: side, height: side };
-      }
-      return { width: initialWidth || 240, height: initialHeight || 240 };
-    }
-
     if (isMobile) {
       if (isAbout) return { width: wWidth * 0.9, height: Math.min(480, wHeight * 0.7) };
+      if (isCertification) return { width: 180, height: 240 };
       return { 
         width: wWidth - 16, 
         height: wHeight - 120 
@@ -60,6 +52,12 @@ const Window: React.FC<WindowProps> = ({
     if (isTablet) {
       if (isAbout) return { width: 340, height: 520 };
       if (isCV) return { width: Math.min(800, wWidth - 60), height: wHeight - 120 };
+      const baseW = initialWidth || 700;
+      const baseH = initialHeight || 550;
+      return {
+        width: Math.min(baseW, wWidth - 40),
+        height: Math.min(baseH, wHeight - 120)
+      };
     }
     
     let w = initialWidth || (isAbout ? 340 : (isCV ? 800 : 850));
@@ -81,7 +79,6 @@ const Window: React.FC<WindowProps> = ({
     const centerX = (window.innerWidth - currentSize.width) / 2;
     const centerY = (window.innerHeight - currentSize.height) / 2;
 
-    // Special positioning for About window
     if (isAbout) {
       return {
         x: centerX,
@@ -89,15 +86,13 @@ const Window: React.FC<WindowProps> = ({
       };
     }
 
-    // Special positioning for Certification window (Shifted Left)
     if (isCertification && !isMobile) {
       return {
-        x: Math.max(40, centerX - 180), // Shifted 180px to the left from center
+        x: Math.max(40, centerX - 180),
         y: centerY
       };
     }
 
-    // Special positioning for CV window (Shifted Right)
     if (isCV && !isMobile) {
       return {
         x: window.innerWidth - currentSize.width - 40,
@@ -186,8 +181,8 @@ const Window: React.FC<WindowProps> = ({
       
       if (interactionRef.current.type === 'resize') {
         setSize({
-          width: Math.max(100, interactionRef.current.startW + deltaX),
-          height: Math.max(100, interactionRef.current.startH + deltaY)
+          width: Math.max(200, interactionRef.current.startW + deltaX),
+          height: Math.max(150, interactionRef.current.startH + deltaY)
         });
       } else if (interactionRef.current.type === 'drag') {
         const nextX = interactionRef.current.startXPos + deltaX;
@@ -243,7 +238,7 @@ const Window: React.FC<WindowProps> = ({
             ...windowStyles,
             transition: isInteracting ? 'none' : 'width 0.25s cubic-bezier(0.2, 0, 0, 1), height 0.25s cubic-bezier(0.2, 0, 0, 1), top 0.25s cubic-bezier(0.2, 0, 0, 1), left 0.25s cubic-bezier(0.2, 0, 0, 1), border-radius 0.2s ease, opacity 0.2s ease'
           }}
-          className="fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none overflow-hidden"
+          className={`fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden'}`}
         >
           {/* Header Bar */}
           <div 
@@ -284,11 +279,11 @@ const Window: React.FC<WindowProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className={`flex-grow select-text touch-auto custom-scrollbar overflow-y-auto overflow-x-hidden ${isAbout ? 'bg-transparent' : 'bg-white'}`}>
+          <div className={`flex-grow select-text touch-auto custom-scrollbar ${isAbout ? 'bg-transparent overflow-y-visible overflow-x-visible' : 'bg-white overflow-y-auto overflow-x-hidden'}`}>
             {children}
           </div>
 
-          {/* Resize Handle */}
+          {/* Resize Handle - Restored to original clean styling */}
           {!isMaximized && (
             <div 
               onMouseDown={startResizing}
