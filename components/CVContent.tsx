@@ -78,6 +78,16 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
     setHoveredProjectId(null);
   };
 
+  // Safe cleanup: if mouse moves rapidly and misses the LinkSpan's own leave event,
+  // this container-level check will catch it and reset the state.
+  const handleContainerMouseMove = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    const isOverTrigger = target.closest('.preview-trigger');
+    if (!isOverTrigger && hoveredProjectId !== null) {
+      setHoveredProjectId(null);
+    }
+  };
+
   const handleFolderClick = (id: WindowID) => {
     if (onOpenFolder) onOpenFolder(id);
   };
@@ -91,7 +101,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
       onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={handleMouseLeave}
       onClick={() => handleProjectLink(id)}
-      className="underline decoration-gray-300 hover:decoration-blue-500 hover:text-blue-600 cursor-pointer transition-colors relative"
+      className="preview-trigger underline decoration-gray-300 hover:decoration-blue-500 hover:text-blue-600 cursor-pointer transition-colors relative"
     >
       {children}
     </span>
@@ -137,9 +147,9 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
           </section>
 
           {/* ACADEMIC PAPERS */}
-          <section>
+          <section onMouseLeave={() => setHoveredProjectId(null)}>
             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-6 border-b border-gray-100 pb-2">ACADEMIC PAPERS</h2>
-            <div className="space-y-8">
+            <div className="space-y-8" onMouseMove={handleContainerMouseMove}>
               <div className="group relative">
                 <QuickLookPreview 
                   projectId="hci-1" 
