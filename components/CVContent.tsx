@@ -177,7 +177,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
             <div>
               <div className="flex justify-between items-baseline mb-1">
                 <h3 className="font-bold text-base tracking-tight">AI Video Specialist</h3>
-                <span className="text-gray-400 font-sans text-[10px]">Aug 2024 — Nov 2024</span>
+                <span className="text-gray-400 font-sans text-[10px]">Jan 2024 — Jul 2024</span>
               </div>
               <p className="text-gray-700 italic text-[13px]">
                 <a href="https://oshaped.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors underline decoration-gray-300 underline-offset-2">O Shaped</a> • London, UK
