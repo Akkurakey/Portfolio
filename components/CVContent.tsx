@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Mail, Phone, Globe, ArrowUpRight } from 'lucide-react';
-import { motion, AnimatePresence, useSpring, useMotionValue } from 'framer-motion';
+import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from 'framer-motion';
 import { WindowID } from '../types';
 import { PROJECTS } from '../constants';
 
@@ -12,8 +12,8 @@ interface CVContentProps {
 interface QuickLookPreviewProps {
   projectId: string;
   isVisible: boolean;
-  mouseX: any;
-  mouseY: any;
+  mouseX: any; // MotionValue<number>
+  mouseY: any; // MotionValue<number>
 }
 
 // Quick Look Preview Component for Project Snapshots
@@ -23,11 +23,7 @@ const QuickLookPreview = ({
   mouseX,
   mouseY
 }: QuickLookPreviewProps) => {
-  // CRITICAL: Hooks must be called unconditionally and before any returns
   const [windowSize, setWindowSize] = useState({ w: 0, h: 0 });
-  const springConfig = { damping: 30, stiffness: 400 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
     const updateSize = () => setWindowSize({ w: window.innerWidth, h: window.innerHeight });
@@ -36,56 +32,70 @@ const QuickLookPreview = ({
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
+  // Constants for clamping
+  const cardWidth = 260; 
+  const cardHeight = 320; // Estimated height for boundary calculation
+  const padding = 12; // Gap from screen edges
+  const offsetX = 20;
+  const offsetY = -280; // Default vertical offset (positioned above cursor)
+
+  // Use transforms with clamping logic to keep the card within the viewport
+  const finalX = useTransform(mouseX, (val: number) => {
+    const targetX = val + offsetX;
+    // Clamp between padding and (windowWidth - cardWidth - padding)
+    return Math.max(padding, Math.min(targetX, windowSize.w - cardWidth - padding));
+  });
+
+  const finalY = useTransform(mouseY, (val: number) => {
+    const targetY = val + offsetY;
+    // Clamp between padding and (windowHeight - cardHeight - padding)
+    return Math.max(padding, Math.min(targetY, windowSize.h - cardHeight - padding));
+  });
+
+  // Smooth the final derived coordinates for a premium feel
+  const springConfig = { damping: 45, stiffness: 400, mass: 0.6 };
+  const smoothX = useSpring(finalX, springConfig);
+  const smoothY = useSpring(finalY, springConfig);
+
   const allProjects = Object.values(PROJECTS).flat();
   const project = allProjects.find(p => p.id === projectId);
 
   if (!project) return null;
 
-  // Constants for positioning
-  const cardWidth = 280;
-  const cardHeight = 260; // Estimated height
-  const offset = 20;
-
-  // Dynamic logic to keep the popup within screen bounds
-  const currentX = mouseX.get();
-  const currentY = mouseY.get();
-  
-  const shouldFlipX = currentX + offset + cardWidth > windowSize.w - 20;
-  const shouldFlipY = currentY - offset - cardHeight < 40; // 40px margin for top bar
-
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.15, ease: "easeOut" }}
+          initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+          transition={{ duration: 0.15, ease: [0.23, 1, 0.32, 1] }}
           style={{
             position: 'fixed',
+            top: 0,
+            left: 0,
             x: smoothX,
             y: smoothY,
             zIndex: 3000000,
             pointerEvents: 'none',
-            left: shouldFlipX ? -cardWidth - offset : offset,
-            top: shouldFlipY ? offset : -cardHeight - offset,
           }}
-          className="w-[280px] overflow-hidden rounded-[24px] bg-white shadow-[0_40px_120px_rgba(0,0,0,0.4)] border border-black/5 flex flex-col"
+          className="w-[260px] overflow-hidden rounded-[20px] bg-white/95 backdrop-blur-3xl shadow-[0_30px_90px_rgba(0,0,0,0.35),0_0_0_1px_rgba(0,0,0,0.05)] border border-white/20 flex flex-col"
         >
           {/* Project Snapshot Image */}
-          <div className="w-full aspect-video bg-gray-100 overflow-hidden">
+          <div className="w-full aspect-video bg-gray-100 overflow-hidden relative">
             <img 
               src={project.imageUrl} 
               alt={project.title} 
               className="w-full h-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
           </div>
           {/* Project Details */}
-          <div className="p-6 flex flex-col bg-white">
-            <h4 className="text-[11px] font-black uppercase tracking-tight text-gray-950 mb-2 leading-tight">
+          <div className="p-5 flex flex-col bg-white/40">
+            <h4 className="text-[10px] font-black uppercase tracking-tight text-gray-950 mb-1.5 leading-tight">
               {project.title}
             </h4>
-            <p className="text-[11px] text-gray-500 font-serif italic leading-relaxed line-clamp-3">
+            <p className="text-[10px] text-gray-500 font-serif italic leading-relaxed line-clamp-3">
               {project.description}
             </p>
           </div>
