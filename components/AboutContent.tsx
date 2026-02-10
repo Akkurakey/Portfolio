@@ -81,7 +81,7 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
               <span className="hover:text-white transition-colors">Designer</span>
               <div className="absolute top-0 left-[calc(100%+20px)] w-48 sm:w-64 p-4 bg-white text-gray-900 text-[10px] sm:text-[11px] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[200] font-serif normal-case tracking-normal leading-relaxed border border-black/5 text-left italic">
                 <p className="mb-2">Design is a natural part of my practice.</p>
-                <p>I learn through creating and enjoy the process. I also take a design-led approach in my research.</p>
+                <p>I learn through making and enjoy the process of creating. My research is also primarily design-led.</p>
                 {/* Arrow pointing to the text from the left */}
                 <div className="absolute top-4 right-full -mr-1 border-[6px] border-transparent border-r-white"></div>
               </div>
