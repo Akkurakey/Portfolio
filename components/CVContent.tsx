@@ -176,7 +176,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-6 border-b border-gray-100 pb-2">Professional Experience</h2>
             <div>
               <div className="flex justify-between items-baseline mb-1">
-                <h3 className="font-bold text-base uppercase tracking-tight">AI Video Specialist</h3>
+                <h3 className="font-bold text-base tracking-tight">AI Video Specialist</h3>
                 <span className="text-gray-400 font-sans text-[10px]">Aug 2024 — Nov 2024</span>
               </div>
               <p className="text-gray-700 italic text-[13px]">
@@ -229,13 +229,13 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
                 <p className="text-xs font-bold font-sans uppercase tracking-tight text-gray-900 hover:text-blue-600 transition-colors cursor-pointer leading-tight mb-1" onClick={() => handleProjectLink('ai-5')}>
                   Cambridge EduX Hackathon '25
                 </p>
-                <span className="block text-[10px] text-rose-600 font-black uppercase tracking-wider">First Prize: AI Education</span>
+                <span className="block text-[10px] text-rose-600 tracking-wider">First Prize: AI Education</span>
               </div>
               <div>
                 <p className="text-xs font-bold font-sans uppercase tracking-tight text-gray-900 hover:text-blue-600 transition-colors cursor-pointer leading-tight mb-1" onClick={() => handleProjectLink('gd-album')}>
                   Kan Tai-Keung Design Award '21
                 </p>
-                <span className="block text-[10px] text-rose-600 font-black uppercase tracking-wider">Winning Work</span>
+                <span className="block text-[10px] text-rose-600 tracking-wider">Winning Work</span>
               </div>
             </div>
           </section>
@@ -249,7 +249,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
               >
                 Web & AI Dev <ArrowUpRight size={10} className="text-gray-300 group-hover:text-blue-600 transition-colors" />
               </p>
-              <span className="block text-[10px] text-gray-400 font-medium uppercase tracking-wider">Experimental Projects</span>
+              <span className="block text-[10px] text-gray-400 font-medium tracking-wider">Experimental Projects</span>
             </div>
           </section>
         </div>
