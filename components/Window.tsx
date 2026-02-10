@@ -238,13 +238,15 @@ const Window: React.FC<WindowProps> = ({
             ...windowStyles,
             transition: isInteracting ? 'none' : 'width 0.25s cubic-bezier(0.2, 0, 0, 1), height 0.25s cubic-bezier(0.2, 0, 0, 1), top 0.25s cubic-bezier(0.2, 0, 0, 1), left 0.25s cubic-bezier(0.2, 0, 0, 1), border-radius 0.2s ease, opacity 0.2s ease'
           }}
-          className={`fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden'}`}
+          // 修改：移除了外部容器的 touch-none 确保内部可以滑动，改为 overflow-hidden
+          className="fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none overflow-hidden"
         >
           {/* Header Bar */}
           <div 
             onMouseDown={startDragging}
             onTouchStart={startDragging}
-            className="window-header h-10 flex items-center px-4 bg-gray-100/80 border-b border-black/10 cursor-default shrink-0 rounded-t-xl"
+            // 确保 Header 是 touch-none 这样在头部拖拽时不会触发页面滚动
+            className="window-header h-10 flex items-center px-4 bg-gray-100/80 border-b border-black/10 cursor-default shrink-0 rounded-t-xl touch-none"
           >
             <div className="flex gap-1.5 w-14">
               <button
@@ -278,17 +280,19 @@ const Window: React.FC<WindowProps> = ({
             <div className="w-14" />
           </div>
 
-          {/* Content Area */}
-          <div className={`flex-grow select-text touch-auto custom-scrollbar ${isAbout ? 'bg-transparent overflow-y-visible overflow-x-visible' : 'bg-white overflow-y-auto overflow-x-hidden'}`}>
-            {children}
+          {/* Content Area - 修改处 */}
+          <div className={`flex-grow select-text touch-auto custom-scrollbar overflow-y-auto overflow-x-hidden ${isAbout ? 'bg-transparent' : 'bg-white'}`}>
+            <div className={isAbout ? "p-4" : ""}>
+              {children}
+            </div>
           </div>
 
-          {/* Resize Handle - Restored to original clean styling */}
+          {/* Resize Handle */}
           {!isMaximized && (
             <div 
               onMouseDown={startResizing}
               onTouchStart={startResizing}
-              className="absolute bottom-0 right-0 w-8 h-8 cursor-nwse-resize z-[100] bg-transparent flex items-end justify-end p-1"
+              className="absolute bottom-0 right-0 w-8 h-8 cursor-nwse-resize z-[100] bg-transparent flex items-end justify-end p-1 touch-none"
             >
               <div className="w-3.5 h-3.5 border-r-2 border-b-2 border-black/10 rounded-br-[2px]" />
             </div>
