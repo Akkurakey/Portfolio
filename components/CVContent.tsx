@@ -1,38 +1,151 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Download, Mail, Phone, Globe, ArrowUpRight } from 'lucide-react';
+import { motion, AnimatePresence, useSpring, useMotionValue } from 'framer-motion';
 import { WindowID } from '../types';
+import { PROJECTS } from '../constants';
 
 interface CVContentProps {
   onOpenFolder?: (id: WindowID) => void;
   onOpenProjectById?: (id: string) => void;
 }
 
+interface QuickLookPreviewProps {
+  projectId: string;
+  isVisible: boolean;
+  mouseX: any;
+  mouseY: any;
+}
+
+// Quick Look Preview Component for Project Snapshots
+const QuickLookPreview = ({ 
+  projectId, 
+  isVisible,
+  mouseX,
+  mouseY
+}: QuickLookPreviewProps) => {
+  // CRITICAL: Hooks must be called unconditionally and before any returns
+  const [windowSize, setWindowSize] = useState({ w: 0, h: 0 });
+  const springConfig = { damping: 30, stiffness: 400 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    const updateSize = () => setWindowSize({ w: window.innerWidth, h: window.innerHeight });
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  const allProjects = Object.values(PROJECTS).flat();
+  const project = allProjects.find(p => p.id === projectId);
+
+  if (!project) return null;
+
+  // Constants for positioning
+  const cardWidth = 280;
+  const cardHeight = 260; // Estimated height
+  const offset = 20;
+
+  // Dynamic logic to keep the popup within screen bounds
+  const currentX = mouseX.get();
+  const currentY = mouseY.get();
+  
+  const shouldFlipX = currentX + offset + cardWidth > windowSize.w - 20;
+  const shouldFlipY = currentY - offset - cardHeight < 40; // 40px margin for top bar
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
+          style={{
+            position: 'fixed',
+            x: smoothX,
+            y: smoothY,
+            zIndex: 3000000,
+            pointerEvents: 'none',
+            left: shouldFlipX ? -cardWidth - offset : offset,
+            top: shouldFlipY ? offset : -cardHeight - offset,
+          }}
+          className="w-[280px] overflow-hidden rounded-[24px] bg-white shadow-[0_40px_120px_rgba(0,0,0,0.4)] border border-black/5 flex flex-col"
+        >
+          {/* Project Snapshot Image */}
+          <div className="w-full aspect-video bg-gray-100 overflow-hidden">
+            <img 
+              src={project.imageUrl} 
+              alt={project.title} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          {/* Project Details */}
+          <div className="p-6 flex flex-col bg-white">
+            <h4 className="text-[11px] font-black uppercase tracking-tight text-gray-950 mb-2 leading-tight">
+              {project.title}
+            </h4>
+            <p className="text-[11px] text-gray-500 font-serif italic leading-relaxed line-clamp-3">
+              {project.description}
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }) => {
   const pdfUrl = "https://drive.google.com/file/d/1XJmqgCbdfOjyt9DO1MjjNL1_9wJEGjjQ/view?usp=sharing";
+  
+  const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseEnter = (e: React.MouseEvent, id: string) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+    setHoveredProjectId(id);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredProjectId(null);
+  };
 
   const handleFolderClick = (id: WindowID) => {
-    if (onOpenFolder) {
-      onOpenFolder(id);
-    }
+    if (onOpenFolder) onOpenFolder(id);
   };
 
   const handleProjectLink = (id: string) => {
-    if (onOpenProjectById) {
-      onOpenProjectById(id);
-    }
+    if (onOpenProjectById) onOpenProjectById(id);
   };
 
   const LinkSpan = ({ children, id }: { children?: React.ReactNode; id: string }) => (
     <span 
+      onMouseEnter={(e) => handleMouseEnter(e, id)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onClick={() => handleProjectLink(id)}
-      className="underline decoration-gray-300 hover:decoration-blue-500 hover:text-blue-600 cursor-pointer transition-colors"
+      className="underline decoration-gray-300 hover:decoration-blue-500 hover:text-blue-600 cursor-pointer transition-colors relative"
     >
       {children}
     </span>
   );
 
   return (
-    <div className="p-6 sm:p-8 md:p-10 lg:p-10 max-w-4xl mx-auto bg-white shadow-inner min-h-full font-serif text-gray-900 overflow-x-hidden">
+    <div className="p-6 sm:p-8 md:p-10 lg:p-10 max-w-4xl mx-auto bg-white shadow-inner min-h-full font-serif text-gray-900 overflow-visible relative">
+      <QuickLookPreview 
+        projectId={hoveredProjectId || ''} 
+        isVisible={!!hoveredProjectId} 
+        mouseX={mouseX}
+        mouseY={mouseY}
+      />
+
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start border-b-2 border-gray-900 pb-8 mb-10 gap-6">
         <div>
@@ -46,9 +159,8 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
         </div>
       </div>
 
-      {/* Main Grid: 8/12 and 4/12 split */}
+      {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 lg:gap-x-12 gap-y-16 items-start">
-        {/* Left Column (Main Content) */}
         <div className="lg:col-span-8 space-y-16">
           {/* Education */}
           <section>
@@ -103,9 +215,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
           </section>
         </div>
 
-        {/* Right Column (Sidebar) */}
         <div className="lg:col-span-4 space-y-16">
-          {/* Expertise */}
           <section>
             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-6 border-b border-gray-50 pb-2">Expertise</h2>
             <div className="space-y-6 font-sans text-[11px] leading-relaxed">
@@ -115,15 +225,11 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
               </div>
               <div>
                 <h4 className="font-black text-gray-300 mb-1.5 tracking-widest text-[9px] uppercase">Implement</h4>
-                <p className="text-gray-700">
-                  XR Prototyping (Unity, C#) / Spark AR / Git & Version Control
-                </p>
+                <p className="text-gray-700">XR Prototyping (Unity, C#) / Spark AR / Git & Version Control</p>
               </div>
               <div>
                 <h4 className="font-black text-gray-300 mb-1.5 tracking-widest text-[9px] uppercase">Research</h4>
-                <p className="text-gray-700">
-                  Mixed-methods Research (Qual/Quant) / Data Analysis (SPSS) / Academic Writing / Data Visualisation (Academic Poster)
-                </p>
+                <p className="text-gray-700">Mixed-methods Research (Qual/Quant) / Data Analysis (SPSS) / Academic Writing / Data Visualisation (Academic Poster)</p>
               </div>
               <div>
                 <h4 className="font-black text-gray-300 mb-2 tracking-widest text-[9px] uppercase">Design</h4>
@@ -145,26 +251,24 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
             </div>
           </section>
 
-          {/* Recognition */}
           <section>
             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-6 border-b border-gray-50 pb-2">Recognition</h2>
             <div className="space-y-6">
               <div>
-                <p className="text-xs font-bold font-sans uppercase tracking-tight text-gray-900 leading-tight mb-1">
-                  <LinkSpan id="ai-5">Cambridge EduX Hackathon '25</LinkSpan>
+                <p className="text-xs font-bold font-sans uppercase tracking-tight text-gray-900 hover:text-blue-600 transition-colors cursor-pointer leading-tight mb-1" onClick={() => handleProjectLink('ai-5')}>
+                  Cambridge EduX Hackathon '25
                 </p>
                 <span className="block text-[10px] text-rose-600 font-black uppercase tracking-wider">First Prize: AI Education</span>
               </div>
               <div>
-                <p className="text-xs font-bold font-sans uppercase tracking-tight text-gray-900 leading-tight mb-1">
-                  <LinkSpan id="gd-album">Kan Tai-Keung Design Award '21</LinkSpan>
+                <p className="text-xs font-bold font-sans uppercase tracking-tight text-gray-900 hover:text-blue-600 transition-colors cursor-pointer leading-tight mb-1" onClick={() => handleProjectLink('gd-album')}>
+                  Kan Tai-Keung Design Award '21
                 </p>
                 <span className="block text-[10px] text-rose-600 font-black uppercase tracking-wider">Winning Work</span>
               </div>
             </div>
           </section>
 
-          {/* Interests */}
           <section>
             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 mb-6 border-b border-gray-50 pb-2">Interests</h2>
             <div className="w-full">
@@ -180,7 +284,6 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
         </div>
       </div>
 
-      {/* Footer / CTA */}
       <div className="flex justify-center pt-20 no-print">
         <a 
           href={pdfUrl}
