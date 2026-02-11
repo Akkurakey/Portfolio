@@ -70,6 +70,15 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\nAn application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.'
     },
     {
+      id: 'ai-1',
+      title: 'AR Warehouse System',
+      description: 'Next-generation AR logistics management system for enhancing warehouse efficiency.',
+      imageUrl: 'https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw',
+      images: ['https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw'],
+      tags: ['AR', 'Logistics', 'Efficiency'],
+      externalUrl: 'https://lumina-ar-logistics.vercel.app/'
+    },
+    {
       id: 'xr-2',
       title: 'AR Gallery Treasure Hunt',
       description: 'A gamified AR exploration experience for interactive gallery engagement.',
@@ -194,15 +203,6 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     }
   ],
   web_ai: [
-    {
-      id: 'ai-1',
-      title: 'AR Warehouse System',
-      description: 'Next-generation AR logistics management system for enhancing warehouse efficiency.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw',
-      images: ['https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw'],
-      tags: ['AR', 'Logistics', 'Efficiency'],
-      externalUrl: 'https://lumina-ar-logistics.vercel.app/'
-    },
     {
       id: 'ai-2',
       title: 'Scholar Stream',
