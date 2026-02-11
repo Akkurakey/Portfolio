@@ -40,7 +40,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const isShoppingAssistants = project.id === 'hci-2';
   const isArGallery = project.id === 'xr-2';
   const isRhythmGame = project.id === 'xr-1';
-  const isArWarehouse = project.id === 'ai-1';
 
   // Enhanced helper to convert standard video links to embeddable ones
   const getEmbedUrl = (url?: string) => {
