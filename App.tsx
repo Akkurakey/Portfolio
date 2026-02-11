@@ -365,7 +365,7 @@ const App: React.FC = () => {
                 <section className="space-y-4">
                   <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">1. About → <button onClick={() => openWindow('cv')} className="hover:text-blue-500 underline decoration-gray-200 underline-offset-4 transition-all">CV</button></h3>
                   <p className="text-gray-600 text-[13px] leading-relaxed">
-                    My academic background, research training, and current status are outlined in the <button onClick={() => openWindow('cv')} className="font-bold text-gray-900 hover:text-blue-600 transition-colors">CV section</button>.
+                    My academic background, research training, and current status are outlined in the CV section.
                   </p>
                 </section>
 
@@ -409,7 +409,8 @@ const App: React.FC = () => {
                 </section>
 
                 <footer className="pt-8 border-t border-gray-50 text-gray-400 text-[12px] italic">
-                  Feel free to explore each section and reach out if you'd like to discuss any project in detail.
+                  <p>Feel free to explore each section and reach out if you'd like to discuss any project in detail.</p>
+                  <div className="mt-8 not-italic text-gray-300 text-lg select-none">：）</div>
                 </footer>
               </div>
             </div>
