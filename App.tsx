@@ -390,8 +390,8 @@ const App: React.FC = () => {
                       This folder contains XR game and application development projects. One example is <button onClick={() => openProjectById('ai-1')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">AR Logistics Warehouse Management System</button>:
                     </p>
                     <ul className="space-y-1 text-[12px] text-gray-500 italic pl-4">
-                      <li>· A PC + AR application for 3D warehouse visualization and navigation</li>
-                      <li>· Developed in collaboration with frontline warehouse workers</li>
+                      <li>• A PC + AR application for 3D warehouse visualization and navigation</li>
+                      <li>• Developed in collaboration with frontline warehouse workers</li>
                     </ul>
                   </div>
                 </section>
