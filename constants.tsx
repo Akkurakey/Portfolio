@@ -36,7 +36,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'hci-2',
       title: 'VR Shopping Assistants',
       description: 'Research collaboration on user perception of shopping assistants in luxury VR retail.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1DDSR_tOSqblsH6g2KYUQo8a8epuJVSbY',
+      imageUrl: 'https://lh3.googleusercontent.com/d/1ED9dV-c3zXXnCiVIspCs7xsfiFr4RYSM',
       abstract: 'This study investigates four shopping assistant types (3D avatar, webcam, AI, voice) in VR luxury environments through user studies with 20 participants using NASA-TLX, questionnaires, and interviews. Results show 3D avatar assistants excelled in immersion, trust, and satisfaction, while human-operated assistants outperformed AI in realism and satisfaction. Webcam achieved 50% immersion preference versus 75% for 3D avatars despite strong trustworthiness. The study pioneers PC-VR asymmetric interaction systems, providing design insights and optimization strategies for luxury retail VR shopping assistants.\n\nIndex Terms: Virtual Shopping, Avatars, Cross-device user interaction, Social Virtual Reality, Shopper-Buyer Communication.',
       images: [
         'https://lh3.googleusercontent.com/d/1ZITYK5YndP91_CFAA75St9K-mV1jwJBv', // Overall Experimental Procedure
@@ -212,6 +212,15 @@ export const PROJECTS: Record<WindowID, Project[]> = {
   ],
   web_ai: [
     {
+      id: 'ai-4',
+      title: 'Mandarin FM',
+      description: 'Digital platform for Mandarin language learning and curated cultural audio content.',
+      imageUrl: 'https://lh3.googleusercontent.com/d/121NS1c6EPRDz3iFFBWYEYslR4SJfufs3',
+      images: ['https://lh3.googleusercontent.com/d/121NS1c6EPRDz3iFFBWYEYslR4SJfufs3'],
+      tags: ['Audio', 'Language', 'Culture'],
+      externalUrl: 'https://mandarin-fm.com/'
+    },
+    {
       id: 'ai-2',
       title: 'Scholar Stream',
       description: 'AI-enhanced academic streaming and knowledge sharing platform for global education.',
@@ -228,15 +237,6 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       images: ['https://lh3.googleusercontent.com/d/1rGhNX2ysGyVALhg40gW2zG8TecFPIEAe'],
       tags: ['Creative AI', 'Generation', 'Visuals'],
       externalUrl: 'https://sz-one.vercel.app/'
-    },
-    {
-      id: 'ai-4',
-      title: 'Mandarin FM',
-      description: 'Digital platform for Mandarin language learning and curated cultural audio content.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/121NS1c6EPRDz3iFFBWYEYslR4SJfufs3',
-      images: ['https://lh3.googleusercontent.com/d/121NS1c6EPRDz3iFFBWYEYslR4SJfufs3'],
-      tags: ['Audio', 'Language', 'Culture'],
-      externalUrl: 'https://mandarin-fm.com/'
     }
   ],
   about: [],
