@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search } from 'lucide-react';
+import { Search, X, Bell } from 'lucide-react';
 import { WindowState, WindowID, Project } from './types';
 import { FOLDERS, PROJECTS } from './constants';
 import DesktopIcon from './components/DesktopIcon';
@@ -24,13 +24,15 @@ const App: React.FC = () => {
       ...base,
       { id: 'cv', title: 'Curriculum Vitae', isOpen: false, isMinimized: false, zIndex: 50, type: 'cv' as const },
       { id: 'about', title: 'About Rakey Yang', isOpen: false, isMinimized: false, zIndex: 51, type: 'about' as const },
-      { id: 'certification', title: 'Regulatory Certification', isOpen: false, isMinimized: false, zIndex: 52, type: 'project' as const }
+      { id: 'certification', title: 'Regulatory Certification', isOpen: false, isMinimized: false, zIndex: 52, type: 'project' as const },
+      { id: 'kcl_nav', title: 'Website Navigation', isOpen: false, isMinimized: false, zIndex: 53, type: 'folder' as const }
     ];
   });
 
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showNotification, setShowNotification] = useState(false);
   
   // Selection/Drag State
   const [selection, setSelection] = useState<{ startX: number; startY: number; endX: number; endY: number; active: boolean }>({
@@ -68,9 +70,16 @@ const App: React.FC = () => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     const handleResize = () => setFolderPositions(getInitialPositions());
     window.addEventListener('resize', handleResize);
+    
+    // Show notification after a short delay
+    const notificationTimer = setTimeout(() => {
+      setShowNotification(true);
+    }, 1500);
+
     return () => {
       clearInterval(timer);
       window.removeEventListener('resize', handleResize);
+      clearTimeout(notificationTimer);
     };
   }, [getInitialPositions]);
 
@@ -241,6 +250,40 @@ const App: React.FC = () => {
         </div>
       </div>
 
+      {/* macOS Notification */}
+      <AnimatePresence>
+        {showNotification && (
+          <motion.div
+            initial={{ x: 400, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 400, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            className="fixed top-12 right-4 z-[5000] w-80 macos-glass macos-shadow rounded-2xl p-4 cursor-pointer border border-white/20 flex gap-4 group hover:bg-white/20 transition-colors"
+            onClick={() => {
+              openWindow('kcl_nav');
+              setShowNotification(false);
+            }}
+          >
+            <div className="shrink-0 w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white shadow-inner">
+               <Bell size={20} />
+            </div>
+            <div className="flex-grow flex flex-col justify-center min-w-0">
+              <h3 className="text-white text-[13px] font-bold leading-tight">Visiting from KCL?</h3>
+              <p className="text-white/70 text-[12px] leading-tight mt-0.5">Click here to view the navigation guide.</p>
+            </div>
+            <button 
+              className="absolute top-2 right-2 p-1 rounded-full hover:bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowNotification(false);
+              }}
+            >
+              <X size={12} className="text-white/60" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Desktop Container */}
       <div 
         ref={desktopRef}
@@ -294,21 +337,83 @@ const App: React.FC = () => {
           onMinimize={() => closeWindow(win.id)}
           onFocus={() => focusWindow(win.id)}
           initialWidth={
-            win.id === 'certification' ? 300 : 
+            win.id === 'certification' ? 240 : 
+            win.id === 'kcl_nav' ? 640 :
             win.type === 'project' ? 950 : 
-            win.type === 'about' ? 300 : 
+            win.type === 'about' ? 340 : 
             (win.id === 'cv' ? 900 : undefined)
           }
           initialHeight={
-            win.id === 'certification' ? 320 : 
+            win.id === 'certification' ? 240 : 
+            win.id === 'kcl_nav' ? 600 :
             win.type === 'project' ? 650 : 
-            win.type === 'about' ? 600 : 
+            win.type === 'about' ? 740 : 
             (win.id === 'cv' ? 850 : undefined)
           }
         >
           {win.type === 'about' && <AboutContent onViewCV={() => openWindow('cv')} onOpenCertification={() => openWindow('certification')} />}
           {win.type === 'cv' && <CVContent onOpenFolder={openWindow} onOpenProjectById={openProjectById} />}
-          {win.type === 'folder' && <ProjectGrid title={win.title} projects={PROJECTS[win.id as WindowID] || []} onOpenProject={openProjectWindow} />}
+          {win.type === 'folder' && win.id !== 'kcl_nav' && <ProjectGrid title={win.title} projects={PROJECTS[win.id as WindowID] || []} onOpenProject={openProjectWindow} />}
+          {win.id === 'kcl_nav' && (
+            <div className="w-full h-full bg-white flex flex-col p-8 sm:p-12 overflow-y-auto custom-scrollbar">
+              <div className="max-w-2xl mx-auto space-y-10">
+                <header className="border-b border-gray-100 pb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Hi, welcome!</h2>
+                  <p className="text-gray-500 text-sm font-medium">Here's a guide to navigate my portfolio:</p>
+                </header>
+
+                <section className="space-y-4">
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">1. About → <button onClick={() => openWindow('cv')} className="hover:text-blue-500 underline decoration-gray-200 underline-offset-4 transition-all">CV</button></h3>
+                  <p className="text-gray-600 text-[13px] leading-relaxed">
+                    My academic background, research training, and current status are outlined in the <button onClick={() => openWindow('cv')} className="font-bold text-gray-900 hover:text-blue-600 transition-colors">CV section</button>.
+                  </p>
+                </section>
+
+                <section className="space-y-6">
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">2. HCI Research <span className="normal-case tracking-tighter font-medium opacity-80">(also accessible via link in the CV)</span></h3>
+                  <div className="space-y-6 pl-2 border-l-2 border-gray-50">
+                    <div className="space-y-2">
+                      <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-1')}>Comparison of Immersive Technologies in Virtual Exposure Therapy</h4>
+                      <p className="text-gray-500 text-[12px] leading-relaxed">Comparing VR and AR technologies (VR and AR) in virtual exposure therapy for spider phobia and contamination fear.</p>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-2')}>Virtual Shopping Assistants Study</h4>
+                      <p className="text-gray-500 text-[12px] leading-relaxed">Examining psychological burden, trust, and social behaviour across different virtual shopping assistant modalities (3D avatar, webcam, voice, and AI).</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="space-y-4">
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">3. XR & Game Development</h3>
+                  <div className="space-y-2">
+                    <p className="text-gray-600 text-[13px] leading-relaxed">
+                      This folder contains XR game and application development projects. One example is <button onClick={() => openProjectById('ai-1')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">AR Logistics Warehouse Management System</button>:
+                    </p>
+                    <ul className="space-y-1 text-[12px] text-gray-500 italic pl-4">
+                      <li>· A PC + AR application for 3D warehouse visualization and navigation</li>
+                      <li>· Developed in collaboration with frontline warehouse workers</li>
+                    </ul>
+                  </div>
+                </section>
+
+                <section className="space-y-4">
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">4. Web & Interface Experiments</h3>
+                  <p className="text-gray-600 text-[13px] leading-relaxed">
+                    This section includes web development and interface explorations. One example is <button onClick={() => openProjectById('ai-2')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">ScholarStream</button>, a prototype platform that allows users to:
+                  </p>
+                  <ul className="space-y-1 text-[12px] text-gray-500 italic pl-4">
+                    <li>• Follow specific academic fields</li>
+                    <li>• Subscribe to newly published papers</li>
+                    <li>• Navigate research visually</li>
+                  </ul>
+                </section>
+
+                <footer className="pt-8 border-t border-gray-50 text-gray-400 text-[12px] italic">
+                  Feel free to explore each section and reach out if you'd like to discuss any project in detail.
+                </footer>
+              </div>
+            </div>
+          )}
           {win.type === 'project' && win.projectData && (
             <ProjectDetail 
               project={win.projectData} 
