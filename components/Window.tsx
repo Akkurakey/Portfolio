@@ -42,7 +42,7 @@ const Window: React.FC<WindowProps> = ({
 
     if (isMobile) {
       if (isAbout) return { width: wWidth * 0.9, height: Math.min(480, wHeight * 0.7) };
-      if (isCertification) return { width: 180, height: 240 };
+      if (isCertification) return { width: 240, height: 240 };
       return { 
         width: wWidth - 16, 
         height: wHeight - 120 
