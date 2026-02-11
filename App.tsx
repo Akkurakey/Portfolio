@@ -347,7 +347,7 @@ const App: React.FC = () => {
             win.id === 'certification' ? 240 : 
             win.id === 'kcl_nav' ? 600 :
             win.type === 'project' ? 650 : 
-            win.type === 'about' ? 740 : 
+            win.type === 'about' ? 600 : 
             (win.id === 'cv' ? 850 : undefined)
           }
         >
