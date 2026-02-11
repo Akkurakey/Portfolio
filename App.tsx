@@ -337,14 +337,14 @@ const App: React.FC = () => {
           onMinimize={() => closeWindow(win.id)}
           onFocus={() => focusWindow(win.id)}
           initialWidth={
-            win.id === 'certification' ? 240 : 
+            win.id === 'certification' ? 300 : 
             win.id === 'kcl_nav' ? 640 :
             win.type === 'project' ? 950 : 
             win.type === 'about' ? 330 : 
             (win.id === 'cv' ? 900 : undefined)
           }
           initialHeight={
-            win.id === 'certification' ? 240 : 
+            win.id === 'certification' ? 300 : 
             win.id === 'kcl_nav' ? 600 :
             win.type === 'project' ? 650 : 
             win.type === 'about' ? 600 : 
