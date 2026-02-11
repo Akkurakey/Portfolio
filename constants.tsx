@@ -71,12 +71,20 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'ai-1',
-      title: 'AR Warehouse System',
-      description: 'Next-generation AR logistics management system for enhancing warehouse efficiency.',
+      title: 'AR Logistics Warehouse Management System',
+      description: 'PC + AR-based 3D warehouse management and navigation system designed to enhance inventory management efficiency.',
       imageUrl: 'https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw',
-      images: ['https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw'],
-      tags: ['AR', 'Logistics', 'Efficiency'],
-      externalUrl: 'https://lumina-ar-logistics.vercel.app/'
+      images: ['https://lh3.googleusercontent.com/d/1KWaVUwKSU0xWRQzrCD2o3Y8D8QiSlxRE'],
+      tags: ['AR', 'Logistics', 'Participatory Design'],
+      specs: [
+        { label: 'Platform', value: 'PC + AR' },
+        { label: 'Engine', value: 'Unity 2021' },
+        { label: 'Tracking', value: 'Device Tracking' },
+        { label: 'Input', value: 'Touchscreen' }
+      ],
+      externalUrl: 'https://lumina-ar-logistics.vercel.app/',
+      relatedProjectTitle: 'Live Prototype',
+      fullContent: `AR Logistics Warehouse Management System\n\nDesign and development of a PC + AR-based 3D warehouse management and navigation system, created as an undergraduate thesis project in collaboration with frontline warehouse workers.\n\nThe system integrates spatial visualisation and route guidance to support efficient inventory management and item retrieval. Through participatory design with warehouse employees, the project explored how augmented reality can enhance situational awareness and reduce cognitive load in complex industrial environments.`
     },
     {
       id: 'xr-2',
