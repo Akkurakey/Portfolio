@@ -57,7 +57,6 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       description: 'An application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.',
       imageUrl: 'https://lh3.googleusercontent.com/d/1NIB5q5WqGYwghfJqbPPStVeGEN8FsSFr',
       images: [
-        'https://lh3.googleusercontent.com/d/1n0datZ3HOnEMBztutkygZ75kmMb-KAql',
         'https://lh3.googleusercontent.com/d/1w5ijcrv_GJpydL-U9_h6d2G5hlNEo9DY'
       ],
       tags: ['VR/MR', 'Healthcare', 'Unity'],
