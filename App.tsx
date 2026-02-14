@@ -268,7 +268,7 @@ const App: React.FC = () => {
                <Bell size={20} />
             </div>
             <div className="flex-grow flex flex-col justify-center min-w-0">
-              <h3 className="text-white text-[13px] font-bold leading-tight">Visiting from KCL?</h3>
+              <h3 className="text-white text-[13px] font-bold leading-tight">Visitors from Academia?</h3>
               <p className="text-white/70 text-[12px] leading-tight mt-0.5">Click here to view the navigation guide.</p>
             </div>
             <button 
