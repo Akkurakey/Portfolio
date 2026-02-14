@@ -40,7 +40,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       imageUrl: 'https://lh3.googleusercontent.com/d/1ED9dV-c3zXXnCiVIspCs7xsfiFr4RYSM',
       abstract: 'This study investigates four shopping assistant types (3D avatar, webcam, AI, voice) in VR luxury environments through user studies with 20 participants using NASA-TLX, questionnaires, and interviews. Results show 3D avatar assistants excelled in immersion, trust, and satisfaction, while human-operated assistants outperformed AI in realism and satisfaction. Webcam achieved 50% immersion preference versus 75% for 3D avatars despite strong trustworthiness. The study pioneers PC-VR asymmetric interaction systems, providing design insights and optimization strategies for luxury retail VR shopping assistants.\n\nIndex Terms: Virtual Shopping, Avatars, Cross-device user interaction, Social Virtual Reality, Shopper-Buyer Communication.',
       images: [
-        'https://lh3.googleusercontent.com/d/1ZITYK5YndP91_CFAA75St9K-mV1jwJBv', // Overall Experimental Procedure
+        'https://lh3.googleusercontent.com/d/1Wy3-ehZLihluUhblKDmUZwoGyEQjs7i2', // Overall Experimental Procedure
         'https://lh3.googleusercontent.com/d/1zNbA_fYDNIGcQhaj2q3bWOmzJVujJ407'  // Interaction Details
       ],
       tags: ['VR', 'UX Research', 'IEEE VR'],
