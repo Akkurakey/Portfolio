@@ -1,3 +1,4 @@
+
 import { Project, WindowID } from './types';
 
 export const FOLDERS: { id: WindowID; name: string }[] = [
@@ -53,11 +54,11 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'xr-3',
       title: 'Virtual Exposure Therapy Application',
-      description: 'A therapeutic VR-MR application designed to treat specific phobias through controlled exposure.',
+      description: 'An application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.',
       imageUrl: 'https://lh3.googleusercontent.com/d/1NIB5q5WqGYwghfJqbPPStVeGEN8FsSFr',
       images: [
-        'https://lh3.googleusercontent.com/d/1w5ijcrv_GJpydL-U9_h6d2G5hlNEo9DY',
-        'https://lh3.googleusercontent.com/d/1NIB5q5WqGYwghfJqbPPStVeGEN8FsSFr'
+        'https://lh3.googleusercontent.com/d/1n0datZ3HOnEMBztutkygZ75kmMb-KAql',
+        'https://lh3.googleusercontent.com/d/1w5ijcrv_GJpydL-U9_h6d2G5hlNEo9DY'
       ],
       tags: ['VR/MR', 'Healthcare', 'Unity'],
       videoUrl: 'https://www.youtube.com/embed/r-H0cZzmMKs', 
@@ -67,23 +68,26 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         { label: 'Tracking', value: 'Hand-tracking' },
         { label: 'Input', value: 'Direct Manipulation' }
       ],
-      fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\nAn application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.'
+      fullContent: 'An application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.'
     },
     {
       id: 'ai-1',
       title: 'AR Logistics Warehouse Management System',
       description: 'PC + AR-based 3D warehouse management and navigation system designed to enhance inventory management efficiency.',
       imageUrl: 'https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw',
-      images: ['https://lh3.googleusercontent.com/d/1KWaVUwKSU0xWRQzrCD2o3Y8D8QiSlxRE'],
-      tags: ['AR', 'Logistics', 'Participatory Design'],
-      abstract: 'Design and development of a PC + AR-based 3D warehouse management and navigation system, created as an undergraduate thesis project in collaboration with frontline warehouse workers.\n\nThe system integrates spatial visualisation and route guidance to support efficient inventory management and item retrieval. Through participatory design with warehouse employees, the project explored how augmented reality can enhance situational awareness and reduce cognitive load in complex industrial environments.',
+      images: [
+        'https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw', // System Interface
+        'https://lh3.googleusercontent.com/d/1KWaVUwKSU0xWRQzrCD2o3Y8D8QiSlxRE'  // Design Sketch
+      ],
+      tags: ['AR', 'Logistics', 'Interface Design'],
       specs: [
         { label: 'Platform', value: 'PC + AR' },
         { label: 'Engine', value: 'Unity 2021' },
         { label: 'Tracking', value: 'Device Tracking' },
         { label: 'Input', value: 'Touchscreen' }
       ],
-      externalUrl: 'https://lumina-ar-logistics.vercel.app/',
+      prototypeUrl: 'https://lumina-ar-logistics.vercel.app/',
+      relatedProjectTitle: 'Live Demo Link',
       fullContent: 'Design and development of a PC + AR-based 3D warehouse management and navigation system, created as an undergraduate thesis project in collaboration with frontline warehouse workers.\n\nThe system integrates spatial visualisation and route guidance to support efficient inventory management and item retrieval. Through participatory design with warehouse employees, the project explored how augmented reality can enhance situational awareness and reduce cognitive load in complex industrial environments.'
     },
     {
@@ -120,6 +124,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       ],
       tags: ['Unity', 'Hand-tracking', 'VFX', 'Rhythm'],
       videoUrl: 'https://drive.google.com/file/d/1eECKfrIxwjILku0zPCFZ69X1vZa3GsZp/preview',
+      externalUrl: 'https://gesture.dance/',
       videoPosition: 'bottom',
       specs: [
         { label: 'Platform', value: 'Meta Quest 2 / Pro' },
@@ -134,9 +139,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       title: 'Lab Cat Escape',
       description: 'Play as a kitten avoiding security robots in an abandoned high-tech laboratory.',
       imageUrl: 'https://lh3.googleusercontent.com/d/12CEbL25YHkmiLFdWDliJvx-zes0v2PsG',
-      images: [
-        'https://lh3.googleusercontent.com/d/12CEbL25YHkmiLFdWDliJvx-zes0v2PsG'
-      ],
+      images: [], // Removed images from detail page while keeping featured cover
       tags: ['3D Game', 'Unity', 'Stealth', 'Level Design'],
       videoUrl: 'https://player.vimeo.com/video/943596089',
       specs: [
@@ -184,7 +187,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'gd-msi',
       title: 'MSI FULFILLMENT',
       description: 'A visual identity and logistics design system focusing on industrial aesthetic clarity.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1_9mXXQ-vOMBg5JjiI7k6Z9ZYrrpHpYFr',
+      imageUrl: 'https://lh3.googleusercontent.com/d/1_9mXXQ-vOMBg5JjiI7k6Z9ZYrrpHpYFr', // Updated cover image
       images: [
         'https://lh3.googleusercontent.com/d/1a5iJYw2XMQDtGZOXxfyY5t06oTFnV3If',
         'https://lh3.googleusercontent.com/d/1_9mXXQ-vOMBg5JjiI7k6Z9ZYrrpHpYFr',
@@ -202,7 +205,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       imageUrl: 'https://lh3.googleusercontent.com/d/1CzQRxfTWNXiY5hAjx01dJkKBltMNbGmd',
       images: [
         'https://lh3.googleusercontent.com/d/1BmcPz4rD45myKxlIAzZUxbsJvNTWfd3Z',
-        'https://lh3.googleusercontent.com/d/1g0fcLKlWFbTEIO2x3MpichZvDFI2tII',
+        'https://lh3.googleusercontent.com/d/1g0fcLKlWFbTEIO2x3MpichZvDF-I2tII',
         'https://lh3.googleusercontent.com/d/16_txnQOjcuIFemxTXiPI2SGhwD6a633j'
       ],
       tags: ['Graphic', 'Poster', 'Live Show', 'Branding'],
