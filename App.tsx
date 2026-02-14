@@ -405,7 +405,7 @@ const App: React.FC = () => {
                 </section>
 
                 <footer className="pt-8 border-t border-gray-50 text-gray-400 text-[12px] italic">
-                  <p>Feel free to explore each section and reach out if you'd like to discuss any project in detail.</p>
+                  <p>Feel free to <a href="mailto:rakeyyang@gmail.com" className="underline decoration-gray-200 hover:text-blue-500 transition-colors not-italic">reach out</a> if you'd like to discuss any project in detail.</p>
                   <div className="mt-8 not-italic text-gray-300 text-lg select-none">：）</div>
                 </footer>
               </div>
