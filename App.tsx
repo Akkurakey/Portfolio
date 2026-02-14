@@ -387,12 +387,8 @@ const App: React.FC = () => {
                   <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">3. XR & Game Development</h3>
                   <div className="space-y-2">
                     <p className="text-gray-600 text-[13px] leading-relaxed">
-                      This folder contains XR game and application development projects. One example is <button onClick={() => openProjectById('ai-1')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">AR Logistics Warehouse Management System</button>:
+                      This folder contains XR applications and game development projects, primarily developed in Unity.
                     </p>
-                    <ul className="space-y-1 text-[12px] text-gray-500 italic pl-4">
-                      <li>• A PC + AR application for 3D warehouse visualization and navigation</li>
-                      <li>• Developed in collaboration with frontline warehouse workers</li>
-                    </ul>
                   </div>
                 </section>
 
