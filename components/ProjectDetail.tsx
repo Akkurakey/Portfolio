@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Project } from '../types';
-import { Loader2, ExternalLink, Music, ArrowUpRight, FileText, ChevronDown, Link as LinkIcon, Image as ImageIcon, LayoutGrid } from 'lucide-react';
+import { Loader2, ExternalLink, Music, ArrowUpRight, FileText, ChevronDown, Link as LinkIcon, Image as ImageIcon, LayoutGrid, Monitor, Globe } from 'lucide-react';
 
 // Moved helper component outside to ensure stable reference and explicit children prop typing
 const ScholarlySectionHeading: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -32,6 +33,7 @@ interface ProjectDetailProps {
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOpenProjectById }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isProtoLoading, setIsProtoLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const pdfRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -40,6 +42,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const isShoppingAssistants = project.id === 'hci-2';
   const isArGallery = project.id === 'xr-2';
   const isRhythmGame = project.id === 'xr-1';
+  const isArLogistics = project.id === 'ai-1';
 
   // Enhanced helper to convert standard video links to embeddable ones
   const getEmbedUrl = (url?: string) => {
@@ -47,7 +50,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
     
     // Google Drive
     if (url.includes('drive.google.com')) {
-      return url.replace(/\/view(\?.*)?$/, '/preview').replace(/\/sharing(\?.*)?$/, '/preview').replace(/\?usp=drive_link$/, '/preview');
+      return url.replace(/\/view(\?.*)?$/, '/preview').replace(/\/sharing(\?.*)?$/, '/preview').replace(/\?usp=drive_link$/, '/preview').replace(/\?usp=sharing$/, '/preview');
     }
     
     // YouTube (using youtube-nocookie for better compatibility)
@@ -146,6 +149,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   if (isArGallery) coordinates = '52.9392° N, 1.1947° W'; 
   else if (isDualPhobia) coordinates = '52.9533° N, 1.1874° W'; // Nottingham Jubilee Campus CS Building
   else if (isShoppingAssistants) coordinates = '52.9533° N, 1.1874° W\n52.2110° N, 0.0917° E'; // Nottingham / Cambridge
+  else if (isArLogistics) coordinates = '29.9077° N, 121.8440° E'; // Ningbo Beilun
   else if (project.id === 'gd-album' || project.id === 'gd-msi') coordinates = '29.7740° N, 121.9050° E';
   else if (project.id === 'gd-5') coordinates = '34.6197° N, 112.4545° E';
   else if (project.id === 'gd-live-show') coordinates = '29.8942° N, 121.5516° E';
@@ -155,7 +159,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const renderSpecsBar = (specs?: { label: string; value: string }[]) => {
     if (!specs || specs.length === 0) return null;
     return (
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-10 border-y border-gray-100 mb-8">
+      <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 py-10 border-y border-gray-100 ${isArLogistics ? 'mb-4' : 'mb-8'}`}>
         {specs.map((spec, i) => (
           <div key={i}>
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-1">{spec.label}</h4>
@@ -238,11 +242,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
       );
     }
 
+    // Explicit image display logic for standard projects
+    const imagesToDisplay = isArLogistics ? project.images.slice(1) : project.images;
+
     return (
       <div className="space-y-12 md:space-y-20 lg:space-y-28 flex flex-col items-center w-full">
-        {project.images.map((img, i) => (
-          <div key={i} className="group w-full md:w-[90%] lg:w-[85%] xl:w-[80%] overflow-hidden rounded-xl flex justify-center">
-            <img src={img} alt="" className="w-full h-auto max-h-[70vh] md:max-h-[80vh] object-contain shadow-md md:shadow-xl border border-black/[0.03] transition-all duration-700 ease-in-out" loading="lazy" />
+        {imagesToDisplay.map((img, i) => (
+          <div key={i} className="group w-full md:w-[90%] lg:w-[85%] xl:w-[80%] overflow-hidden rounded-xl flex flex-col items-start">
+            <div className="w-full flex justify-center">
+              <img src={img} alt="" className="w-full h-auto max-h-[70vh] md:max-h-[80vh] object-contain shadow-md md:shadow-xl border border-black/[0.03] transition-all duration-700 ease-in-out" loading="lazy" />
+            </div>
           </div>
         ))}
       </div>
@@ -307,7 +316,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const renderVideo = () => {
     if (!project.videoUrl) return null;
     return (
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-24 md:mb-32"> {/* Increased bottom margin for more gap */}
         <div className="relative aspect-video w-full lg:w-[95%] rounded-xl overflow-hidden shadow-2xl bg-black border border-black/5">
           <iframe 
             src={getEmbedUrl(project.videoUrl)} 
@@ -316,6 +325,57 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
             title={project.title} 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           />
+        </div>
+      </div>
+    );
+  };
+
+  const renderLivePrototype = () => {
+    if (!project.prototypeUrl) return null;
+    
+    // Increased size and aspect ratio specifically for the Logistics project
+    const aspectClass = isArLogistics 
+      ? "aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] min-h-[450px] sm:min-h-[550px] lg:min-h-[700px]" 
+      : "aspect-video md:aspect-[16/10] lg:aspect-[16/9]";
+    
+    // For logistics, we slightly break out of the 4xl container to make it feel larger
+    const containerClass = isArLogistics 
+      ? "w-full lg:w-[110%] lg:-ml-[5%] relative" 
+      : "relative w-full";
+
+    return (
+      <div className="py-12 md:py-24 border-t border-gray-100">
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <ScholarlySectionHeading>Live Prototype</ScholarlySectionHeading>
+            <p className="text-[9px] sm:text-[10px] text-gray-400 font-serif italic">Interactive application for {project.title}</p>
+          </div>
+          <div className="flex gap-2">
+             <a href={project.prototypeUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-blue-500 transition-colors">
+                <ExternalLink size={16} />
+             </a>
+          </div>
+        </div>
+        <div className={`${containerClass} ${aspectClass} rounded-2xl overflow-hidden shadow-2xl bg-gray-50 border border-gray-100 group`}>
+          {isProtoLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-50/80 backdrop-blur-sm z-10">
+              <Loader2 className="w-6 h-6 text-blue-500 animate-spin" />
+            </div>
+          )}
+          <iframe 
+            src={project.prototypeUrl} 
+            className="absolute inset-0 w-full h-full border-none" 
+            title="Interactive Prototype" 
+            onLoad={() => setIsProtoLoading(false)}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          />
+          {/* Overlay hints for interaction */}
+          <div className="absolute bottom-4 right-4 z-20 pointer-events-none group-hover:opacity-100 opacity-0 transition-opacity">
+            <div className="px-3 py-1.5 bg-black/80 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+              <Monitor size={12} />
+              <span>Interactive View</span>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -417,11 +477,17 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                 </a>
               )}
               {/* Header prototype button */}
-              {!isDualPhobia && (project.prototypeUrl || project.relatedProjectId) && (
+              {(project.prototypeUrl || project.relatedProjectId) && (
                 <button onClick={() => project.prototypeUrl ? window.open(project.prototypeUrl, '_blank') : onOpenProjectById?.(project.relatedProjectId!)} className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 border border-blue-100 text-blue-500 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded hover:bg-blue-50 transition-all active:scale-95">
                   <LinkIcon size={11} className="shrink-0" />
                   <span className="hidden xs:inline">{project.relatedProjectTitle || 'Related Project'}</span>
                 </button>
+              )}
+              {project.externalUrl && !isIframeMode && (
+                <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 border border-blue-100 text-blue-500 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded hover:bg-blue-50 transition-all active:scale-95">
+                  <Globe size={11} className="shrink-0" />
+                  <span className="hidden xs:inline">VISIT WEBSITE</span>
+                </a>
               )}
               {project.spotifyUrl && (
                 <a href={project.spotifyUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 border border-green-100 text-green-600 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded hover:bg-green-50 transition-all active:scale-95">
@@ -436,7 +502,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                   <span className="hidden xs:inline">VIEW PAPER</span>
                 </a>
               )}
-              {/* Note: View Poster scroll button was removed per user request for HCI projects */}
             </div>
           </div>
         </div>
@@ -478,12 +543,22 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
             </div>
           ) : null}
 
+          {/* Interactive Prototype Section - Conditional placement for AR Logistics */}
+          {project.prototypeUrl && !isArLogistics && renderLivePrototype()}
+
           {!isDualPhobia && !isRhythmGame && (
              <>
                {renderSpecsBar(project.specs)}
-               <div className="py-2 sm:py-6">{videoAtTop && renderVideo()}</div>
-               <div className="py-2 sm:py-6">
+               <div className={`py-2 sm:py-6 ${isArLogistics ? '!pt-0' : ''}`}>
+                 {isArLogistics && (
+                    <div className="mb-6">
+                      <ScholarlySectionHeading>Design Sketch</ScholarlySectionHeading>
+                    </div>
+                 )}
+                 {videoAtTop && renderVideo()}
                  {renderProjectImages()}
+                 {/* Explicitly show prototype after images for AR Logistics as requested */}
+                 {isArLogistics && project.prototypeUrl && renderLivePrototype()}
                  {videoAtBottom && renderVideo()}
                </div>
              </>
