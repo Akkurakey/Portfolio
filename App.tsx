@@ -395,7 +395,7 @@ const App: React.FC = () => {
                 <section className="space-y-4">
                   <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">4. Web & AI Experiments</h3>
                   <p className="text-gray-600 text-[13px] leading-relaxed">
-                    This section includes web development and interface explorations. One example is <button onClick={() => openProjectById('ai-2')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">ScholarStream</button>, a prototype platform that allows users to:
+                    This section includes web development and AI interaction explorations. One example is <button onClick={() => openProjectById('ai-2')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">ScholarStream</button>, a prototype platform that allows users to:
                   </p>
                   <ul className="space-y-1 text-[12px] text-gray-500 italic pl-4">
                     <li>• Follow specific academic fields</li>
