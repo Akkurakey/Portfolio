@@ -384,7 +384,7 @@ const App: React.FC = () => {
                 </section>
 
                 <section className="space-y-4">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">3. XR & Game Development</h3>
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">3. Game & XR Development</h3>
                   <div className="space-y-2">
                     <p className="text-gray-600 text-[13px] leading-relaxed">
                       This folder contains XR applications and game development projects, primarily developed in Unity.
@@ -393,7 +393,7 @@ const App: React.FC = () => {
                 </section>
 
                 <section className="space-y-4">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">4. Web & Interface Experiments</h3>
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">4. Web & AI Experiments</h3>
                   <p className="text-gray-600 text-[13px] leading-relaxed">
                     This section includes web development and interface explorations. One example is <button onClick={() => openProjectById('ai-2')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">ScholarStream</button>, a prototype platform that allows users to:
                   </p>
