@@ -41,7 +41,7 @@ const Window: React.FC<WindowProps> = ({
     const isTablet = wWidth >= 640 && wWidth < 1024;
 
     if (isMobile) {
-      if (isAbout) return { width: Math.min(300, wWidth * 0.82), height: Math.min(600, wHeight * 0.8) };
+      if (isAbout) return { width: wWidth * 0.85, height: Math.min(600, wHeight * 0.8) };
       if (isCertification) return { width: 240, height: 240 };
       return { 
         width: wWidth - 16, 
