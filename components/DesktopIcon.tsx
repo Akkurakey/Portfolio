@@ -25,36 +25,59 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const dragStartRef = useRef<{ x: number; y: number } | null>(null);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    // Left click only
-    if (e.button !== 0) return;
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    const isTouch = 'touches' in e;
+    const clientX = isTouch ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
+    const clientY = isTouch ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
+    
+    // Left click only for mouse
+    if (!isTouch && (e as React.MouseEvent).button !== 0) return;
     
     // Call parent handler for selection
-    onMouseDown(e, id);
+    if (!isTouch) {
+      onMouseDown(e as React.MouseEvent, id);
+    }
     
     setIsDragging(true);
-    dragStartRef.current = { x: e.clientX, y: e.clientY };
+    dragStartRef.current = { x: clientX, y: clientY };
+    const initialPos = { x: clientX, y: clientY };
+    let hasMoved = false;
 
-    const handleMouseMove = (moveEvent: MouseEvent) => {
+    const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
       if (!dragStartRef.current) return;
-      const dx = moveEvent.clientX - dragStartRef.current.x;
-      const dy = moveEvent.clientY - dragStartRef.current.y;
+      const mX = 'touches' in moveEvent ? moveEvent.touches[0].clientX : (moveEvent as MouseEvent).clientX;
+      const mY = 'touches' in moveEvent ? moveEvent.touches[0].clientY : (moveEvent as MouseEvent).clientY;
       
+      const dx = mX - dragStartRef.current.x;
+      const dy = mY - dragStartRef.current.y;
+      
+      if (Math.abs(mX - initialPos.x) > 5 || Math.abs(mY - initialPos.y) > 5) {
+        hasMoved = true;
+      }
+
       // Update starting point for next delta
-      dragStartRef.current = { x: moveEvent.clientX, y: moveEvent.clientY };
-      
+      dragStartRef.current = { x: mX, y: mY };
       onDrag(id, dx, dy);
     };
 
-    const handleMouseUp = () => {
+    const handleEnd = () => {
       setIsDragging(false);
       dragStartRef.current = null;
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseup', handleEnd);
+      window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('touchend', handleEnd);
+
+      // If it was a tap on mobile, open the window
+      if (!hasMoved && window.innerWidth < 768) {
+        onDoubleClick();
+      }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleEnd);
+    window.addEventListener('touchmove', handleMove, { passive: false });
+    window.addEventListener('touchend', handleEnd);
   };
 
   return (
