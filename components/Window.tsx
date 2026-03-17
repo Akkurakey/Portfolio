@@ -215,30 +215,41 @@ const Window: React.FC<WindowProps> = ({
   }, [isInteracting]);
 
   const windowStyles = isMaximized
-    ? { top: '32px', left: 0, width: '100%', height: 'calc(100% - 32px)', borderRadius: 0 }
+    ? { top: 32, left: 0, width: '100%', height: 'calc(100% - 32px)', borderRadius: 0 }
     : { 
         width: size.width, 
         height: size.height, 
         top: position.y,
-        left: position.x
+        left: position.x,
+        borderRadius: 12
       };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.15, ease: "easeOut" }}
+          initial={{ opacity: 0, scale: 0.95, ...windowStyles }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            ...windowStyles
+          }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={isInteracting ? { duration: 0 } : { 
+            duration: 0.25, 
+            ease: [0.2, 0, 0, 1],
+            opacity: { duration: 0.15 },
+            scale: { duration: 0.15 }
+          }}
           onMouseDown={onFocus}
           onTouchStart={onFocus}
           style={{ 
             zIndex, 
-            ...windowStyles,
-            transition: isInteracting ? 'none' : 'width 0.25s cubic-bezier(0.2, 0, 0, 1), height 0.25s cubic-bezier(0.2, 0, 0, 1), top 0.25s cubic-bezier(0.2, 0, 0, 1), left 0.25s cubic-bezier(0.2, 0, 0, 1), border-radius 0.2s ease, opacity 0.2s ease'
+            willChange: 'transform, opacity, width, height, top, left',
+            WebkitBackfaceVisibility: 'hidden',
+            backfaceVisibility: 'hidden',
           }}
-          className={`fixed flex flex-col macos-glass macos-shadow rounded-xl border border-white/20 select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden'}`}
+          className={`absolute flex flex-col macos-glass macos-shadow border border-white/20 select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden'}`}
         >
           {/* Header Bar */}
           <div 
