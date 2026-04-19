@@ -373,8 +373,8 @@ const App: React.FC = () => {
                   <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">2. HCI Research <span className="normal-case tracking-tighter font-medium opacity-80">(also accessible via link in the CV)</span></h3>
                   <div className="space-y-6 pl-2 border-l-2 border-gray-50">
                     <div className="space-y-2">
-                      <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-1')}>Comparison of Immersive Technologies in Virtual Exposure Therapy</h4>
-                      <p className="text-gray-500 text-[12px] leading-relaxed">Comparing VR and AR technologies (VR and AR) in virtual exposure therapy for spider phobia and contamination fear.</p>
+                      <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-1')}>Comparison of VR and AR in Virtual Exposure</h4>
+                      <p className="text-gray-500 text-[12px] leading-relaxed">Comparing VR and AR in virtual exposure scenarios for spider phobia and contamination fear.</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-2')}>Virtual Shopping Assistants Study</h4>
