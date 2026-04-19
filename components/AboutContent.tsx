@@ -68,7 +68,7 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
               <span className="hover:text-white transition-colors">HCI Researcher</span>
               <div className="absolute top-0 right-[calc(100%+20px)] w-48 sm:w-64 p-4 bg-white text-gray-900 text-[10px] sm:text-[11px] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[200] font-serif normal-case tracking-normal leading-relaxed border border-black/5 text-left italic">
                 <p className="mb-2">My work focuses on human–computer interaction and extended reality.</p>
-                <p>I'm interested in wearable technologies and immersive experiences for mental health and accessible support.</p>
+                <p>I'm interested in how wearable and immersive technologies can shape cognition, affect, and understanding across diverse user states.</p>
                 {/* Arrow pointing to the text from the right */}
                 <div className="absolute top-4 left-full -ml-1 border-[6px] border-transparent border-l-white"></div>
               </div>
