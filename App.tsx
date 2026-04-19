@@ -374,7 +374,7 @@ const App: React.FC = () => {
                   <div className="space-y-6 pl-2 border-l-2 border-gray-50">
                     <div className="space-y-2">
                       <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-1')}>Comparison of VR and AR in Virtual Exposure</h4>
-                      <p className="text-gray-500 text-[12px] leading-relaxed">Comparing VR and AR in virtual exposure scenarios for spider phobia and contamination fear.</p>
+                      <p className="text-gray-500 text-[12px] leading-relaxed">Comparing the experience intensity of VR and AR in virtual exposure scenarios for spider phobia and contamination fear.</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-2')}>Virtual Shopping Assistants Study</h4>
