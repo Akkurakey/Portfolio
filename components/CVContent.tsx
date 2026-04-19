@@ -156,8 +156,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
                   isVisible={hoveredProjectId === 'hci-1'} 
                 />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1">"AR or VR? Comparing Experience Intensity Across Virtual Exposure Simulations." Virtual Reality, under
-review."</LinkSpan> <span className="italic">Virtual Reality</span>, under review, 2025.
+                  <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1">"AR or VR? Comparing Experience Intensity Across Virtual Exposure Simulations."</LinkSpan> <span className="italic">Virtual Reality</span>, under review, 2025.
                 </p>
               </div>
               <div className="group relative">
