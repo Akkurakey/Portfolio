@@ -12,7 +12,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
   hci: [
     {
       id: 'hci-1',
-      title: 'Dual-Phobia Virtual Exposure Therapy',
+      title: 'Dual-Phobia Virtual Exposure Simulation',
       description: 'A comparative analysis of VR and AR efficacy in treating spider phobia and contamination fear.',
       imageUrl: 'https://lh3.googleusercontent.com/d/1TJBm7pWFinDbsoNBoc3gtbRQJdgxTqsN',
       abstract: 'This paper compares the experience intensity of virtual exposure situations in Virtual Reality (VR) and Augmented Reality (AR) to explore the applicability of these technologies in simulating various phobia stimuli for virtual exposure therapy (VET). The paper considers two classic phobias: spider phobia and contamination fears, for which both VR and AR prototypes were developed. A within-subjects experimental design was employed, involving 31 general population participants who reported their intensity of experience and other feedback following virtual exposure using both VR and AR technologies for both phobias. The type of technology significantly affected the intensity of experience: VR was generally more intense than AR, although the strength of this effect varied depending on the type of phobia. VR was significantly more effective in eliciting contamination fears, while AR showed some unique advantages for spider phobia. We suggest that future virtual exposure therapies could integrate both AR and VR components. AR may be more suitable for early-stage or animal-focused exposure therapy, whereas VR is more effective for scenarios that demand complete environmental control.\n\nKeywords: Virtual Reality (VR), Augmented Reality (AR), Virtual Exposure Therapy (VET), Spider Phobia, Next-generation VET',
