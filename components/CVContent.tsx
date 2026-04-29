@@ -66,7 +66,7 @@ const QuickLookPreview = ({
 };
 
 const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }) => {
-  const pdfUrl = "https://drive.google.com/file/d/1XJmqgCbdfOjyt9DO1MjjNL1_9wJEGjjQ/view?usp=sharing";
+  const pdfUrl = "https://drive.google.com/file/d/1uWdBc3P_I1XBrlL-2aDhHIdU8Bh8EIUq/view?usp=drive_link";
   
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
 
