@@ -208,7 +208,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
                   <div className="group cursor-help relative inline-block w-full">
                     <p className="text-gray-700 underline decoration-dotted decoration-gray-300 underline-offset-4 tracking-wider font-bold">User-Centred Design Methods</p>
                     <div className="absolute left-0 lg:left-auto lg:right-full top-full lg:top-0 mt-2 lg:mt-0 lg:mr-4 w-56 p-3 bg-gray-900 text-white text-[10px] rounded-lg shadow-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[110] font-sans normal-case tracking-normal leading-normal border border-white/10">
-                      User Research, Personas, Empathy Mapping, Stakeholder Mapping, User Journey Mapping, Task Analysis, Storyboarding
+                      User Research, Personas, Empathy Mapping, User Journey Mapping, Task Analysis, Storyboarding
                     </div>
                   </div>
                   <div className="group cursor-help relative inline-block w-full">
