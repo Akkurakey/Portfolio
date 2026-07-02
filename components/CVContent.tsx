@@ -156,7 +156,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
                   isVisible={hoveredProjectId === 'hci-1'} 
                 />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1">"Comparing Experience Intensity of AR and VR in Contrasting Virtual Exposure Simulations."</LinkSpan> <span className="italic">Virtual Reality</span>, under review, 2025.
+                  <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1">"Comparing Experience Intensity of AR and VR for Contrasting Phobia Stimuli."</LinkSpan> <span className="italic">Virtual Reality</span>, under review, 2025.
                 </p>
               </div>
               <div className="group relative">
@@ -165,7 +165,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
                   isVisible={hoveredProjectId === 'hci-2'} 
                 />
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <LinkSpan id="hci-2">"AIs or Humans in Luxury Shopping? A Design Study of VR Shopping Assistants."</LinkSpan> <span className="italic">IEEE Conference on Virtual Reality and 3D User Interfaces (IEEE VR)</span>, poster accepted, 2026.
+                  S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <LinkSpan id="hci-2">"AIs or Humans in Luxury Shopping? A Design Study of VR Shopping Assistants."</LinkSpan> <span className="italic">2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW)</span>, 2026.
                 </p>
               </div>
             </div>
