@@ -23,10 +23,10 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       images: [
         '/images/hci/dual-phobia-prototype.jpg', // Step 1 image (Prototype Photo)
         '/images/hci/dual-phobia-flowchart.png', // Step 2 image 1 (Flowchart)
-        '/images/hci/dual-phobia-demo.gif', // Step 2 image 2 (GIF)
+        '/images/hci/dual-phobia-demo.mp4', // Step 2 image 2 (GIF)
         '/images/hci/dual-phobia-results.png'  // Step 3 image (Results)
       ],
-      tags: ['VR/AR', 'Therapy', 'Unity', 'Research'],
+      tags: ['VR', 'AR', 'Therapy', 'Unity', 'Research'],
       pdfUrl: '/docs/dual-phobia-poster.pdf',
       paperUrl: '/docs/dual-phobia-paper.pdf',
       relatedProjectId: 'xr-3',
@@ -43,24 +43,48 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/hci/vr-shopping-procedure.png', // Overall Experimental Procedure
         '/images/hci/vr-shopping-interaction.png'  // Interaction Details
       ],
-      tags: ['VR', 'UX Research', 'IEEE VR'],
+      tags: ['VR', 'Research', 'IEEE VR'],
       videoUrl: 'https://drive.google.com/file/d/1jkhZcqimAopjautEqvR7inLAwMxGPyxb/view?usp=sharing',
       pdfUrl: '/docs/vr-shopping-poster.pdf',
-      paperUrl: '/docs/vr-shopping-paper.pdf',
+      paperUrl: 'https://doi.org/10.1109/VRW70859.2026.00252',
       fullContent: ''
     }
   ],
   game_xr: [
+    {
+      id: 'xr-oor',
+      title: "One's Own Room",
+      description: 'A self-created virtual safe room built with Gaussian splatting and WebXR.',
+      imageUrl: '/images/game_xr/oor-cover.jpg',
+      images: [
+        '/images/game_xr/oor-listen.mp4',
+        '/images/game_xr/oor-into-room.mp4',
+        '/images/game_xr/oor-room.mp4',
+        '/images/game_xr/oor-scale-valence.jpg',
+        '/images/game_xr/oor-scale-arousal.jpg',
+        '/images/game_xr/oor-console.jpg'
+      ],
+      tags: ['VR', 'WebXR', 'Emotional Design', 'Research'],
+      githubUrl: 'https://github.com/Akkurakey/Ones-Own-Room',
+      specs: [
+        { label: 'Platform', value: 'Meta Quest 3 / WebXR' },
+        { label: 'Engine', value: 'Three.js + Spark' },
+        { label: 'Rendering', value: 'Gaussian Splatting' },
+        { label: 'Voice', value: 'LLM + TTS Pipeline' }
+      ],
+      fullContent: "The name is inspired by A Room of One's Own by Virginia Woolf: the idea that everyone needs a space of their own, free from interruption. In the context of an emotional safe zone, this room is a self-governed virtual space created through the user's own agency.\n\nThe project deliberately avoids framing itself as therapy, meditation, or a guided wellbeing experience, because those imply that the room is a service that does something to the user. Instead, the room does nothing. It simply exists. Everything is determined by the person who inhabits it. The voice you converse with is the room itself, and the space gradually reveals itself through your own input.\n\nThe system is built in three layers: pre-generated Gaussian splat rooms from Marble world-model prompts, real-time atmosphere shader parameters driven by a Valence × Arousal check-in (Russell's Circumplex Model, assessed with SAM), and a turn-based voice pipeline (LLM + TTS). Inside, holding the orb begins a conversation; ignoring it means solitude. The room will never initiate conversation."
+    },
     {
       id: 'xr-3',
       title: 'Virtual Exposure Therapy Application',
       description: 'An application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.',
       imageUrl: '/images/game_xr/exposure-therapy-cover.png',
       images: [
-        '/images/game_xr/exposure-therapy-detail.gif'
+        '/images/game_xr/exposure-therapy-detail.mp4'
       ],
-      tags: ['VR/MR', 'Healthcare', 'Unity'],
-      videoUrl: 'https://www.youtube.com/embed/r-H0cZzmMKs', 
+      tags: ['VR', 'AR', 'Healthcare', 'Unity'],
+      githubUrl: 'https://github.com/Akkurakey/VET',
+      videoUrl: 'https://www.youtube.com/embed/r-H0cZzmMKs',
       specs: [
         { label: 'Platform', value: 'Meta Quest 3' },
         { label: 'Engine', value: 'Unity 2022 LTS' },
@@ -71,7 +95,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'ai-1',
-      title: 'AR Logistics Warehouse Management System',
+      title: 'AR Warehouse Management System',
       description: 'PC + AR-based 3D warehouse management and navigation system designed to enhance inventory management efficiency.',
       imageUrl: '/images/game_xr/ar-logistics-interface.jpg',
       images: [
@@ -117,7 +141,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       description: 'An immersive VR environment using hand-tracking and spatial audio for an enhanced flow state.',
       imageUrl: '/images/game_xr/rhythm-game-cover.png',
       images: [
-        '/images/game_xr/rhythm-game-1.gif',
+        '/images/game_xr/rhythm-game-1.mp4',
         '/images/game_xr/rhythm-game-2.png',
         '/images/game_xr/rhythm-game-3.jpg'
       ],
@@ -174,10 +198,10 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       imageUrl: '/images/graphic/stamp-cover.jpg',
       images: [
         '/images/graphic/stamp-1.jpg',
-        '/images/graphic/stamp-2.gif',
-        '/images/graphic/stamp-3.gif',
-        '/images/graphic/stamp-4.gif',
-        '/images/graphic/stamp-5.gif'
+        '/images/graphic/stamp-2.mp4',
+        '/images/graphic/stamp-3.mp4',
+        '/images/graphic/stamp-4.mp4',
+        '/images/graphic/stamp-5.mp4'
       ],
       tags: ['Graphic', 'Illustration', 'Motion', 'Stamp Design'],
       fullContent: 'This project investigates the intersection of traditional philately and modern digital motion. By applying geometric abstraction to cultural narratives, the resulting stamp set functions both as a static artifact and a kinetic visual experience.'
@@ -237,7 +261,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       description: 'Experimental AI visual generator for creative storytelling and conceptual visual design.',
       imageUrl: '/images/web_ai/dream-core.png',
       images: ['/images/web_ai/dream-core.png'],
-      tags: ['Creative AI', 'Generation', 'Visuals'],
+      tags: ['AI', 'Generation', 'Visuals'],
       externalUrl: 'https://sz-one.vercel.app/'
     }
   ],

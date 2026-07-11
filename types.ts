@@ -19,6 +19,7 @@ export interface Project {
   pdfUrl?: string; // Optional URL for academic PDF files (often used as posters in this portfolio)
   paperUrl?: string; // New field for direct links to research papers
   prototypeUrl?: string; // Optional URL for prototype applications/demos
+  githubUrl?: string; // Optional URL for source code repositories
   award?: string; // Optional award mention
   relatedProjectId?: string; // Link to another project ID
   relatedProjectTitle?: string; // Display name for the related project link

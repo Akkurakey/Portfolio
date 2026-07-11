@@ -1,11 +1,30 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Project } from '../types';
-import { Loader2, ExternalLink, Music, ArrowUpRight, FileText, ChevronDown, Link as LinkIcon, Image as ImageIcon, LayoutGrid, Monitor, Globe } from 'lucide-react';
+import { Loader2, ExternalLink, Music, ArrowUpRight, FileText, ChevronDown, Link as LinkIcon, Image as ImageIcon, LayoutGrid, Monitor, Globe, Github } from 'lucide-react';
 
 // Moved helper component outside to ensure stable reference and explicit children prop typing
 const ScholarlySectionHeading: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-4">{children}</h3>
+);
+
+// Renders .mp4 sources as silent looping videos (GIF replacement), everything else as images
+const MediaAsset: React.FC<{ src: string; alt?: string; className?: string; rate?: number }> = ({ src, alt = '', className, rate }) => (
+  src.endsWith('.mp4')
+    ? <video src={src} className={className} autoPlay loop muted playsInline preload="metadata" ref={el => { if (el && rate) el.playbackRate = rate; }} />
+    : <img src={src} alt={alt} className={className} loading="lazy" />
+);
+
+// Captioned media figure; defined at module level so videos keep a stable identity across re-renders
+const CaptionedFigure: React.FC<{ src: string; caption: string; rate?: number }> = ({ src, caption, rate }) => (
+  <div className="w-full flex flex-col items-center gap-4">
+    <div className="group w-full overflow-hidden rounded-xl flex justify-center">
+      <MediaAsset src={src} alt={caption} rate={rate} className="w-full h-auto max-h-[80vh] object-contain shadow-md border border-black/[0.03] transition-all" />
+    </div>
+    <p className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 text-center max-w-lg">
+      {caption}
+    </p>
+  </div>
 );
 
 // Moved logic outside of the main component for better organization
@@ -43,6 +62,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const isArGallery = project.id === 'xr-2';
   const isRhythmGame = project.id === 'xr-1';
   const isArLogistics = project.id === 'ai-1';
+  const isOor = project.id === 'xr-oor';
 
   // Enhanced helper to convert standard video links to embeddable ones
   const getEmbedUrl = (url?: string) => {
@@ -196,6 +216,34 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
       );
     }
 
+    if (isOor) {
+      const media: { src: string; caption: string; half?: boolean }[] = [
+        { src: project.images[0], caption: 'Conversing with the room — hold the orb to speak, release to finish' },
+        { src: project.images[1], caption: 'Entering the room — the space reveals itself through your own input' },
+        { src: project.images[2], caption: 'Inside the room — a pre-generated Gaussian splat world' },
+        { src: project.images[3], caption: 'Check-in: valence, from heavy to light (SAM)', half: true },
+        { src: project.images[4], caption: 'Check-in: arousal, from still to racing (SAM)', half: true },
+        { src: project.images[5], caption: 'Researcher console — room switching, live atmosphere control and pose-twin monitoring' },
+      ];
+      const full = media.filter(m => !m.half);
+      const halves = media.filter(m => m.half);
+      return (
+        <div className="space-y-16 md:space-y-24 flex flex-col items-center w-full">
+          {full.slice(0, 3).map((m) => (
+            <div key={m.src} className="w-full md:w-[90%] lg:w-[85%] xl:w-[80%]"><CaptionedFigure src={m.src} caption={m.caption} rate={m.src.includes('into-room') ? 1.25 : undefined} /></div>
+          ))}
+          <div className="flex flex-col md:flex-row gap-10 md:gap-8 w-full md:w-[90%] lg:w-[85%] xl:w-[80%] items-start">
+            {halves.map((m) => (
+              <div key={m.src} className="flex-1 w-full"><CaptionedFigure src={m.src} caption={m.caption} /></div>
+            ))}
+          </div>
+          {full.slice(3).map((m) => (
+            <div key={m.src} className="w-full md:w-[90%] lg:w-[85%] xl:w-[80%]"><CaptionedFigure src={m.src} caption={m.caption} /></div>
+          ))}
+        </div>
+      );
+    }
+
     if (isShoppingAssistants) {
       const captions = [
         'Overall Experimental Procedure',
@@ -250,7 +298,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         {imagesToDisplay.map((img, i) => (
           <div key={i} className="group w-full md:w-[90%] lg:w-[85%] xl:w-[80%] overflow-hidden rounded-xl flex flex-col items-start">
             <div className="w-full flex justify-center">
-              <img src={img} alt="" className="w-full h-auto max-h-[70vh] md:max-h-[80vh] object-contain shadow-md md:shadow-xl border border-black/[0.03] transition-all duration-700 ease-in-out" loading="lazy" />
+              <MediaAsset src={img} className="w-full h-auto max-h-[70vh] md:max-h-[80vh] object-contain shadow-md md:shadow-xl border border-black/[0.03] transition-all duration-700 ease-in-out" />
             </div>
           </div>
         ))}
@@ -297,8 +345,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
             {lines[1]}
           </p>
           <div className="space-y-6">
-             <img src={project.images[1]} alt="Experimental Task Participant" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
-             <img src={project.images[2]} alt="Experimental Task Recorded Session" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
+             <MediaAsset src={project.images[1]} alt="Experimental Task Participant" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
+             <MediaAsset src={project.images[2]} alt="Experimental Task Recorded Session" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
           </div>
         </div>
 
@@ -457,7 +505,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   return (
     <div className="bg-white min-h-full p-4 sm:p-6 md:p-12 lg:p-20 animate-in fade-in duration-500">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-8 md:mb-16 lg:mb-24">
+        <div className={(!project.abstract && project.description) ? 'mb-8 md:mb-14 lg:mb-20' : 'mb-8 md:mb-16 lg:mb-24'}>
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 leading-[1] sm:leading-[0.85] tracking-tighter uppercase mb-4 break-words">
             {project.title}
           </h1>
@@ -477,7 +525,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                 </a>
               )}
               {/* Header prototype button */}
-              {(project.prototypeUrl || project.relatedProjectId) && (
+              {(project.prototypeUrl || (project.relatedProjectId && !isDualPhobia)) && (
                 <button onClick={() => project.prototypeUrl ? window.open(project.prototypeUrl, '_blank') : onOpenProjectById?.(project.relatedProjectId!)} className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 border border-blue-100 text-blue-500 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded hover:bg-blue-50 transition-all active:scale-95">
                   <LinkIcon size={11} className="shrink-0" />
                   <span className="hidden xs:inline">{project.relatedProjectTitle || 'Related Project'}</span>
@@ -502,8 +550,36 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                   <span className="hidden xs:inline">VIEW PAPER</span>
                 </a>
               )}
+              {/* GITHUB Button (Source Code) */}
+              {project.githubUrl && (
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 border border-gray-200 text-gray-600 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded hover:bg-gray-100 transition-all active:scale-95">
+                  <Github size={11} className="shrink-0" />
+                  <span className="hidden xs:inline">GITHUB</span>
+                </a>
+              )}
             </div>
           </div>
+          {/* Handwritten annotation pointing at the header action buttons */}
+          {(() => {
+            const annotation = project.githubUrl ? 'view-code'
+              : project.paperUrl ? 'read-paper'
+              : project.prototypeUrl ? 'demo'
+              : project.spotifyUrl ? 'spotify'
+              : (project.externalUrl && !isIframeMode) ? 'visit-site'
+              : null;
+            if (!annotation) return null;
+            return (
+              <div className="flex justify-end pr-2 sm:pr-5 -mt-5 sm:-mt-6 pointer-events-none select-none" aria-hidden="true">
+                <img src={`/images/annotations/${annotation}.png`} alt="" className={`${annotation === 'demo' ? 'h-6 sm:h-8' : 'h-8 sm:h-10'} w-auto opacity-65`} />
+              </div>
+            );
+          })()}
+          {/* One-line intro (same text as the folder card) for projects without an abstract */}
+          {!project.abstract && project.description && (
+            <p className="mt-1 md:mt-2 max-w-lg lg:max-w-xl text-gray-600 font-serif italic text-[13px] sm:text-[13.5px] leading-[1.8] font-light">
+              {project.description}
+            </p>
+          )}
         </div>
 
         <div className="space-y-12 md:space-y-24 lg:space-y-32">
@@ -597,7 +673,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           )}
 
           {!isRhythmGame && (
-            <div className="py-12 md:py-24 lg:py-32 border-t border-gray-100">
+            <div className="pt-8 md:pt-12 lg:pt-16 pb-12 md:pb-24 lg:pb-32 border-t border-gray-100">
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-20">
                 <div className="lg:w-1/3 shrink-0 flex flex-col gap-4">
                   <p className="text-[10px] text-gray-300 font-mono uppercase tracking-[0.2em] whitespace-pre-line">{coordinates}</p>
@@ -609,7 +685,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                 </div>
                 {project.fullContent && project.fullContent.trim() && !isDualPhobia && (
                   <div className="lg:w-2/3">
-                    <div className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                    <div className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light space-y-5">
                       <span className="block text-xl font-bold not-italic mb-2 text-gray-900">*</span>
                       {(project.fullContent || project.description).split('\n').map((para, idx) => (
                         para.trim() && <p key={idx} className="whitespace-pre-line">{para}</p>

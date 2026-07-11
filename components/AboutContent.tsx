@@ -93,25 +93,25 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
         {/* Specs Table */}
         <div className="w-full space-y-2 mb-8 sm:mb-10 px-2 sm:px-4">
           <div className="flex justify-center text-[12px] sm:text-[13px] gap-3">
-            <span className="text-white text-right w-[42%] font-semibold">Instagram</span>
-            <a 
-              href="https://www.instagram.com/rakeyang" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-blue-400 hover:text-blue-300 hover:underline text-left w-[58%] transition-colors truncate"
+            <span className="text-white text-right w-[42%] font-semibold">Dev</span>
+            <a
+              href="https://github.com/Akkurakey"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 hover:underline text-left w-[58%] truncate transition-colors"
             >
-              @rakeyang
+              GitHub
             </a>
           </div>
           <div className="flex justify-center text-[12px] sm:text-[13px] gap-3">
-            <span className="text-white text-right w-[42%] font-semibold">LinkedIn</span>
-            <a 
-              href="https://www.linkedin.com/in/rakey-yang/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-blue-400 hover:text-blue-300 hover:underline text-left w-[58%] truncate transition-colors"
+            <span className="text-white text-right w-[42%] font-semibold">Lens</span>
+            <a
+              href="https://www.instagram.com/rakeyang"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 hover:underline text-left w-[58%] transition-colors truncate"
             >
-              Rakey Yang
+              Instagram
             </a>
           </div>
         </div>
