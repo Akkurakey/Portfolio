@@ -14,21 +14,21 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'hci-1',
       title: 'Dual-Phobia Virtual Exposure Simulation',
       description: 'A comparative analysis of VR and AR efficacy in treating spider phobia and contamination fear.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1TJBm7pWFinDbsoNBoc3gtbRQJdgxTqsN',
+      imageUrl: '/images/hci/dual-phobia-cover.png',
       abstract: 'Exposure therapy is a common psychological intervention for phobias and anxiety disorders, and immersive exposure simulations using virtual reality (VR) and augmented reality (AR) have been evaluated as a practical extension of this method, producing similar experience through simulated stimuli. This study compares participants’ responses to VR and AR exposure simulations under different types of stimuli. The study investigates two types of fear-based stimuli: spiders and contamination, for which both VR and AR prototypes were developed. A within-subjects experimental design was employed, involving 31 participants drawn from a healthy adult student population who reported their experience intensity and qualitative feedback following exposure to virtual stimuli across both modalities. The type of technology significantly affected the experience intensity: VR elicited a significantly higher experience intensity overall, although the strength of this effect varied depending on the stimulus type. Specifically, VR produced a much stronger experience in the contamination scenario, while AR performed comparably and showed ecological advantages in the spider scenario. We suggest that future virtual exposure system designs could integrate both AR and VR components in a staged approach. AR may be more suitable for early-stage or animal-focused exposure simulations, whereas VR is better suited for scenarios that demand complete environmental control.',
       researchQuestions: [
         'Q1. Is there a significant difference in the effectiveness of AR and VR when used in exposure therapy?',
         'Q2. If a difference exists, is one generally better than the other, or do the results vary depending on the specific task?'
       ],
       images: [
-        'https://lh3.googleusercontent.com/d/1n0datZ3HOnEMBztutkygZ75kmMb-KAql', // Step 1 image (Prototype Photo)
-        'https://lh3.googleusercontent.com/d/1niH5BksliHV_lHOJ9HbLty_XR_hxBqSG', // Step 2 image 1 (Flowchart)
-        'https://lh3.googleusercontent.com/d/1ss8u_1-pPemB4oNiViznHJzn5aR8T5eq', // Step 2 image 2 (GIF)
-        'https://lh3.googleusercontent.com/d/1UNfOuUXN9JuEAR_N4IzkhwqCEOONPM0p'  // Step 3 image (Results)
+        '/images/hci/dual-phobia-prototype.jpg', // Step 1 image (Prototype Photo)
+        '/images/hci/dual-phobia-flowchart.png', // Step 2 image 1 (Flowchart)
+        '/images/hci/dual-phobia-demo.gif', // Step 2 image 2 (GIF)
+        '/images/hci/dual-phobia-results.png'  // Step 3 image (Results)
       ],
       tags: ['VR/AR', 'Therapy', 'Unity', 'Research'],
-      pdfUrl: 'https://drive.google.com/file/d/1N8q-FQPBZuGJ3abKhta-45LO1T_5tVaL/view?usp=sharing',
-      paperUrl: 'https://drive.google.com/file/d/1p2Ek61nRddxy7i49Gq4n4lrBdZZbdTEK/view?usp=sharing',
+      pdfUrl: '/docs/dual-phobia-poster.pdf',
+      paperUrl: '/docs/dual-phobia-paper.pdf',
       relatedProjectId: 'xr-3',
       relatedProjectTitle: 'View Prototype Application',
       fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\nGuided participants (N=31) through AR and VR tasks and supervised the experimental sessions.\nCollected questionnaire data, think-aloud feedback, and follow-up interviews; analysed and interpreted the results using SPSS.'
@@ -37,16 +37,16 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'hci-2',
       title: 'VR Shopping Assistants',
       description: 'Research collaboration on user perception of shopping assistants in luxury VR retail.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1ED9dV-c3zXXnCiVIspCs7xsfiFr4RYSM',
+      imageUrl: '/images/hci/vr-shopping-cover.jpg',
       abstract: 'This study investigates four shopping assistant types (3D avatar, webcam, AI, voice) in VR luxury environments through user studies with 20 participants using NASA-TLX, questionnaires, and interviews. Results show 3D avatar assistants excelled in immersion, trust, and satisfaction, while human-operated assistants outperformed AI in realism and satisfaction. Webcam achieved 50% immersion preference versus 75% for 3D avatars despite strong trustworthiness. The study pioneers PC-VR asymmetric interaction systems, providing design insights and optimization strategies for luxury retail VR shopping assistants.\n\nIndex Terms: Virtual Shopping, Avatars, Cross-device user interaction, Social Virtual Reality, Shopper-Buyer Communication.',
       images: [
-        'https://lh3.googleusercontent.com/d/1Wy3-ehZLihluUhblKDmUZwoGyEQjs7i2', // Overall Experimental Procedure
-        'https://lh3.googleusercontent.com/d/1zNbA_fYDNIGcQhaj2q3bWOmzJVujJ407'  // Interaction Details
+        '/images/hci/vr-shopping-procedure.png', // Overall Experimental Procedure
+        '/images/hci/vr-shopping-interaction.png'  // Interaction Details
       ],
       tags: ['VR', 'UX Research', 'IEEE VR'],
       videoUrl: 'https://drive.google.com/file/d/1jkhZcqimAopjautEqvR7inLAwMxGPyxb/view?usp=sharing',
-      pdfUrl: 'https://drive.google.com/file/d/1BA3xCgUM4LA3EJ_cB2R1Th4IpTUW2brm/view?usp=sharing',
-      paperUrl: 'https://drive.google.com/file/d/1ydCFQwiHJ510xp7xROZdUfxuiNK31poE/view?usp=drive_link',
+      pdfUrl: '/docs/vr-shopping-poster.pdf',
+      paperUrl: '/docs/vr-shopping-paper.pdf',
       fullContent: ''
     }
   ],
@@ -55,9 +55,9 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'xr-3',
       title: 'Virtual Exposure Therapy Application',
       description: 'An application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1NIB5q5WqGYwghfJqbPPStVeGEN8FsSFr',
+      imageUrl: '/images/game_xr/exposure-therapy-cover.png',
       images: [
-        'https://lh3.googleusercontent.com/d/1w5ijcrv_GJpydL-U9_h6d2G5hlNEo9DY'
+        '/images/game_xr/exposure-therapy-detail.gif'
       ],
       tags: ['VR/MR', 'Healthcare', 'Unity'],
       videoUrl: 'https://www.youtube.com/embed/r-H0cZzmMKs', 
@@ -73,10 +73,10 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'ai-1',
       title: 'AR Logistics Warehouse Management System',
       description: 'PC + AR-based 3D warehouse management and navigation system designed to enhance inventory management efficiency.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw',
+      imageUrl: '/images/game_xr/ar-logistics-interface.jpg',
       images: [
-        'https://lh3.googleusercontent.com/d/1-7FY6zYBdy5SnX4tLw42YcStf7SmveUw', // System Interface
-        'https://lh3.googleusercontent.com/d/1KWaVUwKSU0xWRQzrCD2o3Y8D8QiSlxRE'  // Design Sketch
+        '/images/game_xr/ar-logistics-interface.jpg', // System Interface
+        '/images/game_xr/ar-logistics-sketch.png'  // Design Sketch
       ],
       tags: ['AR', 'Logistics', 'Interface Design'],
       specs: [
@@ -93,13 +93,13 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'xr-2',
       title: 'AR Gallery Treasure Hunt',
       description: 'A gamified AR exploration experience for interactive gallery engagement.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1BtopQ24IstLikgqu5Sk8v7l8cZwMDbud',
+      imageUrl: '/images/game_xr/ar-gallery-cover.jpg',
       images: [
-        'https://lh3.googleusercontent.com/d/1WMXIrGcqWONAFNR2Kak3DYNGbnHW0mLC',
-        'https://lh3.googleusercontent.com/d/14gOjuMwekz4Jo_VN4STSLR9Qlu7Vev33',
-        'https://lh3.googleusercontent.com/d/1BtopQ24IstLikgqu5Sk8v7l8cZwMDbud',
-        'https://lh3.googleusercontent.com/d/1shj0m-Ro6Nb70yiDv3_2KjdCGfRbBqBk',
-        'https://lh3.googleusercontent.com/d/1-jfNJN7dPpl5I3pxNBHEh9JXPBDKqWP-'
+        '/images/game_xr/ar-gallery-1.png',
+        '/images/game_xr/ar-gallery-2.jpg',
+        '/images/game_xr/ar-gallery-cover.jpg',
+        '/images/game_xr/ar-gallery-3.jpg',
+        '/images/game_xr/ar-gallery-4.jpg'
       ],
       tags: ['AR', 'Gamification', '3D Modelling'],
       videoUrl: 'https://player.vimeo.com/video/1142529054',
@@ -115,11 +115,11 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'xr-1',
       title: 'VR Hand-gesture Rhythm Game',
       description: 'An immersive VR environment using hand-tracking and spatial audio for an enhanced flow state.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1OFYmhWydPJUwgmmS27ASiQMfnsvzqi2X',
+      imageUrl: '/images/game_xr/rhythm-game-cover.png',
       images: [
-        'https://lh3.googleusercontent.com/d/1nE_fz3fnSGdgpZWLtFtRtaRa5egRIvYr',
-        'https://lh3.googleusercontent.com/d/1oDTGBVwYsuYvv9Ml76eoFS4GjmddoL9Q',
-        'https://lh3.googleusercontent.com/d/1eboh50ie5YAAeDFJC6kV-8fMcTrLj-ED'
+        '/images/game_xr/rhythm-game-1.gif',
+        '/images/game_xr/rhythm-game-2.png',
+        '/images/game_xr/rhythm-game-3.jpg'
       ],
       tags: ['Unity', 'Hand-tracking', 'VFX', 'Rhythm'],
       videoUrl: 'https://drive.google.com/file/d/1eECKfrIxwjILku0zPCFZ69X1vZa3GsZp/preview',
@@ -137,7 +137,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'xr-4',
       title: 'Lab Cat Escape',
       description: 'Play as a kitten avoiding security robots in an abandoned high-tech laboratory.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/12CEbL25YHkmiLFdWDliJvx-zes0v2PsG',
+      imageUrl: '/images/game_xr/lab-cat-cover.jpg',
       images: [], // Removed images from detail page while keeping featured cover
       tags: ['3D Game', 'Unity', 'Stealth', 'Level Design'],
       videoUrl: 'https://player.vimeo.com/video/943596089',
@@ -155,12 +155,12 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'gd-album',
       title: 'Album Design',
       description: 'A visual homage to the "Dash Line" band, capturing the solitude of youth on an isolated island.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1v61SjkT6wjbmD5nfg9YERQPwYqFVinZf',
+      imageUrl: '/images/graphic/album-cover.jpg',
       images: [
-        'https://lh3.googleusercontent.com/d/1v61SjkT6wjbmD5nfg9YERQPwYqFVinZf',
-        'https://lh3.googleusercontent.com/d/1VfF2zl4TJdKKwcg8xbld48IyOoMYII5j',
-        'https://lh3.googleusercontent.com/d/1dsQijKKnxSpX1WX_qO4zCluViw3lHLe5',
-        'https://lh3.googleusercontent.com/d/1nnLIHdPX0mWYpCs_Tzxl7YRQasRyOgym'
+        '/images/graphic/album-cover.jpg',
+        '/images/graphic/album-2.jpg',
+        '/images/graphic/album-3.jpg',
+        '/images/graphic/album-4.jpg'
       ],
       tags: ['Graphic', 'Album', 'Branding', 'Typography'],
       award: 'Awarded 2021 Kan Tai-Keung Design Award',
@@ -171,13 +171,13 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'gd-5',
       title: 'Stamp Set Design',
       description: 'A conceptual philatelic exploration focused on geometry and cultural narrative.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1elmQt9cuke8UIpMPa9Eb5ex9tHJBcIhW',
+      imageUrl: '/images/graphic/stamp-cover.jpg',
       images: [
-        'https://lh3.googleusercontent.com/d/1HM5gvaQBCzkVbW1H9AcBE0hByAVZ_j0L',
-        'https://lh3.googleusercontent.com/d/1YHPeLN1K9K2PtKIMirlnqWT6nwfeaVQQ',
-        'https://lh3.googleusercontent.com/d/1SbXeC417ONCfAZIVKOY1VdtVn8wlvvnt',
-        'https://lh3.googleusercontent.com/d/1Odii_323GrsUEhgjthmXPTp8xZ7MNeck',
-        'https://lh3.googleusercontent.com/d/1LPiGtiKiWmQ-RNsTfgzA2y539jQEdCT1'
+        '/images/graphic/stamp-1.jpg',
+        '/images/graphic/stamp-2.gif',
+        '/images/graphic/stamp-3.gif',
+        '/images/graphic/stamp-4.gif',
+        '/images/graphic/stamp-5.gif'
       ],
       tags: ['Graphic', 'Illustration', 'Motion', 'Stamp Design'],
       fullContent: 'This project investigates the intersection of traditional philately and modern digital motion. By applying geometric abstraction to cultural narratives, the resulting stamp set functions both as a static artifact and a kinetic visual experience.'
@@ -186,13 +186,13 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'gd-msi',
       title: 'MSI FULFILLMENT',
       description: 'A visual identity and logistics design system focusing on industrial aesthetic clarity.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1_9mXXQ-vOMBg5JjiI7k6Z9ZYrrpHpYFr', // Updated cover image
+      imageUrl: '/images/graphic/msi-cover.png', // Updated cover image
       images: [
-        'https://lh3.googleusercontent.com/d/1a5iJYw2XMQDtGZOXxfyY5t06oTFnV3If',
-        'https://lh3.googleusercontent.com/d/1_9mXXQ-vOMBg5JjiI7k6Z9ZYrrpHpYFr',
-        'https://lh3.googleusercontent.com/d/1OjrK0fQ6uShOX_fRyPsdbeQWzaN-M6Vb',
-        'https://lh3.googleusercontent.com/d/1LLYfLbb_cLoaF4EXg-FX4RBfPGnj6L4g',
-        'https://lh3.googleusercontent.com/d/1Rk1maKdfkFWonMHhnXhwO7zGnvEGTZv6'
+        '/images/graphic/msi-1.png',
+        '/images/graphic/msi-cover.png',
+        '/images/graphic/msi-2.png',
+        '/images/graphic/msi-3.png',
+        '/images/graphic/msi-4.jpg'
       ],
       tags: ['Graphic', 'Branding', 'Logistics', 'Industrial'],
       fullContent: 'MSI FULFILLMENT is a visual exploration of logistics efficiency and industrial design. The project focuses on creating a robust identity that communicates reliability while maintaining a high level of aesthetic sophistication. The design language utilizes bold grids and structured color palettes to reflect the precision required in modern fulfillment operations.'
@@ -201,11 +201,11 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'gd-live-show',
       title: 'Live Show Poster',
       description: 'Experimental poster designs for underground live music events, blending bold typography with raw textures.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1CzQRxfTWNXiY5hAjx01dJkKBltMNbGmd',
+      imageUrl: '/images/graphic/live-show-cover.png',
       images: [
-        'https://lh3.googleusercontent.com/d/1BmcPz4rD45myKxlIAzZUxbsJvNTWfd3Z',
-        'https://lh3.googleusercontent.com/d/1g0fcLKlWFbTEIO2x3MpichZvDF-I2tII',
-        'https://lh3.googleusercontent.com/d/16_txnQOjcuIFemxTXiPI2SGhwD6a633j'
+        '/images/graphic/live-show-1.jpg',
+        '/images/graphic/live-show-2.jpg',
+        '/images/graphic/live-show-3.jpg'
       ],
       tags: ['Graphic', 'Poster', 'Live Show', 'Branding'],
       externalUrl: 'https://wap.showstart.com/pages/activity/detail/detail?ssfrom=user-8688&activityId=174046',
@@ -217,8 +217,8 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'ai-4',
       title: 'Mandarin FM',
       description: 'Digital platform for Mandarin language learning and curated cultural audio content.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/121NS1c6EPRDz3iFFBWYEYslR4SJfufs3',
-      images: ['https://lh3.googleusercontent.com/d/121NS1c6EPRDz3iFFBWYEYslR4SJfufs3'],
+      imageUrl: '/images/web_ai/mandarin-fm.png',
+      images: ['/images/web_ai/mandarin-fm.png'],
       tags: ['Audio', 'Language', 'Culture'],
       externalUrl: 'https://mandarin-fm.com/'
     },
@@ -226,8 +226,8 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'ai-2',
       title: 'Scholar Stream',
       description: 'AI-enhanced academic streaming and knowledge sharing platform for global education.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1UK_0-jnPwyTLv4HhN8fC51CpPxk82ylC',
-      images: ['https://lh3.googleusercontent.com/d/1UK_0-jnPwyTLv4HhN8fC51CpPxk82ylC'],
+      imageUrl: '/images/web_ai/scholar-stream.png',
+      images: ['/images/web_ai/scholar-stream.png'],
       tags: ['Education', 'AI', 'Streaming'],
       externalUrl: 'https://scholar-stream-ten.vercel.app/'
     },
@@ -235,8 +235,8 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'ai-3',
       title: 'Dream Core Generator',
       description: 'Experimental AI visual generator for creative storytelling and conceptual visual design.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/1rGhNX2ysGyVALhg40gW2zG8TecFPIEAe',
-      images: ['https://lh3.googleusercontent.com/d/1rGhNX2ysGyVALhg40gW2zG8TecFPIEAe'],
+      imageUrl: '/images/web_ai/dream-core.png',
+      images: ['/images/web_ai/dream-core.png'],
       tags: ['Creative AI', 'Generation', 'Visuals'],
       externalUrl: 'https://sz-one.vercel.app/'
     }
@@ -249,8 +249,8 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'ai-5',
       title: "AI-Generated Educational Video",
       description: 'Award-winning AI project focusing on educational equality through powered video generation.',
-      imageUrl: 'https://lh3.googleusercontent.com/d/12qUqTPT4CcNdOqipw0_dWDUPOQKRtSCK',
-      images: ['https://lh3.googleusercontent.com/d/12qUqTPT4CcNdOqipw0_dWDUPOQKRtSCK'],
+      imageUrl: '/images/web_ai/ai-edu-video.jpg',
+      images: ['/images/web_ai/ai-edu-video.jpg'],
       tags: ['AI', 'Education', 'Video Gen', 'Hackathon'],
       externalUrl: 'https://xiao-shan-ai-slides.vercel.app/',
       galleryUrl: 'https://cambridge-edtech-society.org/digital-gallery.html'

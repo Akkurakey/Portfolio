@@ -421,7 +421,7 @@ const App: React.FC = () => {
           {win.id === 'certification' && (
             <div className="w-full h-full bg-white flex items-center justify-center p-3">
                <img 
-                 src="https://lh3.googleusercontent.com/d/10dqGRhpL9swqxlGeAOWyanpSrLF9tgHs" 
+                 src="/images/about/avatar.jpg" 
                  alt="Regulatory Certification" 
                  className="max-w-full max-h-full object-contain shadow-md rounded-sm"
                />

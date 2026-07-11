@@ -7,11 +7,11 @@ interface AboutContentProps {
 }
 
 const PROFILE_IMAGES = [
-  "https://lh3.googleusercontent.com/d/17nVRNSgv5x0LIgPAcQpuyVFDXkX5QRYy",
-  "https://lh3.googleusercontent.com/d/1hfuo7WOfc_h84dE3xlPtPiOYjZs6WSd_",
-  "https://lh3.googleusercontent.com/d/1fBD3fzlfdCNHX1NcERvKoFI2fSTSC1mo",
-  "https://lh3.googleusercontent.com/d/1HruJYf-DOL80WYHQYtgw6X_62dENqRu7",
-  "https://lh3.googleusercontent.com/d/1GHAiuvNNPzvrDQDEhfkeGu3lkxmOJLk3"
+  "/images/about/profile-1.png",
+  "/images/about/profile-2.jpg",
+  "/images/about/profile-3.jpg",
+  "/images/about/profile-4.jpg",
+  "/images/about/profile-5.jpg"
 ];
 
 const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertification }) => {
