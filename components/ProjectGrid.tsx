@@ -112,7 +112,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onOpenProject, titl
         })}
         
         {/* Footer Watermark */}
-        <div className={`col-span-1 sm:col-span-2 flex items-center justify-between px-6 py-4 border-b border-black/[0.08] bg-[#e8e8e8]/50`}>
+        <div className={`col-span-1 sm:col-span-2 flex items-center justify-between px-6 py-4 border-b border-black/[0.08] bg-[#e8e8e8]`}>
           <span className="text-[8px] font-black uppercase tracking-[0.4em] text-gray-400">RAKEY YANG ARCHIVE</span>
           <span className="text-[8px] font-black uppercase tracking-[0.4em] text-gray-400">{title}</span>
         </div>

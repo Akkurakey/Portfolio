@@ -62,7 +62,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/game_xr/oor-room.mp4',
         '/images/game_xr/oor-scale-valence.jpg',
         '/images/game_xr/oor-scale-arousal.jpg',
-        '/images/game_xr/oor-console.jpg'
+        '/images/game_xr/oor-console.mp4'
       ],
       tags: ['VR', 'WebXR', 'Emotional Design', 'Research'],
       githubUrl: 'https://github.com/Akkurakey/Ones-Own-Room',
@@ -76,8 +76,8 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'xr-3',
-      title: 'Virtual Exposure Therapy Application',
-      description: 'An application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.',
+      title: 'VET Application',
+      description: 'An application utilising VR and AR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.',
       imageUrl: '/images/game_xr/exposure-therapy-cover.png',
       images: [
         '/images/game_xr/exposure-therapy-detail.mp4'
@@ -91,11 +91,11 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         { label: 'Tracking', value: 'Hand-tracking' },
         { label: 'Input', value: 'Direct Manipulation' }
       ],
-      fullContent: 'An application utilizing VR and MR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.'
+      fullContent: 'An application utilising VR and AR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.'
     },
     {
       id: 'ai-1',
-      title: 'AR Warehouse Management System',
+      title: 'AR Warehouse System',
       description: 'PC + AR-based 3D warehouse management and navigation system designed to enhance inventory management efficiency.',
       imageUrl: '/images/game_xr/ar-logistics-interface.jpg',
       images: [
@@ -171,7 +171,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         { label: 'Tracking', value: 'Keyboard / Mouse' },
         { label: 'Input', value: 'Third-person Control' }
       ],
-      fullContent: 'In this third-person 3D game, you will play as a little kitten, abandoned in a mysterious abandoned laboratory. This place was once the site of various animal experiments, but now the researchers have left, leaving only automated robot patrollers and constantly scanning surveillance beams. These robots and beams are the security system of the laboratory, and they will initiate a capture program if any animal is detected. Your goal is to cleverly avoid these security devices and find a way to escape from the laboratory. Utilize the props inside the laboratory to help the little kitten escape from this high-tech cage.'
+      fullContent: 'In this third-person 3D game, you will play as a little kitten, abandoned in a mysterious abandoned laboratory. This place was once the site of various animal experiments, but now the researchers have left, leaving only automated robot patrollers and constantly scanning surveillance beams. These robots and beams are the security system of the laboratory, and they will initiate a capture programme if any animal is detected. Your goal is to cleverly avoid these security devices and find a way to escape from the laboratory. Utilise the props inside the laboratory to help the little kitten escape from this high-tech cage.'
     }
   ],
   graphic: [
@@ -189,7 +189,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       tags: ['Graphic', 'Album', 'Branding', 'Typography'],
       award: 'Awarded 2021 Kan Tai-Keung Design Award',
       spotifyUrl: 'https://open.spotify.com/album/6UCxcboIcO6TBOqQnYCJVk?si=rVOWaTYVTMi7WtYvHa648A',
-      fullContent: 'The university is situated on an isolated island, with only one bus line, the Dash Line, connecting it to the mainland. To pay homage to the youthful experience of being separated from the city life, a band with the same name as Dash Line was formed on the island, which later gave birth to an album. The album commences with a bus announcement and concludes with the sound of the island\'s waves.\n\nMy design features a letterpress map of the bus route, with a light-inspired motif that resembles the street lights and signs seen through the windows of a bus during the night. The number 21 in the center symbolizes the pivotal year in which the album was created. It was the hardest year of all, but also a year that was like a new life.\n\nI hope my design will evoke feelings of solitude, nostalgia, and a sense of longing for the dreams of young people, through the depiction of the night, the lights, the rattling buses, and the lost souls on the island.'
+      fullContent: 'The university is situated on an isolated island, with only one bus line, the Dash Line, connecting it to the mainland. To pay homage to the youthful experience of being separated from the city life, a band with the same name as Dash Line was formed on the island, which later gave birth to an album. The album commences with a bus announcement and concludes with the sound of the island\'s waves.\n\nMy design features a letterpress map of the bus route, with a light-inspired motif that resembles the street lights and signs seen through the windows of a bus during the night. The number 21 in the centre symbolises the pivotal year in which the album was created. It was the hardest year of all, but also a year that was like a new life.\n\nI hope my design will evoke feelings of solitude, nostalgia, and a sense of longing for the dreams of young people, through the depiction of the night, the lights, the rattling buses, and the lost souls on the island.'
     },
     {
       id: 'gd-5',
@@ -204,7 +204,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/stamp-5.mp4'
       ],
       tags: ['Graphic', 'Illustration', 'Motion', 'Stamp Design'],
-      fullContent: 'This project investigates the intersection of traditional philately and modern digital motion. By applying geometric abstraction to cultural narratives, the resulting stamp set functions both as a static artifact and a kinetic visual experience.'
+      fullContent: 'This project investigates the intersection of traditional philately and modern digital motion. By applying geometric abstraction to cultural narratives, the resulting stamp set functions both as a static artefact and a kinetic visual experience.'
     },
     {
       id: 'gd-msi',
@@ -219,7 +219,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/msi-4.jpg'
       ],
       tags: ['Graphic', 'Branding', 'Logistics', 'Industrial'],
-      fullContent: 'MSI FULFILLMENT is a visual exploration of logistics efficiency and industrial design. The project focuses on creating a robust identity that communicates reliability while maintaining a high level of aesthetic sophistication. The design language utilizes bold grids and structured color palettes to reflect the precision required in modern fulfillment operations.'
+      fullContent: 'MSI FULFILLMENT is a visual exploration of logistics efficiency and industrial design. The project focuses on creating a robust identity that communicates reliability while maintaining a high level of aesthetic sophistication. The design language utilises bold grids and structured colour palettes to reflect the precision required in modern fulfilment operations.'
     },
     {
       id: 'gd-live-show',
@@ -233,10 +233,19 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       ],
       tags: ['Graphic', 'Poster', 'Live Show', 'Branding'],
       externalUrl: 'https://wap.showstart.com/pages/activity/detail/detail?ssfrom=user-8688&activityId=174046',
-      fullContent: 'This series explores the raw energy of live performances. Each poster is a translation of a specific musical atmosphere into a visual identity, utilizing experimental layouts and distressed textures to echo the intensity of the scene.'
+      fullContent: 'This series explores the raw energy of live performances. Each poster is a translation of a specific musical atmosphere into a visual identity, utilising experimental layouts and distressed textures to echo the intensity of the scene.'
     }
   ],
   web_ai: [
+    {
+      id: 'ai-shrine',
+      title: 'AI Shrine',
+      description: 'Upload any image and AI distils its essence into a deity — then consult it with moon blocks.',
+      imageUrl: '/images/web_ai/ai-shrine.jpg',
+      images: ['/images/web_ai/ai-shrine.jpg'],
+      tags: ['Creative AI', 'Web', 'Culture'],
+      externalUrl: 'https://aishrine.space/'
+    },
     {
       id: 'ai-4',
       title: 'Mandarin FM',

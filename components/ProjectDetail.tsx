@@ -223,7 +223,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         { src: project.images[2], caption: 'Inside the room — a pre-generated Gaussian splat world' },
         { src: project.images[3], caption: 'Check-in: valence, from heavy to light (SAM)', half: true },
         { src: project.images[4], caption: 'Check-in: arousal, from still to racing (SAM)', half: true },
-        { src: project.images[5], caption: 'Researcher console — room switching, live atmosphere control and pose-twin monitoring' },
+        { src: project.images[5], caption: 'Console — room switching, live atmosphere control and pose-twin monitoring' },
       ];
       const full = media.filter(m => !m.half);
       const halves = media.filter(m => m.half);
@@ -652,14 +652,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
 
           {project.pdfUrl && (
             <div ref={pdfRef} className="py-12 border-t border-gray-100">
-              <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <ScholarlySectionHeading>{(isDualPhobia || isShoppingAssistants) ? 'Poster' : 'Paper'}</ScholarlySectionHeading>
-                  <p className="text-[9px] sm:text-[10px] text-gray-400 font-serif italic">Scholarly publication for {project.title}</p>
-                </div>
-                <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-blue-500 transition-colors self-start sm:self-auto">
-                  <ExternalLink size={16} />
-                </a>
+              <div className="mb-8">
+                <ScholarlySectionHeading>{(isDualPhobia || isShoppingAssistants) ? 'Poster' : 'Paper'}</ScholarlySectionHeading>
               </div>
               <div className="relative w-full aspect-[1/1.414] sm:aspect-[3/4] md:aspect-[210/297] rounded-xl overflow-hidden shadow-2xl bg-gray-50 border border-gray-100">
                 <iframe 

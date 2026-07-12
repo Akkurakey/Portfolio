@@ -32,6 +32,7 @@ const Window: React.FC<WindowProps> = ({
   const isAbout = id === 'about';
   const isCertification = id === 'certification';
   const isCV = id === 'cv';
+  const isFolderGrid = ['hci', 'game_xr', 'graphic', 'web_ai'].includes(id);
   
   const getResponsiveSize = () => {
     if (typeof window === 'undefined') return { width: 800, height: 500 };
@@ -255,7 +256,7 @@ const Window: React.FC<WindowProps> = ({
           <div 
             onMouseDown={startDragging}
             onTouchStart={startDragging}
-            className="window-header h-10 flex items-center px-4 bg-gray-100/80 border-b border-black/10 cursor-default shrink-0 rounded-t-xl"
+            className="window-header h-10 flex items-center px-4 bg-[#d8d8d8] border-b border-black/10 cursor-default shrink-0 rounded-t-xl"
           >
             <div className="flex gap-1.5 w-14">
               <button
@@ -290,7 +291,7 @@ const Window: React.FC<WindowProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className={`flex-grow select-text touch-auto custom-scrollbar ${isAbout ? 'bg-transparent overflow-y-visible overflow-x-visible' : 'bg-white overflow-y-auto overflow-x-hidden'}`}>
+          <div className={`flex-grow select-text touch-auto custom-scrollbar ${isAbout ? 'bg-transparent overflow-y-visible overflow-x-visible' : `${isFolderGrid ? 'bg-[#e8e8e8]' : 'bg-white'} overflow-y-auto overflow-x-hidden`}`}>
             {children}
           </div>
 
