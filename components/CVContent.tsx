@@ -141,7 +141,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
                   <h3 className="font-bold text-base">Ningbo University</h3>
                   <span className="text-gray-400 font-sans text-[10px]">2018 — 2022</span>
                 </div>
-                <p className="text-gray-700 font-medium italic text-sm">BSc Logistics and Supply Chain Management</p>
+                <p className="text-gray-700 font-medium italic text-sm">BSc Logistics Management</p>
               </div>
             </div>
           </section>
