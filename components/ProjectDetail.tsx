@@ -438,9 +438,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
     return (
       <div className="space-y-20 md:space-y-32">
         <div className="w-full overflow-hidden rounded-2xl shadow-xl bg-gray-100 border border-black/[0.03]">
-          <img 
-            src={project.images[0]} 
-            alt="Gameplay Hero" 
+          <MediaAsset
+            src={project.images[0]}
+            alt="Gameplay Hero"
             className="w-full h-auto max-h-[85vh] object-contain mx-auto"
           />
         </div>
@@ -450,12 +450,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
           <div className="w-full lg:flex-1 flex min-h-[30vh] md:min-h-[40vh] lg:min-h-[50vh]">
             <div className="w-full h-full overflow-hidden rounded-2xl shadow-xl bg-gray-100 border border-black/[0.03]">
-              <img src={project.images[1]} alt="Gameplay Detail A" className="w-full h-full object-cover" />
+              <MediaAsset src={project.images[1]} alt="Gameplay Detail A" className="w-full h-full object-cover" />
             </div>
           </div>
           <div className="w-full lg:flex-1 flex min-h-[30vh] md:min-h-[40vh] lg:min-h-[50vh]">
              <div className="w-full h-full overflow-hidden rounded-2xl shadow-xl bg-gray-100 border border-black/[0.03]">
-               <img src={project.images[2]} alt="Gameplay Detail B" className="w-full h-full object-cover" />
+               <MediaAsset src={project.images[2]} alt="Gameplay Detail B" className="w-full h-full object-cover" />
              </div>
           </div>
         </div>
