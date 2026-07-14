@@ -53,6 +53,11 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOpenProjectById }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isProtoLoading, setIsProtoLoading] = useState(true);
+  // Touch devices (iOS/iPadOS/Android) can't render PDFs inside iframes properly,
+  // so they get a tappable full-page thumbnail that opens the native viewer instead.
+  const [isTouchDevice] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(hover: none), (pointer: coarse)').matches
+  );
   const containerRef = useRef<HTMLDivElement>(null);
   const pdfRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -657,14 +662,34 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
               <div className="mb-8">
                 <ScholarlySectionHeading>{(isDualPhobia || isShoppingAssistants) ? 'Poster' : 'Paper'}</ScholarlySectionHeading>
               </div>
-              <div className="relative w-full aspect-[1/1.414] sm:aspect-[3/4] md:aspect-[210/297] rounded-xl overflow-hidden shadow-2xl bg-gray-50 border border-gray-100">
-                <iframe 
-                  src={getEmbedUrl(project.pdfUrl)} 
-                  className="absolute inset-0 w-full h-full border-none" 
-                  title="PDF Document Viewer" 
-                  allow="fullscreen"
-                />
-              </div>
+              {isTouchDevice ? (
+                <a
+                  href={project.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative block w-full rounded-xl overflow-hidden shadow-2xl border border-gray-100"
+                >
+                  <img
+                    src={project.pdfUrl.replace(/\.pdf$/, '-thumb.jpg')}
+                    alt={project.title}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                  <span className="absolute bottom-3 right-3 px-3 py-1.5 bg-gray-900/85 text-white rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                    <ExternalLink size={11} />
+                    Open PDF
+                  </span>
+                </a>
+              ) : (
+                <div className="relative w-full aspect-[1/1.414] sm:aspect-[3/4] md:aspect-[210/297] rounded-xl overflow-hidden shadow-2xl bg-gray-50 border border-gray-100">
+                  <iframe
+                    src={getEmbedUrl(project.pdfUrl)}
+                    className="absolute inset-0 w-full h-full border-none"
+                    title="PDF Document Viewer"
+                    allow="fullscreen"
+                  />
+                </div>
+              )}
             </div>
           )}
 

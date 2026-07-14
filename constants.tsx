@@ -44,7 +44,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/hci/vr-shopping-interaction.png'  // Interaction Details
       ],
       tags: ['VR', 'Research', 'IEEE VR'],
-      videoUrl: 'https://drive.google.com/file/d/1jkhZcqimAopjautEqvR7inLAwMxGPyxb/view?usp=sharing',
+      videoUrl: 'https://www.youtube.com/watch?v=SYEaoQmagoc',
       pdfUrl: '/docs/vr-shopping-poster.pdf',
       paperUrl: 'https://doi.org/10.1109/VRW70859.2026.00252',
       fullContent: ''
@@ -146,7 +146,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/game_xr/rhythm-game-3.jpg'
       ],
       tags: ['Unity', 'Hand-tracking', 'VFX', 'Rhythm'],
-      videoUrl: 'https://drive.google.com/file/d/1eECKfrIxwjILku0zPCFZ69X1vZa3GsZp/preview',
+      videoUrl: 'https://vimeo.com/1209937847',
       externalUrl: 'https://gesture.dance/',
       videoPosition: 'bottom',
       specs: [
