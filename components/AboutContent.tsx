@@ -45,13 +45,10 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
                 }}
                 className="w-full h-full absolute inset-0 rounded-2xl overflow-hidden shadow-2xl border border-white/10 drop-shadow-[0_20px_40_rgba(0,0,0,0.5)] bg-[#2a2a2a] backface-hidden"
                >
-                 <img 
-                  src={PROFILE_IMAGES[currentIdx]} 
+                 <img
+                  src={PROFILE_IMAGES[currentIdx]}
                   alt="Rakey Yang"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://api.a0.dev/assets/image?text=professional%20headshot%20asian%20woman&aspect=1:1";
-                  }}
                  />
                </motion.div>
              </AnimatePresence>

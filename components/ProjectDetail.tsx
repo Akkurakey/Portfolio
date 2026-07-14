@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Project } from '../types';
 import { Loader2, ExternalLink, Music, ArrowUpRight, FileText, ChevronDown, Link as LinkIcon, Image as ImageIcon, LayoutGrid, Monitor, Globe, Github } from 'lucide-react';
 
-// Moved helper component outside to ensure stable reference and explicit children prop typing
+// Shared section heading for scholarly blocks
 const ScholarlySectionHeading: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-4">{children}</h3>
 );
@@ -27,7 +27,7 @@ const CaptionedFigure: React.FC<{ src: string; caption: string; rate?: number }>
   </div>
 );
 
-// Moved logic outside of the main component for better organization
+// Bold the keyword marker inside abstract text
 const renderAbstractContent = (text: string) => {
   const keywordMarkers = ['Keywords:', 'Index Terms:'];
   let markerFound = keywordMarkers.find(marker => text.includes(marker));
@@ -64,7 +64,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const isArLogistics = project.id === 'ai-1';
   const isOor = project.id === 'xr-oor';
 
-  // Enhanced helper to convert standard video links to embeddable ones
+  // Convert standard video links to embeddable ones
   const getEmbedUrl = (url?: string) => {
     if (!url) return '';
     
@@ -312,7 +312,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
 
     return (
       <div className="space-y-16 md:space-y-24">
-        {/* Step 1: Text + NEW Prototype Image + Jump Link */}
+        {/* Step 1: Text + Prototype Image + Jump Link */}
         <div className="space-y-6">
           <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
             {lines[0]}
@@ -364,7 +364,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const renderVideo = () => {
     if (!project.videoUrl) return null;
     return (
-      <div className="flex justify-center mb-24 md:mb-32"> {/* Increased bottom margin for more gap */}
+      <div className="flex justify-center mb-24 md:mb-32">
         <div className="relative aspect-video w-full lg:w-[95%] rounded-xl overflow-hidden shadow-2xl bg-black border border-black/5">
           <iframe 
             src={getEmbedUrl(project.videoUrl)} 
@@ -381,7 +381,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const renderLivePrototype = () => {
     if (!project.prototypeUrl) return null;
     
-    // Increased size and aspect ratio specifically for the Logistics project
+    // Larger aspect ratio for the Logistics project
     const aspectClass = isArLogistics 
       ? "aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] min-h-[450px] sm:min-h-[550px] lg:min-h-[700px]" 
       : "aspect-video md:aspect-[16/10] lg:aspect-[16/9]";
@@ -635,7 +635,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                  )}
                  {videoAtTop && renderVideo()}
                  {renderProjectImages()}
-                 {/* Explicitly show prototype after images for AR Logistics as requested */}
+                 {/* AR Logistics shows its prototype after the images */}
                  {isArLogistics && project.prototypeUrl && renderLivePrototype()}
                  {videoAtBottom && renderVideo()}
                </div>

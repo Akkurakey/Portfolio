@@ -17,7 +17,7 @@ export interface Project {
   videoPosition?: 'top' | 'bottom'; // Control where the video appears
   spotifyUrl?: string; // Optional URL for Spotify albums/tracks
   pdfUrl?: string; // Optional URL for academic PDF files (often used as posters in this portfolio)
-  paperUrl?: string; // New field for direct links to research papers
+  paperUrl?: string; // Direct link to the research paper
   prototypeUrl?: string; // Optional URL for prototype applications/demos
   githubUrl?: string; // Optional URL for source code repositories
   award?: string; // Optional award mention

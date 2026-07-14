@@ -162,7 +162,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       title: 'Lab Cat Escape',
       description: 'Play as a kitten avoiding security robots in an abandoned high-tech laboratory.',
       imageUrl: '/images/game_xr/lab-cat-cover.jpg',
-      images: [], // Removed images from detail page while keeping featured cover
+      images: [], // Cover only; no detail-page gallery
       tags: ['3D Game', 'Unity', 'Stealth', 'Level Design'],
       videoUrl: 'https://player.vimeo.com/video/943596089',
       specs: [
@@ -210,7 +210,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'gd-msi',
       title: 'MSI FULFILLMENT',
       description: 'A visual identity and logistics design system focusing on industrial aesthetic clarity.',
-      imageUrl: '/images/graphic/msi-cover.png', // Updated cover image
+      imageUrl: '/images/graphic/msi-cover.png',
       images: [
         '/images/graphic/msi-1.png',
         '/images/graphic/msi-cover.png',

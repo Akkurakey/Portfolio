@@ -229,8 +229,6 @@ const App: React.FC = () => {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden" style={{ backgroundColor: '#111', backgroundImage: `radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 100%)` }}>
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}></div>
-
       {/* Top Menu Bar */}
       <div className="absolute top-0 w-full h-8 macos-glass flex items-center justify-between px-4 z-[1000] border-b border-white/5 text-[11px] sm:text-[13px] font-medium text-gray-200">
         <div className="flex items-center space-x-3 md:space-x-6">
@@ -241,7 +239,6 @@ const App: React.FC = () => {
             <span className="font-bold hidden sm:inline">Rakey Yang</span>
           </div>
           <button onClick={() => openWindow('about')} className="hover:bg-white/10 px-2 py-0.5 rounded transition-colors">About</button>
-          <button onClick={() => openWindow('cv')} className="hover:bg-white/10 px-2 py-0.5 rounded transition-colors hidden xs:block">CV</button>
         </div>
         <div className="flex items-center space-x-2 md:space-x-4">
           <button onClick={() => setIsSearchOpen(true)} className="hover:bg-white/10 p-1 rounded transition-colors"><Search className="w-3.5 h-3.5 md:w-4 md:h-4 opacity-90" /></button>
