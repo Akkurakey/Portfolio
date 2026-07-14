@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Minus, Maximize2 } from 'lucide-react';
+import { DESKTOP_ICON_COLUMN_RATIO } from '../constants';
 
 interface WindowProps {
   id: string;
@@ -13,6 +14,10 @@ interface WindowProps {
   children: React.ReactNode;
   initialWidth?: number;
   initialHeight?: number;
+  openIndex?: number;
+  openSide?: 'left' | 'right';
+  spawnPos?: { x: number; y: number };
+  onPositionReport?: (id: string, pos: { x: number; y: number }) => void;
 }
 
 const Window: React.FC<WindowProps> = ({
@@ -26,6 +31,10 @@ const Window: React.FC<WindowProps> = ({
   children,
   initialWidth,
   initialHeight,
+  openIndex,
+  openSide,
+  spawnPos,
+  onPositionReport,
 }) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isInteracting, setIsInteracting] = useState(false);
@@ -33,6 +42,7 @@ const Window: React.FC<WindowProps> = ({
   const isCertification = id === 'certification';
   const isCV = id === 'cv';
   const isFolderGrid = ['hci', 'game_xr', 'graphic', 'web_ai'].includes(id);
+  const isProject = id.startsWith('project-');
   
   const getResponsiveSize = () => {
     if (typeof window === 'undefined') return { width: 800, height: 500 };
@@ -76,42 +86,80 @@ const Window: React.FC<WindowProps> = ({
     if (typeof window === 'undefined') return { x: 100, y: 100 };
     const currentSize = getResponsiveSize();
     const isMobile = window.innerWidth < 640;
-    
+
+    // Keep the initial position fully inside the viewport (dragging may still move it out)
+    const marginX = isMobile ? 8 : 20;
+    const clampToViewport = (x: number, y: number) => ({
+      x: Math.min(Math.max(marginX, x), Math.max(marginX, window.innerWidth - currentSize.width - marginX)),
+      y: Math.min(Math.max(40, y), Math.max(40, window.innerHeight - currentSize.height - 20))
+    });
+
     const centerX = (window.innerWidth - currentSize.width) / 2;
     const centerY = (window.innerHeight - currentSize.height) / 2;
 
     if (isAbout) {
-      return {
-        x: centerX,
-        y: Math.max(40, centerY)
-      };
+      if (isMobile) return clampToViewport(centerX, centerY);
+      // Sits centre-left, its midpoint around 31% of the viewport width
+      const aboutCenterX = window.innerWidth * 0.31;
+      return clampToViewport(aboutCenterX - currentSize.width / 2, centerY);
     }
 
     if (isCertification && !isMobile) {
-      return {
-        x: Math.max(40, centerX - 180),
-        y: centerY
-      };
+      // Keeps its original offset relative to the About window's midpoint
+      const aboutCenterX = window.innerWidth * 0.31;
+      return clampToViewport(aboutCenterX - 180 - currentSize.width / 2, centerY);
     }
 
     if (isCV && !isMobile) {
-      return {
-        x: window.innerWidth - currentSize.width - 40,
-        y: centerY
-      };
+      return clampToViewport(window.innerWidth - currentSize.width - 40, centerY);
     }
-    
-    const staggerIndex = Math.max(0, zIndex - 10);
-    const offset = isMobile ? 0 : (staggerIndex % 6) * 25; 
 
-    return {
-      x: centerX + offset,
-      y: Math.max(isMobile ? 40 : 40, centerY + offset)
-    };
+    const staggerIndex = Math.max(0, zIndex - 10);
+
+    if (!isMobile && id === 'kcl_nav') {
+      // Navigation guide opens centred, nudged slightly left, no stagger
+      return clampToViewport(centerX - 80, centerY);
+    }
+
+    if (!isMobile && isFolderGrid) {
+      // Chain off the previously opened folder window (macOS cascade);
+      // the first one starts centred, nudged slightly left
+      const p = spawnPos ?? { x: centerX - 80, y: centerY };
+      return clampToViewport(p.x, p.y);
+    }
+
+    if (!isMobile && isProject) {
+      // Step aside from the clicked card: projects on the left half open shifted
+      // right, projects on the right half open shifted left
+      const sideOffset = openSide === 'right' ? -90 : 90;
+      const stagger = (staggerIndex % 3) * 14;
+      // Sit slightly below the first folder window's title bar so it stays visible
+      const baseY = Math.max(40, (window.innerHeight - 600) / 2) + 36;
+      return clampToViewport(centerX + sideOffset + stagger, baseY + stagger);
+    }
+
+    const offset = isMobile ? 0 : (staggerIndex % 6) * 25;
+    return clampToViewport(centerX + offset, centerY + offset);
   };
 
   const [position, setPosition] = useState(getCenterPos);
   const hasBeenMoved = useRef(false);
+
+  // Recompute the spot on every open so spawnPos/openSide take effect;
+  // windows the user has dragged keep their place
+  useEffect(() => {
+    if (isOpen && !hasBeenMoved.current && !isMaximized) {
+      setSize(getResponsiveSize());
+      setPosition(getCenterPos());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, openIndex, openSide, spawnPos]);
+
+  // Keep the parent informed of where this window sits (drags included),
+  // so newly opened folder windows can cascade from the newest one
+  useEffect(() => {
+    onPositionReport?.(id, position);
+  }, [id, position, onPositionReport]);
 
   useEffect(() => {
     const handleResize = () => {

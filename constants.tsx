@@ -1,6 +1,9 @@
 
 import { Project, WindowID } from './types';
 
+// Horizontal position of the desktop icon column, as a fraction of viewport width
+export const DESKTOP_ICON_COLUMN_RATIO = 0.82;
+
 export const FOLDERS: { id: WindowID; name: string }[] = [
   { id: 'hci', name: 'HCI Research' },
   { id: 'game_xr', name: 'Game_XR' },

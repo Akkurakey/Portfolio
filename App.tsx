@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Bell } from 'lucide-react';
 import { WindowState, WindowID, Project } from './types';
-import { FOLDERS, PROJECTS } from './constants';
+import { FOLDERS, PROJECTS, DESKTOP_ICON_COLUMN_RATIO } from './constants';
 import DesktopIcon from './components/DesktopIcon';
 import Window from './components/Window';
 import ProjectGrid from './components/ProjectGrid';
@@ -41,6 +41,13 @@ const App: React.FC = () => {
   const [selectedFolderIds, setSelectedFolderIds] = useState<string[]>([]);
   const desktopRef = useRef<HTMLDivElement>(null);
 
+  // Live window positions (updated on drag) so new folder windows can cascade
+  // from wherever the previous one currently sits, like macOS
+  const windowPositionsRef = useRef<Record<string, { x: number; y: number }>>({});
+  const reportWindowPosition = useCallback((id: string, pos: { x: number; y: number }) => {
+    windowPositionsRef.current[id] = pos;
+  }, []);
+
   const getInitialPositions = useCallback(() => {
     if (typeof window === 'undefined') return {};
     const isMobile = window.innerWidth < 768;
@@ -52,8 +59,9 @@ const App: React.FC = () => {
     const positions: Record<string, { x: number; y: number }> = {};
     
     // Position folders clearly to the right side
-    const startX = isMobile ? width * 0.75 : width * 0.82;
-    const startY = isMobile ? topBarHeight + 40 : height * 0.22;
+    // On mobile, start below the notification banner so it never covers the first folder
+    const startX = isMobile ? width * 0.75 : width * DESKTOP_ICON_COLUMN_RATIO;
+    const startY = isMobile ? topBarHeight + 125 : height * 0.22;
     
     FOLDERS.forEach((f, idx) => {
       positions[f.id] = { 
@@ -156,22 +164,41 @@ const App: React.FC = () => {
   };
 
   const openWindow = (id: WindowID) => {
-    setWindows((prev) =>
-      prev.map((win) =>
+    setWindows((prev) => {
+      // New folder windows cascade from wherever the previously opened folder
+      // window currently sits (macOS-style); with none open they start at base
+      const folderIds = FOLDERS.map(f => f.id);
+      const isFolder = folderIds.includes(id as typeof folderIds[number]);
+      let spawnPos: { x: number; y: number } | undefined;
+      let openIndex: number | undefined;
+      if (isFolder) {
+        const openFolders = prev.filter(w => folderIds.includes(w.id as typeof folderIds[number]) && w.isOpen && w.id !== id);
+        openIndex = openFolders.length;
+        const newest = openFolders.sort((a, b) => (b.openIndex ?? 0) - (a.openIndex ?? 0))[0];
+        const newestPos = newest ? windowPositionsRef.current[newest.id] : undefined;
+        if (newestPos) spawnPos = { x: newestPos.x + 26, y: newestPos.y + 26 };
+      }
+      return prev.map((win) =>
         win.id === id
-          ? { ...win, isOpen: true, isMinimized: false, zIndex: Math.max(...prev.map((w) => w.zIndex)) + 1 }
+          ? {
+              ...win,
+              isOpen: true,
+              isMinimized: false,
+              zIndex: Math.max(...prev.map((w) => w.zIndex)) + 1,
+              ...(isFolder && !win.isOpen ? { openIndex, spawnPos } : {})
+            }
           : win
-      )
-    );
+      );
+    });
   };
 
-  const openProjectWindow = (project: Project) => {
+  const openProjectWindow = (project: Project, side?: 'left' | 'right') => {
     setWindows((prev) => {
       const existingId = `project-${project.id}`;
       const existing = prev.find(w => w.id === existingId);
       if (existing) {
-        return prev.map(w => w.id === existingId 
-          ? { ...w, isOpen: true, zIndex: Math.max(...prev.map(win => win.zIndex)) + 1 } 
+        return prev.map(w => w.id === existingId
+          ? { ...w, isOpen: true, zIndex: Math.max(...prev.map(win => win.zIndex)) + 1, openSide: side ?? w.openSide }
           : w
         );
       }
@@ -182,7 +209,8 @@ const App: React.FC = () => {
         isMinimized: false,
         zIndex: Math.max(...prev.map(win => win.zIndex)) + 1,
         type: 'project',
-        projectData: project
+        projectData: project,
+        openSide: side
       };
       return [...prev, newWin];
     });
@@ -333,6 +361,10 @@ const App: React.FC = () => {
           onClose={() => closeWindow(win.id)}
           onMinimize={() => closeWindow(win.id)}
           onFocus={() => focusWindow(win.id)}
+          openIndex={win.openIndex}
+          openSide={win.openSide}
+          spawnPos={win.spawnPos}
+          onPositionReport={reportWindowPosition}
           initialWidth={
             win.id === 'certification' ? 300 : 
             win.id === 'kcl_nav' ? 640 :

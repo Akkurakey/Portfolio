@@ -34,4 +34,7 @@ export interface WindowState {
   zIndex: number;
   type?: 'folder' | 'project' | 'about' | 'cv';
   projectData?: Project;
+  openIndex?: number; // Order among currently open folder windows; identifies the newest one to chain from
+  openSide?: 'left' | 'right'; // Which half of the screen the project was opened from
+  spawnPos?: { x: number; y: number }; // Cascade spot chained from the previously opened folder window
 }

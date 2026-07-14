@@ -3,7 +3,7 @@ import { Project } from '../types';
 
 interface ProjectGridProps {
   projects: Project[];
-  onOpenProject: (project: Project) => void;
+  onOpenProject: (project: Project, side?: 'left' | 'right') => void;
   title?: string;
 }
 
@@ -49,7 +49,13 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onOpenProject, titl
           return (
             <div 
               key={project.id} 
-              onClick={() => onOpenProject(project)}
+              onClick={(e) => {
+                // Which half of the screen the clicked card sits in decides
+                // which way the detail window steps aside
+                const rect = e.currentTarget.getBoundingClientRect();
+                const side = rect.left + rect.width / 2 < window.innerWidth / 2 ? 'left' : 'right';
+                onOpenProject(project, side);
+              }}
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
               className="group flex flex-col border-r border-b border-black/[0.08] bg-[#e8e8e8] hover:bg-white transition-all duration-500 cursor-pointer overflow-hidden"
