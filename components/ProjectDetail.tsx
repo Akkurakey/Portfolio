@@ -460,7 +460,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           </div>
         </div>
 
-        <div className="py-16 md:py-24 border-t border-gray-100">
+        <div className="pt-16 md:pt-24 border-t border-gray-100">
           <div className="max-w-3xl mx-auto space-y-12 px-4 sm:px-0">
             <div className="space-y-4">
               <h2 className="text-2xl font-black uppercase tracking-tight text-gray-900">Technical Foundation</h2>
@@ -489,13 +489,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           </div>
         </div>
 
-        <div className="space-y-12">
-          {project.images.slice(3).map((img, i) => (
-             <div key={i} className="group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-700 bg-gray-50 flex justify-center">
-                <img src={img} alt="" className="w-full h-auto max-h-[80vh] object-contain transition-all duration-700" loading="lazy" />
-             </div>
-          ))}
-        </div>
+        {project.images.length > 3 && (
+          <div className="space-y-12">
+            {project.images.slice(3).map((img, i) => (
+               <div key={i} className="group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-700 bg-gray-50 flex justify-center">
+                  <img src={img} alt="" className="w-full h-auto max-h-[80vh] object-contain transition-all duration-700" loading="lazy" />
+               </div>
+            ))}
+          </div>
+        )}
 
         {renderVideo()}
       </div>
