@@ -64,9 +64,9 @@ const App: React.FC = () => {
     const startY = isMobile ? topBarHeight + 125 : height * 0.22;
     
     FOLDERS.forEach((f, idx) => {
-      positions[f.id] = { 
-        x: startX, 
-        y: startY + (idx * (isMobile ? iconSize + 10 : iconSize - 5)) 
+      positions[f.id] = {
+        x: startX,
+        y: startY + (idx * (isMobile ? iconSize + 22 : iconSize - 5))
       };
     });
     return positions;
