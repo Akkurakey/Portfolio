@@ -4,6 +4,7 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  detailIntro?: string; // Longer intro shown on the detail page (card still uses description)
   imageUrl: string; // Featured image (static)
   hoverImageUrl?: string; // Image to show on hover (e.g. GIF)
   images: string[]; // Gallery images

@@ -15,8 +15,9 @@ export const PROJECTS: Record<WindowID, Project[]> = {
   hci: [
     {
       id: 'hci-1',
-      title: 'Mixed Reality Dual-Phobia Exposure',
+      title: 'VR/AR for Phobia Stimuli',
       description: 'A comparative analysis of VR and AR efficacy in treating spider phobia and contamination fear.',
+      detailIntro: 'MSc dissertation at the University of Nottingham, submitted to the Virtual Reality journal. Following a research-through-design approach, I single-handedly built the same exposure scenarios in both VR and AR with Unity, ran the mixed-methods study (n=31), and analysed the results using two-way repeated-measures ANOVA and reflexive thematic analysis.',
       imageUrl: '/images/hci/dual-phobia-cover.png',
       abstract: 'Exposure therapy is a common psychological intervention for phobias and anxiety disorders, and immersive exposure simulations using virtual reality (VR) and augmented reality (AR) have been evaluated as a practical extension of this method, producing similar experience through simulated stimuli. This study compares participants’ responses to VR and AR exposure simulations under different types of stimuli. The study investigates two types of fear-based stimuli: spiders and contamination, for which both VR and AR prototypes were developed. A within-subjects experimental design was employed, involving 31 participants drawn from a healthy adult student population who reported their experience intensity and qualitative feedback following exposure to virtual stimuli across both modalities. The type of technology significantly affected the experience intensity: VR elicited a significantly higher experience intensity overall, although the strength of this effect varied depending on the stimulus type. Specifically, VR produced a much stronger experience in the contamination scenario, while AR performed comparably and showed ecological advantages in the spider scenario. We suggest that future virtual exposure system designs could integrate both AR and VR components in a staged approach. AR may be more suitable for early-stage or animal-focused exposure simulations, whereas VR is better suited for scenarios that demand complete environmental control.',
       researchQuestions: [
@@ -24,7 +25,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         'Q2. If a difference exists, is one generally better than the other, or do the results vary depending on the specific task?'
       ],
       images: [
-        '/images/hci/dual-phobia-prototype.jpg', // Step 1 image (Prototype Photo)
+        '/images/game_xr/exposure-therapy-detail.mp4', // Step 1 media (animated prototype overview)
         '/images/hci/dual-phobia-flowchart.png', // Step 2 image 1 (Flowchart)
         '/images/hci/dual-phobia-demo.mp4', // Step 2 image 2 (GIF)
         '/images/hci/dual-phobia-results.png'  // Step 3 image (Results)
@@ -40,17 +41,24 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'hci-2',
       title: 'VR Shopping Assistants',
       description: 'Research collaboration on user perception of shopping assistants in luxury VR retail.',
+      detailIntro: 'A research collaboration in which I helped design a within-subjects study comparing four shopping-assistant modes (3D avatar, webcam, voice, and AI) in a luxury VR retail setting, defining the experimental conditions, participant tasks, and interaction protocols. I co-built the VR retail scenes in Unity and ran the user study (n=20), collecting and cleaning the multi-source perceptual and behavioural data.',
       imageUrl: '/images/hci/vr-shopping-cover.jpg',
       abstract: 'This study investigates four shopping assistant types (3D avatar, webcam, AI, voice) in VR luxury environments through user studies with 20 participants using NASA-TLX, questionnaires, and interviews. Results show 3D avatar assistants excelled in immersion, trust, and satisfaction, while human-operated assistants outperformed AI in realism and satisfaction. Webcam achieved 50% immersion preference versus 75% for 3D avatars despite strong trustworthiness. The study pioneers PC-VR asymmetric interaction systems, providing design insights and optimization strategies for luxury retail VR shopping assistants.\n\nIndex Terms: Virtual Shopping, Avatars, Cross-device user interaction, Social Virtual Reality, Shopper-Buyer Communication.',
+      researchQuestions: [
+        'Q1. How do different types of shopping assistants (3D avatar, webcam video chat, AI, and voice) influence consumers’ shopping attitudes in VR luxury shopping environments?',
+        'Q2. How do human sales assistants and AI sales assistants differ in their impact on consumer trust and shopping experience?',
+        'Q3. What is the impact of design aspects on user acceptability in webcam-based real-person video chat inside PC-VR asymmetric interaction?'
+      ],
       images: [
         '/images/hci/vr-shopping-procedure.png', // Overall Experimental Procedure
-        '/images/hci/vr-shopping-interaction.png'  // Interaction Details
+        '/images/hci/vr-shopping-interaction.png', // Interaction Details (assistant types x task stages)
+        '/images/hci/vr-shopping-example-3d.jpg', // Example condition: 3D avatar assistant (paper Fig. 2)
+        '/images/hci/vr-shopping-example-webcam.jpg' // Example condition: webcam assistant (paper Fig. 3)
       ],
       tags: ['VR', 'Research', 'IEEE VR'],
       videoUrl: 'https://www.youtube.com/watch?v=SYEaoQmagoc',
       pdfUrl: '/docs/vr-shopping-poster.pdf',
-      paperUrl: 'https://doi.org/10.1109/VRW70859.2026.00252',
-      fullContent: ''
+      paperUrl: 'https://doi.org/10.1109/VRW70859.2026.00252'
     }
   ],
   game_xr: [
@@ -79,22 +87,37 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'xr-3',
-      title: 'VET Application',
-      description: 'An application utilising VR and AR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.',
+      title: 'Virtual Exposure Therapy Application',
+      description: "An AR/VR application for exposure therapy, targeting spider and contamination phobia. Designed with future clinical use in mind: each stimulus is available in both AR (passthrough) and VR modes, allowing exposure to be staged from real-world overlays to fully controlled virtual environments.",
       imageUrl: '/images/game_xr/exposure-therapy-cover.png',
       images: [
-        '/images/game_xr/exposure-therapy-detail.mp4'
+        // Four scenario clips (2×2 grid: spider / contamination × AR / VR).
+        // Drop the .mp4 files into public/images/game_xr/ and uncomment, the grid layout activates automatically.
+        // '/images/game_xr/vet-ar-spider.mp4',
+        // '/images/game_xr/vet-vr-spider.mp4',
+        // '/images/game_xr/vet-ar-contamination.mp4',
+        // '/images/game_xr/vet-vr-contamination.mp4',
+        '/images/game_xr/vet-spider-ar.png',
+        '/images/game_xr/vet-spider-vr.png',
+        '/images/game_xr/vet-contamination-ar.png',
+        '/images/game_xr/vet-contamination-vr.jpg',
+        '/images/game_xr/vet-instructions.png',
+        '/images/game_xr/vet-menu-access.png',
+        '/images/game_xr/vet-menu-scenario.png',
+        '/images/game_xr/vet-menu-mode.png',
+        '/images/game_xr/vet-spider-hand.png',
+        '/images/game_xr/vet-bin-lid.png'
       ],
       tags: ['VR', 'AR', 'Healthcare', 'Unity'],
       githubUrl: 'https://github.com/Akkurakey/VET',
       videoUrl: 'https://www.youtube.com/embed/r-H0cZzmMKs',
       specs: [
         { label: 'Platform', value: 'Meta Quest 3' },
-        { label: 'Engine', value: 'Unity 2022 LTS' },
+        { label: 'Engine', value: 'Unity 2022.3 LTS' },
         { label: 'Tracking', value: 'Hand-tracking' },
-        { label: 'Input', value: 'Direct Manipulation' }
+        { label: 'Modes', value: 'AR ↔ VR' }
       ],
-      fullContent: 'An application utilising VR and AR technologies to provide a safe, controlled environment for exposure therapy. The system allows clinicians to adjust intensity levels in real-time while monitoring patient response, specifically targeting arachnophobia and mysophobia.'
+      fullContent: "Four scenarios (AR spider, VR spider, AR contamination, and VR contamination) are integrated in a single Unity project for Meta Quest 3, using colour passthrough to switch between AR and VR within one session.\nAll interaction is controller-free: bare-hand contact with fear-inducing stimuli feels closer to the everyday situations exposure therapy recreates, whereas controllers invite a 'gaming mindset' that breaks immersion."
     },
     {
       id: 'ai-1',
@@ -243,7 +266,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'ai-shrine',
       title: 'AI Shrine',
-      description: 'Upload any image and AI distils its essence into a deity — then consult it with moon blocks.',
+      description: 'Upload any image and AI distils its essence into a deity, then consult it with moon blocks.',
       imageUrl: '/images/web_ai/ai-shrine.jpg',
       images: ['/images/web_ai/ai-shrine.jpg'],
       tags: ['Creative AI', 'Web', 'Culture'],

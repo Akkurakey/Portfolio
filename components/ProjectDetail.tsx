@@ -68,6 +68,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const isRhythmGame = project.id === 'xr-1';
   const isArLogistics = project.id === 'ai-1';
   const isOor = project.id === 'xr-oor';
+  const isVet = project.id === 'xr-3';
 
   // Convert standard video links to embeddable ones
   const getEmbedUrl = (url?: string) => {
@@ -223,12 +224,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
 
     if (isOor) {
       const media: { src: string; caption: string; half?: boolean }[] = [
-        { src: project.images[0], caption: 'Conversing with the room — hold the orb to speak, release to finish' },
-        { src: project.images[1], caption: 'Entering the room — the space reveals itself through your own input' },
-        { src: project.images[2], caption: 'Inside the room — a pre-generated Gaussian splat world' },
+        { src: project.images[0], caption: 'Conversing with the room: hold the orb to speak, release to finish' },
+        { src: project.images[1], caption: 'Entering the room: the space reveals itself through your own input' },
+        { src: project.images[2], caption: 'Inside the room: a pre-generated Gaussian splat world' },
         { src: project.images[3], caption: 'Check-in: valence, from heavy to light (SAM)', half: true },
         { src: project.images[4], caption: 'Check-in: arousal, from still to racing (SAM)', half: true },
-        { src: project.images[5], caption: 'Console — room switching, live atmosphere control and pose-twin monitoring' },
+        { src: project.images[5], caption: 'Console: room switching, live atmosphere control and pose-twin monitoring' },
       ];
       const full = media.filter(m => !m.half);
       const halves = media.filter(m => m.half);
@@ -249,25 +250,134 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
       );
     }
 
-    if (isShoppingAssistants) {
-      const captions = [
-        'Overall Experimental Procedure',
-        'Interaction Details between Consumers and Shopping Assistants'
-      ];
-      return (
-        <div className="space-y-16 md:space-y-24 flex flex-col items-center w-full">
-          {project.images.map((img, i) => (
-            <div key={i} className="w-full md:w-[90%] lg:w-[85%] xl:w-[80%] flex flex-col items-center gap-4">
-              <div className="group w-full overflow-hidden rounded-xl flex justify-center">
-                <img src={img} alt={captions[i] || ''} className="w-full h-auto max-h-[80vh] object-contain shadow-md border border-black/[0.03] transition-all" loading="lazy" />
+    if (isVet) {
+      // Media matched by filename so sections appear/disappear as assets are added in constants
+      const byKey = (key: string) => project.images.find(src => src.includes(key));
+      const withSrc = (m: { src?: string; caption: string }): m is { src: string; caption: string } => !!m.src;
+      const scenarioClips = [
+        { src: byKey('vet-ar-spider'), caption: 'AR spider, superimposed onto a user-selected real-world surface' },
+        { src: byKey('vet-vr-spider'), caption: 'VR spider in a modelled bedroom with pre-placed spiders' },
+        { src: byKey('vet-ar-contamination'), caption: 'AR contamination, rubbish scattered within a customisable real-world area' },
+        { src: byKey('vet-vr-contamination'), caption: 'VR contamination in a modelled street corner with litter and graffiti' },
+      ].filter(withSrc);
+      const spiderFigures = [
+        { src: byKey('vet-spider-ar'), caption: 'AR: spiders generated on a user-selected real surface' },
+        { src: byKey('vet-spider-vr'), caption: 'VR: a modelled bedroom with pre-placed spiders' },
+      ].filter(withSrc);
+      const contaminationFigures = [
+        { src: byKey('vet-contamination-ar'), caption: 'AR: rubbish and bins spawned in the real environment' },
+        { src: byKey('vet-contamination-vr'), caption: 'VR: a graffiti-covered street corner' },
+      ].filter(withSrc);
+      const uiFigures = [
+        { src: byKey('vet-instructions'), caption: 'Instruction cards introduce and start each session' },
+        { src: byKey('vet-menu-access'), caption: 'Rotate the right hand to open the menu' },
+        { src: byKey('vet-menu-scenario'), caption: 'Switching scenario' },
+        { src: byKey('vet-menu-mode'), caption: 'Switching between AR and VR' },
+      ].filter(withSrc);
+      const prose = (text: string) => (
+        <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">{text}</p>
+      );
+      const tileGrid = (figs: { src: string; caption: string }[]) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-x-12 sm:gap-y-10 md:gap-x-16 md:gap-y-12 lg:gap-x-20 w-full md:w-[85%] lg:w-[75%] mx-auto">
+          {figs.map(m => (
+            <div key={m.src} className="w-full flex flex-col items-center gap-4">
+              <div className="w-full aspect-square overflow-hidden rounded-xl border border-black/[0.03]">
+                <img src={m.src} alt={m.caption} className={`w-full h-full object-cover ${m.src.includes('menu-access') ? 'object-top' : ''}`} loading="lazy" />
               </div>
-              {captions[i] && (
-                <p className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 text-center max-w-lg">
-                  {captions[i]}
-                </p>
-              )}
+              <p className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 text-center">
+                {m.caption}
+              </p>
             </div>
           ))}
+        </div>
+      );
+      const interactionFigures = [
+        { src: byKey('vet-spider-hand'), caption: 'Pinch to grasp and place a spider on the hand' },
+        { src: byKey('vet-bin-lid'), caption: 'Lifting the bin lid for a closer look' },
+      ].filter(withSrc);
+      return (
+        <div className="w-full flex flex-col gap-16 md:gap-24">
+          {scenarioClips.length > 0 && (
+            <div className="w-full space-y-8">
+              <ScholarlySectionHeading>Four Scenarios</ScholarlySectionHeading>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-8 md:gap-y-12">
+                {scenarioClips.map(m => <CaptionedFigure key={m.src} src={m.src} caption={m.caption} />)}
+              </div>
+            </div>
+          )}
+          {spiderFigures.length > 0 && (
+            <div className="w-full space-y-8">
+              <ScholarlySectionHeading>Spider Scenario</ScholarlySectionHeading>
+              {prose('Each spider has a static and a moving state: while static it shows small idle animations, and touching or pinching it triggers a rapid forward crawl with animated legs, simulating how spiders behave in real life and following evidence that moving animals evoke stronger fear than static ones. In AR, spiders are generated on a flat real-world surface selected by the user; in VR, two initially static spiders wait in a modelled bedroom.')}
+              {tileGrid(spiderFigures)}
+            </div>
+          )}
+          {contaminationFigures.length > 0 && (
+            <div className="w-full space-y-8">
+              <ScholarlySectionHeading>Contamination Scenario</ScholarlySectionHeading>
+              {prose("Scattered rubbish (decaying fruit, cans, plastic bottles) surrounds two bins. Every piece can be picked up and thrown into the open green bin, and the black bin's lid and inner bag can be lifted to look inside, simulating a deeper level of exposure. In AR the rubbish spawns within a customisable area of the real environment; in VR it sits in a street corner with graffiti-covered walls and a dirty ground.")}
+              {tileGrid(contaminationFigures)}
+            </div>
+          )}
+          {uiFigures.length > 0 && (
+            <div className="w-full space-y-8">
+              <ScholarlySectionHeading>User Interface</ScholarlySectionHeading>
+              {prose('Instruction cards introduce and start the prototype, and rotating the right hand opens a settings menu for switching scenes, scenarios, and AR/VR modes.')}
+              {tileGrid(uiFigures)}
+            </div>
+          )}
+          {interactionFigures.length > 0 && (
+            <div className="w-full space-y-8">
+              <ScholarlySectionHeading>Hand-Tracked Interaction</ScholarlySectionHeading>
+              {prose("Reaching out and pinching finger and thumb together grasps a spider or a piece of rubbish, so every exposure happens through the user's own hands.")}
+              {tileGrid(interactionFigures)}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (isShoppingAssistants) {
+      const [procedureImg, interactionImg, example3dImg, exampleWebcamImg] = project.images;
+      return (
+        <div className="w-full flex flex-col">
+          {/* Experimental procedure */}
+          <div className="w-full space-y-8 pb-14 md:pb-20">
+            <ScholarlySectionHeading>Experimental Procedure</ScholarlySectionHeading>
+            <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+              I designed and conducted this within-subjects user study (n=20). Each session began with a welcome and an initial questionnaire, followed by a VR tutorial covering avatar movement, teleportation, and object interaction (grabbing, rotating, and scaling). The participant then completed four 10-minute shopping tasks, one per assistant condition, sequenced by a Latin square to minimise carryover effects, filling in a 20-dimension shopping-experience questionnaire and NASA-TLX after each. Once all four conditions were complete, a 10-dimension comparative preference questionnaire and a semi-structured interview closed the session.
+            </p>
+            <CaptionedFigure src={procedureImg} caption="Overall Experimental Procedure" />
+          </div>
+
+          {/* Interaction details + concrete condition examples */}
+          <div className="w-full pt-14 md:pt-20 border-t border-gray-100">
+            <ScholarlySectionHeading>Interaction Details</ScholarlySectionHeading>
+            <div className="space-y-14 md:space-y-24 mt-4">
+              <div className="space-y-8">
+                <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                  In every condition, the participant worked through the same six-stage luxury shopping task with the assistant: welcome, store introduction, product introduction, product comparison, Q&A (price, colour, brand, function, and bargaining), and checkout. Only the modality of the assistant changed between conditions.
+                </p>
+                <CaptionedFigure src={interactionImg} caption="Interaction Details between Consumers and Shopping Assistants" />
+              </div>
+              <div className="space-y-8">
+                <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                  In the 3D avatar condition, for example, the avatar welcomes the consumer with body gestures, gives a store tour, and introduces the product. The consumer then compares products while the avatar interacts in between, asks questions about price, colour, brand, and function, and finally checks out with the avatar serving the purchase.
+                </p>
+                <div className="w-full md:w-[85%] lg:w-[78%] mx-auto">
+                  <CaptionedFigure src={example3dImg} caption="The 3D avatar assistant" />
+                </div>
+              </div>
+              <div className="space-y-8">
+                <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                  In the webcam condition, the assistant opens a webcam on the PC side and the live video is streamed into the VR store, so the consumer sees the assistant's authentic facial expressions and gestures while moving through the same stages, from the welcome and store introduction to product comparison, questions, and checkout.
+                </p>
+                <div className="w-full md:w-[85%] lg:w-[78%] mx-auto">
+                  <CaptionedFigure src={exampleWebcamImg} caption="The webcam real-person assistant" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -319,10 +429,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
       <div className="space-y-16 md:space-y-24">
         {/* Step 1: Text + Prototype Image + Jump Link */}
         <div className="space-y-6">
+          <ScholarlySectionHeading>Prototype Design</ScholarlySectionHeading>
           <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
             {lines[0]}
           </p>
-          <img src={project.images[0]} alt="Exposure Prototype" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
+          <MediaAsset src={project.images[0]} alt="Exposure Prototype" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
           {project.prototypeUrl ? (
             <a 
               href={project.prototypeUrl}
@@ -346,9 +457,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
 
         {/* Step 2: Text + Dual Images (STACKED Vertically) */}
         <div className="space-y-12">
-          <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
-            {lines[1]}
-          </p>
+          <div className="space-y-6">
+            <ScholarlySectionHeading>Experimental Procedure</ScholarlySectionHeading>
+            <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+              {lines[1]}
+            </p>
+          </div>
           <div className="space-y-6">
              <MediaAsset src={project.images[1]} alt="Experimental Task Participant" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
              <MediaAsset src={project.images[2]} alt="Experimental Task Recorded Session" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
@@ -357,9 +471,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
 
         {/* Step 3: Text + Single Image (Analysis) */}
         <div className="space-y-8">
-          <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
-            {lines[2]}
-          </p>
+          <div className="space-y-6">
+            <ScholarlySectionHeading>Data Analysis</ScholarlySectionHeading>
+            <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+              {lines[2]}
+            </p>
+          </div>
           <img src={project.images[3]} alt="Data Analysis Results" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
         </div>
       </div>
@@ -369,7 +486,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
   const renderVideo = () => {
     if (!project.videoUrl) return null;
     return (
-      <div className="flex justify-center mb-24 md:mb-32">
+      <div className={`flex justify-center mb-24 md:mb-32 ${isShoppingAssistants ? '-mt-6 md:-mt-14' : ''}`}>
         <div className="relative aspect-video w-full lg:w-[95%] rounded-xl overflow-hidden shadow-2xl bg-black border border-black/5">
           <iframe 
             src={getEmbedUrl(project.videoUrl)} 
@@ -581,10 +698,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
               </div>
             );
           })()}
-          {/* One-line intro (same text as the folder card) for projects without an abstract */}
-          {!project.abstract && project.description && (
+          {/* One-line intro (same text as the folder card) for projects without an abstract; Dual Phobia opts in */}
+          {(!project.abstract || project.detailIntro) && (project.detailIntro || project.description) && (
             <p className="mt-1 md:mt-2 max-w-lg lg:max-w-xl text-gray-600 font-serif italic text-[13px] sm:text-[13.5px] leading-[1.8] font-light">
-              {project.description}
+              {project.detailIntro || project.description}
             </p>
           )}
         </div>
@@ -592,7 +709,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         <div className="space-y-12 md:space-y-24 lg:space-y-32">
           {/* Scholarly Headers (Abstract & Research Questions) with unified spacing */}
           {project.abstract || (project.researchQuestions && project.researchQuestions.length > 0) ? (
-            <div className="space-y-16 pb-12 border-b border-gray-100">
+            <div className={`space-y-16 ${isDualPhobia ? '' : 'border-b'} pb-12 border-gray-100`}>
               {project.abstract && (
                 <div>
                   <ScholarlySectionHeading>Abstract</ScholarlySectionHeading>
@@ -615,12 +732,23 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                 </div>
               )}
 
-              {isDualPhobia && (
-                <div>
-                  <ScholarlySectionHeading>Research Details</ScholarlySectionHeading>
-                  <div className="mt-8">
-                    {renderExperimentalFlow()}
+              {isDualPhobia && project.videoUrl && (
+                <div className="flex justify-center py-3 md:py-6">
+                  <div className="relative aspect-video w-full lg:w-[95%] rounded-xl overflow-hidden shadow-2xl bg-black border border-black/5">
+                    <iframe
+                      src={getEmbedUrl(project.videoUrl)}
+                      className="absolute inset-0 w-full h-full border-none"
+                      allowFullScreen
+                      title={project.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    />
                   </div>
+                </div>
+              )}
+
+              {isDualPhobia && (
+                <div className="border-t border-gray-100 pt-12">
+                  {renderExperimentalFlow()}
                 </div>
               )}
             </div>
