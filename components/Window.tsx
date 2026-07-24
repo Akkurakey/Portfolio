@@ -3,6 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Minus, Maximize2 } from 'lucide-react';
 import { DESKTOP_ICON_COLUMN_RATIO } from '../constants';
 
+// Horizontal midpoint of the About window (and, offset from it, Certification),
+// as a fraction of viewport width
+const ABOUT_CENTER_RATIO = 0.27;
+
 interface WindowProps {
   id: string;
   title: string;
@@ -17,6 +21,7 @@ interface WindowProps {
   openIndex?: number;
   openSide?: 'left' | 'right';
   spawnPos?: { x: number; y: number };
+  openOffset?: { x: number; y: number };
   onPositionReport?: (id: string, pos: { x: number; y: number }) => void;
 }
 
@@ -34,6 +39,7 @@ const Window: React.FC<WindowProps> = ({
   openIndex,
   openSide,
   spawnPos,
+  openOffset,
   onPositionReport,
 }) => {
   const [isMaximized, setIsMaximized] = useState(false);
@@ -99,14 +105,18 @@ const Window: React.FC<WindowProps> = ({
 
     if (isAbout) {
       if (isMobile) return clampToViewport(centerX, centerY);
-      // Sits centre-left, its midpoint around 31% of the viewport width
-      const aboutCenterX = window.innerWidth * 0.31;
-      return clampToViewport(aboutCenterX - currentSize.width / 2, centerY);
+      // Sits centre-left, its midpoint at ABOUT_CENTER_RATIO of the viewport width,
+      // nudged by openOffset when opened from the navigation guide
+      const aboutCenterX = window.innerWidth * ABOUT_CENTER_RATIO;
+      return clampToViewport(
+        aboutCenterX - currentSize.width / 2 + (openOffset?.x ?? 0),
+        centerY + (openOffset?.y ?? 0)
+      );
     }
 
     if (isCertification && !isMobile) {
       // Keeps its original offset relative to the About window's midpoint
-      const aboutCenterX = window.innerWidth * 0.31;
+      const aboutCenterX = window.innerWidth * ABOUT_CENTER_RATIO;
       return clampToViewport(aboutCenterX - 180 - currentSize.width / 2, centerY);
     }
 
@@ -153,7 +163,7 @@ const Window: React.FC<WindowProps> = ({
       setPosition(getCenterPos());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, openIndex, openSide, spawnPos]);
+  }, [isOpen, openIndex, openSide, spawnPos, openOffset]);
 
   // Keep the parent informed of where this window sits (drags included),
   // so newly opened folder windows can cascade from the newest one

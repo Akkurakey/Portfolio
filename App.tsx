@@ -204,7 +204,7 @@ const App: React.FC = () => {
     setSelection(prev => ({ ...prev, active: false }));
   };
 
-  const openWindow = (id: WindowID) => {
+  const openWindow = (id: WindowID, openOffset?: { x: number; y: number }) => {
     setWindows((prev) => {
       // New folder windows cascade from wherever the previously opened folder
       // window currently sits (macOS-style); with none open they start at base
@@ -226,11 +226,24 @@ const App: React.FC = () => {
               isOpen: true,
               isMinimized: false,
               zIndex: Math.max(...prev.map((w) => w.zIndex)) + 1,
-              ...(isFolder && !win.isOpen ? { openIndex, spawnPos } : {})
+              ...(isFolder && !win.isOpen ? { openIndex, spawnPos } : {}),
+              // Cleared when opened without an offset, so the menu-bar route
+              // always falls back to the default spot
+              ...(!isFolder ? { openOffset } : {})
             }
           : win
       );
     });
+  };
+
+  // About opened from the navigation guide steps aside a little so the guide
+  // window stays identifiable underneath; from the menu bar it opens as usual
+  const openAboutFromNav = () => {
+    if (window.innerWidth < 768) {
+      openWindow('about');
+      return;
+    }
+    openWindow('about', { x: -60, y: 30 });
   };
 
   const openProjectWindow = (project: Project, side?: 'left' | 'right') => {
@@ -405,6 +418,7 @@ const App: React.FC = () => {
           openIndex={win.openIndex}
           openSide={win.openSide}
           spawnPos={win.spawnPos}
+          openOffset={win.openOffset}
           onPositionReport={reportWindowPosition}
           initialWidth={
             win.id === 'certification' ? 300 : 
@@ -433,7 +447,7 @@ const App: React.FC = () => {
                     I'm an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
                   </p>
                   <p className="text-gray-600 text-[13px] leading-[1.8]">
-                    You can view my <NavLink onClick={() => openWindow('cv')}>CV</NavLink> here.
+                    You can find more <NavLink onClick={openAboutFromNav}>about me</NavLink> here.
                   </p>
                 </header>
 
