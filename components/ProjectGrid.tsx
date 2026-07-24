@@ -27,7 +27,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onOpenProject, titl
   };
 
   return (
-    <div className="bg-[#e8e8e8] min-h-full font-sans relative">
+    <div className="bg-[#e8e8e8] min-h-full font-sans relative flex flex-col">
       {/* Background Blueprint Grid Lines */}
       <div className="absolute inset-0 pointer-events-none grid grid-cols-4 md:grid-cols-8 h-full w-full">
         {[...Array(8)].map((_, i) => (
@@ -35,7 +35,7 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onOpenProject, titl
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 relative z-10 border-l border-black/[0.08]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 relative z-10 border-l border-black/[0.08] flex-grow">
         {projects.map((project) => {
           const isArGallery = project.id === 'xr-2';
           const isMsi = project.id === 'gd-msi';
@@ -116,12 +116,12 @@ const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, onOpenProject, titl
             </div>
           );
         })}
-        
-        {/* Footer Watermark */}
-        <div className={`col-span-1 sm:col-span-2 flex items-center justify-between px-6 py-4 border-b border-black/[0.08] bg-[#e8e8e8]`}>
-          <span className="text-[8px] font-black uppercase tracking-[0.4em] text-gray-400">RAKEY YANG ARCHIVE</span>
-          <span className="text-[8px] font-black uppercase tracking-[0.4em] text-gray-400">{title}</span>
-        </div>
+      </div>
+
+      {/* Footer Watermark */}
+      <div className="relative z-10 flex items-center justify-between px-6 py-4 border-l border-b border-black/[0.08] bg-[#e8e8e8]">
+        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-gray-400">RAKEY YANG ARCHIVE</span>
+        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-gray-400">{title}</span>
       </div>
     </div>
   );

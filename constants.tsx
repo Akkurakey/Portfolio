@@ -15,9 +15,9 @@ export const PROJECTS: Record<WindowID, Project[]> = {
   hci: [
     {
       id: 'hci-1',
-      title: 'VR/AR for Phobia Stimuli',
+      title: 'VR/AR Phobia Stimuli',
       description: 'A comparative analysis of VR and AR efficacy in treating spider phobia and contamination fear.',
-      detailIntro: 'MSc dissertation at the University of Nottingham, submitted to the Virtual Reality journal. Following a research-through-design approach, I single-handedly built the same exposure scenarios in both VR and AR with Unity, ran the mixed-methods study (n=31), and analysed the results using two-way repeated-measures ANOVA and reflexive thematic analysis.',
+      detailIntro: 'MSc dissertation at the University of Nottingham, accepted by the Virtual Reality journal.\nI developed VR and AR exposure scenarios using Unity, conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data.',
       imageUrl: '/images/hci/dual-phobia-cover.png',
       abstract: 'Exposure therapy is a common psychological intervention for phobias and anxiety disorders, and immersive exposure simulations using virtual reality (VR) and augmented reality (AR) have been evaluated as a practical extension of this method, producing similar experience through simulated stimuli. This study compares participants’ responses to VR and AR exposure simulations under different types of stimuli. The study investigates two types of fear-based stimuli: spiders and contamination, for which both VR and AR prototypes were developed. A within-subjects experimental design was employed, involving 31 participants drawn from a healthy adult student population who reported their experience intensity and qualitative feedback following exposure to virtual stimuli across both modalities. The type of technology significantly affected the experience intensity: VR elicited a significantly higher experience intensity overall, although the strength of this effect varied depending on the stimulus type. Specifically, VR produced a much stronger experience in the contamination scenario, while AR performed comparably and showed ecological advantages in the spider scenario. We suggest that future virtual exposure system designs could integrate both AR and VR components in a staged approach. AR may be more suitable for early-stage or animal-focused exposure simulations, whereas VR is better suited for scenarios that demand complete environmental control.',
       researchQuestions: [
@@ -25,17 +25,21 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         'Q2. If a difference exists, is one generally better than the other, or do the results vary depending on the specific task?'
       ],
       images: [
-        '/images/game_xr/exposure-therapy-detail.mp4', // Step 1 media (animated prototype overview)
+        '/images/hci/dual-phobia-spider-ar.mp4', // Step 1 grid: Virtual Spider AR
+        '/images/hci/dual-phobia-spider-vr.mp4', // Step 1 grid: Virtual Spider VR
+        '/images/hci/dual-phobia-contamination-ar.mp4', // Step 1 grid: Contamination AR
+        '/images/hci/dual-phobia-contamination-vr.mp4', // Step 1 grid: Contamination VR
         '/images/hci/dual-phobia-flowchart.png', // Step 2 image 1 (Flowchart)
         '/images/hci/dual-phobia-demo.mp4', // Step 2 image 2 (GIF)
         '/images/hci/dual-phobia-results.png'  // Step 3 image (Results)
       ],
       tags: ['VR', 'AR', 'Therapy', 'Unity', 'Research'],
       pdfUrl: '/docs/dual-phobia-poster.pdf',
+      pdfAspect: '756/1008',
       paperUrl: '/docs/dual-phobia-paper.pdf',
       relatedProjectId: 'xr-3',
-      relatedProjectTitle: 'View Prototype Application',
-      fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\nGuided participants (N=31) through AR and VR tasks and supervised the experimental sessions.\nCollected questionnaire data, think-aloud feedback, and follow-up interviews; analysed and interpreted the results using SPSS.'
+      relatedProjectTitle: 'More Prototype Details',
+      fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\n\nGuided 31 participants through a within-subjects session of about 40 minutes, covering spider and contamination scenarios in both AR and VR (four conditions, randomised order), with hand-tracked tasks that scaled from observing a static stimulus to picking it up, triggering its movement, and interacting more closely.\nParticipants completed an initial questionnaire, then a questionnaire after each scenario, thinking aloud throughout, and closed with a follow-up interview.\n\nCollected questionnaire data, think-aloud feedback, and follow-up interviews; analysed and interpreted the results using SPSS.'
     },
     {
       id: 'hci-2',
@@ -43,7 +47,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       description: 'Research collaboration on user perception of shopping assistants in luxury VR retail.',
       detailIntro: 'A research collaboration in which I helped design a within-subjects study comparing four shopping-assistant modes (3D avatar, webcam, voice, and AI) in a luxury VR retail setting, defining the experimental conditions, participant tasks, and interaction protocols. I co-built the VR retail scenes in Unity and ran the user study (n=20), collecting and cleaning the multi-source perceptual and behavioural data.',
       imageUrl: '/images/hci/vr-shopping-cover.jpg',
-      abstract: 'This study investigates four shopping assistant types (3D avatar, webcam, AI, voice) in VR luxury environments through user studies with 20 participants using NASA-TLX, questionnaires, and interviews. Results show 3D avatar assistants excelled in immersion, trust, and satisfaction, while human-operated assistants outperformed AI in realism and satisfaction. Webcam achieved 50% immersion preference versus 75% for 3D avatars despite strong trustworthiness. The study pioneers PC-VR asymmetric interaction systems, providing design insights and optimization strategies for luxury retail VR shopping assistants.\n\nIndex Terms: Virtual Shopping, Avatars, Cross-device user interaction, Social Virtual Reality, Shopper-Buyer Communication.',
+      abstract: 'This study investigates four shopping assistant types (3D avatar, webcam, AI, voice) in VR luxury environments through user studies with 20 participants using NASA-TLX, questionnaires, and interviews. Results show 3D avatar assistants excelled in immersion, trust, and satisfaction, while human-operated assistants outperformed AI in realism and satisfaction. Webcam achieved 50% immersion preference versus 75% for 3D avatars despite strong trustworthiness. The study pioneers PC-VR asymmetric interaction systems, providing design insights and optimization strategies for luxury retail VR shopping assistants.',
       researchQuestions: [
         'Q1. How do different types of shopping assistants (3D avatar, webcam video chat, AI, and voice) influence consumers’ shopping attitudes in VR luxury shopping environments?',
         'Q2. How do human sales assistants and AI sales assistants differ in their impact on consumer trust and shopping experience?',
@@ -58,6 +62,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       tags: ['VR', 'Research', 'IEEE VR'],
       videoUrl: 'https://www.youtube.com/watch?v=SYEaoQmagoc',
       pdfUrl: '/docs/vr-shopping-poster.pdf',
+      pdfAspect: '2440.8/3427.2',
       paperUrl: 'https://doi.org/10.1109/VRW70859.2026.00252'
     }
   ],
@@ -99,14 +104,13 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         // '/images/game_xr/vet-vr-contamination.mp4',
         '/images/game_xr/vet-spider-ar.png',
         '/images/game_xr/vet-spider-vr.png',
+        '/images/game_xr/vet-spider-movement.mp4',
         '/images/game_xr/vet-contamination-ar.png',
         '/images/game_xr/vet-contamination-vr.jpg',
         '/images/game_xr/vet-instructions.png',
         '/images/game_xr/vet-menu-access.png',
         '/images/game_xr/vet-menu-scenario.png',
-        '/images/game_xr/vet-menu-mode.png',
-        '/images/game_xr/vet-spider-hand.png',
-        '/images/game_xr/vet-bin-lid.png'
+        '/images/game_xr/vet-menu-mode.png'
       ],
       tags: ['VR', 'AR', 'Healthcare', 'Unity'],
       githubUrl: 'https://github.com/Akkurakey/VET',

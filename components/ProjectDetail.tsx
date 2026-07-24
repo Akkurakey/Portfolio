@@ -254,20 +254,27 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
       // Media matched by filename so sections appear/disappear as assets are added in constants
       const byKey = (key: string) => project.images.find(src => src.includes(key));
       const withSrc = (m: { src?: string; caption: string }): m is { src: string; caption: string } => !!m.src;
-      const scenarioClips = [
-        { src: byKey('vet-ar-spider'), caption: 'AR spider, superimposed onto a user-selected real-world surface' },
-        { src: byKey('vet-vr-spider'), caption: 'VR spider in a modelled bedroom with pre-placed spiders' },
-        { src: byKey('vet-ar-contamination'), caption: 'AR contamination, rubbish scattered within a customisable real-world area' },
-        { src: byKey('vet-vr-contamination'), caption: 'VR contamination in a modelled street corner with litter and graffiti' },
-      ].filter(withSrc);
+      const withModeSrc = (m: { src?: string; mode: string }): m is { src: string; mode: string } => !!m.src;
+      // Scenario clips grouped like the Dual Phobia page: AR/VR corner badges,
+      // one small-caps label under each pair, hover to play
+      const scenarioClipGroups = [
+        { label: 'Virtual Spider', clips: [
+          { src: byKey('vet-ar-spider'), mode: 'AR' },
+          { src: byKey('vet-vr-spider'), mode: 'VR' },
+        ].filter(withModeSrc) },
+        { label: 'Contamination Scenario', clips: [
+          { src: byKey('vet-ar-contamination'), mode: 'AR' },
+          { src: byKey('vet-vr-contamination'), mode: 'VR' },
+        ].filter(withModeSrc) },
+      ].filter(g => g.clips.length > 0);
       const spiderFigures = [
-        { src: byKey('vet-spider-ar'), caption: 'AR: spiders generated on a user-selected real surface' },
-        { src: byKey('vet-spider-vr'), caption: 'VR: a modelled bedroom with pre-placed spiders' },
-      ].filter(withSrc);
+        { src: byKey('vet-spider-ar'), mode: 'AR' },
+        { src: byKey('vet-spider-vr'), mode: 'VR' },
+      ].filter(withModeSrc);
       const contaminationFigures = [
-        { src: byKey('vet-contamination-ar'), caption: 'AR: rubbish and bins spawned in the real environment' },
-        { src: byKey('vet-contamination-vr'), caption: 'VR: a graffiti-covered street corner' },
-      ].filter(withSrc);
+        { src: byKey('vet-contamination-ar'), mode: 'AR' },
+        { src: byKey('vet-contamination-vr'), mode: 'VR' },
+      ].filter(withModeSrc);
       const uiFigures = [
         { src: byKey('vet-instructions'), caption: 'Instruction cards introduce and start each session' },
         { src: byKey('vet-menu-access'), caption: 'Rotate the right hand to open the menu' },
@@ -275,10 +282,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         { src: byKey('vet-menu-mode'), caption: 'Switching between AR and VR' },
       ].filter(withSrc);
       const prose = (text: string) => (
-        <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">{text}</p>
+        <div className="w-full md:w-[85%] lg:w-[75%] mx-auto pt-3 sm:pt-5 space-y-2.5">
+          {text.split('\n').map((line, i) => line.trim() && (
+            <p key={i} className="text-gray-500 font-serif text-[13px] sm:text-[13.5px] leading-[1.8]">{line}</p>
+          ))}
+        </div>
       );
       const tileGrid = (figs: { src: string; caption: string }[]) => (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-x-12 sm:gap-y-10 md:gap-x-16 md:gap-y-12 lg:gap-x-20 w-full md:w-[85%] lg:w-[75%] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-x-12 md:gap-x-14 sm:gap-y-14 md:gap-y-16 w-full md:w-[85%] lg:w-[75%] mx-auto pt-2 sm:pt-4">
           {figs.map(m => (
             <div key={m.src} className="w-full flex flex-col items-center gap-4">
               <div className="w-full aspect-square overflow-hidden rounded-xl border border-black/[0.03]">
@@ -291,32 +302,80 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           ))}
         </div>
       );
-      const interactionFigures = [
-        { src: byKey('vet-spider-hand'), caption: 'Pinch to grasp and place a spider on the hand' },
-        { src: byKey('vet-bin-lid'), caption: 'Lifting the bin lid for a closer look' },
-      ].filter(withSrc);
+      const modeBadge = (mode: string) => (
+        <span className="absolute top-3 left-3 px-3 py-1.5 bg-gray-900/85 text-white rounded-full text-[9px] font-black uppercase tracking-widest">
+          {mode}
+        </span>
+      );
+      // AR/VR pair: corner badges instead of per-tile captions (the section
+      // heading and prose already describe both modes)
+      const badgedPairGrid = (figs: { src: string; mode: string }[]) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-x-12 md:gap-x-14 w-full md:w-[85%] lg:w-[75%] mx-auto pt-2 sm:pt-4">
+          {figs.map(m => (
+            <div key={m.src} className="relative w-full aspect-square overflow-hidden rounded-xl border border-black/[0.03]">
+              <img src={m.src} alt={m.mode} className="w-full h-full object-cover" loading="lazy" />
+              {modeBadge(m.mode)}
+            </div>
+          ))}
+        </div>
+      );
       return (
         <div className="w-full flex flex-col gap-16 md:gap-24">
-          {scenarioClips.length > 0 && (
+          {scenarioClipGroups.length > 0 && (
             <div className="w-full space-y-8">
               <ScholarlySectionHeading>Four Scenarios</ScholarlySectionHeading>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-8 md:gap-y-12">
-                {scenarioClips.map(m => <CaptionedFigure key={m.src} src={m.src} caption={m.caption} />)}
+              <div className="space-y-16 md:space-y-20">
+                {scenarioClipGroups.map(group => (
+                  <figure key={group.label} className="flex flex-col gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-x-12 md:gap-x-14">
+                      {group.clips.map(m => (
+                        <div
+                          key={m.src}
+                          className="relative w-full aspect-square overflow-hidden rounded-xl border border-black/[0.03] cursor-pointer"
+                          onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play(); }}
+                          onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); v?.pause(); }}
+                        >
+                          <video src={m.src} className="w-full h-full object-cover" muted loop playsInline preload="auto" autoPlay={isTouchDevice} />
+                          {modeBadge(m.mode)}
+                        </div>
+                      ))}
+                    </div>
+                    <figcaption className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 text-center">
+                      {group.label}
+                    </figcaption>
+                  </figure>
+                ))}
               </div>
             </div>
           )}
           {spiderFigures.length > 0 && (
             <div className="w-full space-y-8">
               <ScholarlySectionHeading>Spider Scenario</ScholarlySectionHeading>
-              {prose('Each spider has a static and a moving state: while static it shows small idle animations, and touching or pinching it triggers a rapid forward crawl with animated legs, simulating how spiders behave in real life and following evidence that moving animals evoke stronger fear than static ones. In AR, spiders are generated on a flat real-world surface selected by the user; in VR, two initially static spiders wait in a modelled bedroom.')}
-              {tileGrid(spiderFigures)}
+              {prose('In AR, spiders appear on a flat real-world surface that the user selects. In VR, two spiders start out static in a modelled bedroom.')}
+              {badgedPairGrid(spiderFigures)}
+            </div>
+          )}
+          {byKey('vet-spider-movement') && (
+            // Sub-section of the spider scenario: dashed frame, pulled closer to its parent
+            <div className="w-full md:w-[85%] lg:w-[75%] mx-auto -mt-4 md:-mt-10">
+              <div className="border border-dashed border-gray-200 rounded-xl p-6 sm:p-8 md:p-10">
+                <h4 className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-300 mb-8">Spider Movement</h4>
+                <div className="flex flex-col sm:flex-row items-center gap-10 md:gap-14">
+                  <p className="flex-1 text-gray-500 font-serif text-[13px] sm:text-[13.5px] leading-[1.8]">
+                    Each spider has two states: static and moving. When static, it plays small idle animations. Touching or pinching it triggers a fast forward crawl with animated legs. This mimics how real spiders behave, and follows research showing that moving animals cause more fear than still ones.
+                  </p>
+                  <div className="w-full sm:w-1/2 relative aspect-square overflow-hidden rounded-xl border border-black/[0.03] shrink-0">
+                    <video src={byKey('vet-spider-movement')} className="w-full h-full object-cover" muted loop playsInline preload="auto" autoPlay />
+                  </div>
+                </div>
+              </div>
             </div>
           )}
           {contaminationFigures.length > 0 && (
             <div className="w-full space-y-8">
               <ScholarlySectionHeading>Contamination Scenario</ScholarlySectionHeading>
-              {prose("Scattered rubbish (decaying fruit, cans, plastic bottles) surrounds two bins. Every piece can be picked up and thrown into the open green bin, and the black bin's lid and inner bag can be lifted to look inside, simulating a deeper level of exposure. In AR the rubbish spawns within a customisable area of the real environment; in VR it sits in a street corner with graffiti-covered walls and a dirty ground.")}
-              {tileGrid(contaminationFigures)}
+              {prose("In AR, the rubbish appears within a customisable area of the real environment. In VR, it sits in a street corner with graffiti-covered walls and a dirty ground.\nThe black bin's lid and inner bag can be lifted, and scattered rubbish can be picked up and thrown into the open green bin.")}
+              {badgedPairGrid(contaminationFigures)}
             </div>
           )}
           {uiFigures.length > 0 && (
@@ -324,13 +383,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
               <ScholarlySectionHeading>User Interface</ScholarlySectionHeading>
               {prose('Instruction cards introduce and start the prototype, and rotating the right hand opens a settings menu for switching scenes, scenarios, and AR/VR modes.')}
               {tileGrid(uiFigures)}
-            </div>
-          )}
-          {interactionFigures.length > 0 && (
-            <div className="w-full space-y-8">
-              <ScholarlySectionHeading>Hand-Tracked Interaction</ScholarlySectionHeading>
-              {prose("Reaching out and pinching finger and thumb together grasps a spider or a piece of rubbish, so every exposure happens through the user's own hands.")}
-              {tileGrid(interactionFigures)}
             </div>
           )}
         </div>
@@ -423,49 +475,99 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
 
   const renderExperimentalFlow = () => {
     if (!isDualPhobia) return null;
-    const lines = (project.fullContent || '').split('\n').filter(l => l.trim());
+    // Steps are separated by a blank line; a single newline within a step is a soft line break
+    const lines = (project.fullContent || '').split('\n\n').filter(l => l.trim());
+    const scenarioGroups = [
+      { label: 'Virtual Spider', tiles: [
+        { src: project.images[0], mode: 'AR' },
+        { src: project.images[1], mode: 'VR' },
+      ]},
+      { label: 'Contamination Scenario', tiles: [
+        { src: project.images[2], mode: 'AR' },
+        { src: project.images[3], mode: 'VR' },
+      ]},
+    ];
 
     return (
       <div className="space-y-16 md:space-y-24">
-        {/* Step 1: Text + Prototype Image + Jump Link */}
+        {/* Step 1: Text + Scenario GIF Grid + Jump Link */}
         <div className="space-y-6">
           <ScholarlySectionHeading>Prototype Design</ScholarlySectionHeading>
           <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
             {lines[0]}
           </p>
-          <MediaAsset src={project.images[0]} alt="Exposure Prototype" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
-          {project.prototypeUrl ? (
-            <a 
-              href={project.prototypeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
-            >
-              <ArrowUpRight size={12} />
-              {project.relatedProjectTitle || 'Open Paper'}
-            </a>
-          ) : project.relatedProjectId && (
-            <button 
-              onClick={() => onOpenProjectById?.(project.relatedProjectId!)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
-            >
-              <LinkIcon size={12} />
-              {project.relatedProjectTitle || 'View Related Project'}
-            </button>
-          )}
+          <div className="space-y-16 md:space-y-20 pt-4">
+            {scenarioGroups.map((group) => (
+              <figure key={group.label} className="flex flex-col gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-x-8">
+                  {group.tiles.map((tile) => (
+                    <div
+                      key={tile.src}
+                      className="relative w-full aspect-square overflow-hidden rounded-xl border border-black/[0.03] cursor-pointer"
+                      // Desktop: rest on the first frame, play while hovered.
+                      // Touch devices have no hover, so the clips just loop.
+                      onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play(); }}
+                      onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); v?.pause(); }}
+                    >
+                      <video
+                        src={tile.src}
+                        className="w-full h-full object-cover"
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        autoPlay={isTouchDevice}
+                      />
+                      <span className="absolute top-3 left-3 px-3 py-1.5 bg-gray-900/85 text-white rounded-full text-[9px] font-black uppercase tracking-widest">
+                        {tile.mode}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <figcaption className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 text-center">
+                  {group.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <div className="flex justify-end pt-2">
+            {project.prototypeUrl ? (
+              <a
+                href={project.prototypeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
+              >
+                <ArrowUpRight size={12} />
+                {project.relatedProjectTitle || 'Open Paper'}
+              </a>
+            ) : project.relatedProjectId && (
+              <button
+                onClick={() => onOpenProjectById?.(project.relatedProjectId!)}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
+              >
+                <LinkIcon size={12} />
+                {project.relatedProjectTitle || 'View Related Project'}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Step 2: Text + Dual Images (STACKED Vertically) */}
         <div className="space-y-12">
           <div className="space-y-6">
             <ScholarlySectionHeading>Experimental Procedure</ScholarlySectionHeading>
-            <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
-              {lines[1]}
-            </p>
+            <div className="space-y-3">
+              {lines[1].split('\n').map((para, i) => para.trim() && (
+                <p key={i} className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                  {para}
+                </p>
+              ))}
+            </div>
           </div>
           <div className="space-y-6">
-             <MediaAsset src={project.images[1]} alt="Experimental Task Participant" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
-             <MediaAsset src={project.images[2]} alt="Experimental Task Recorded Session" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
+             <MediaAsset src={project.images[4]} alt="Experimental Task Participant" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
+             <MediaAsset src={project.images[5]} alt="Experimental Task Recorded Session" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
           </div>
         </div>
 
@@ -477,7 +579,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
               {lines[2]}
             </p>
           </div>
-          <img src={project.images[3]} alt="Data Analysis Results" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
+          <img src={project.images[6]} alt="Data Analysis Results" className="w-full h-auto block rounded-xl border border-black/[0.03]" />
         </div>
       </div>
     );
@@ -700,7 +802,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           })()}
           {/* One-line intro (same text as the folder card) for projects without an abstract; Dual Phobia opts in */}
           {(!project.abstract || project.detailIntro) && (project.detailIntro || project.description) && (
-            <p className="mt-1 md:mt-2 max-w-lg lg:max-w-xl text-gray-600 font-serif italic text-[13px] sm:text-[13.5px] leading-[1.8] font-light">
+            <p className={`mt-1 md:mt-2 max-w-lg lg:max-w-xl font-serif text-[13px] sm:text-[13.5px] leading-[1.8] whitespace-pre-line ${
+              // VET trial: intro and body prose swap their font treatments
+              isVet ? 'text-gray-600 italic font-light' : 'text-gray-400'
+            }`}>
               {project.detailIntro || project.description}
             </p>
           )}
@@ -809,9 +914,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                   </span>
                 </a>
               ) : (
-                <div className="relative w-full aspect-[1/1.414] sm:aspect-[3/4] md:aspect-[210/297] rounded-xl overflow-hidden shadow-2xl bg-gray-50 border border-gray-100">
+                <div
+                  className={`relative w-full rounded-xl overflow-hidden shadow-2xl bg-gray-50 border border-gray-100 ${
+                    project.pdfAspect ? '' : 'aspect-[1/1.414] sm:aspect-[3/4] md:aspect-[210/297]'
+                  }`}
+                  style={project.pdfAspect ? { aspectRatio: project.pdfAspect } : undefined}
+                >
                   <iframe
-                    src={getEmbedUrl(project.pdfUrl)}
+                    src={`${getEmbedUrl(project.pdfUrl)}${
+                      // Local PDFs: fit the whole page to the frame
+                      // (view=Fit for Chrome/Edge, zoom=page-fit for Firefox)
+                      project.pdfUrl.startsWith('/') ? '#navpanes=0&view=Fit&zoom=page-fit' : ''
+                    }`}
                     className="absolute inset-0 w-full h-full border-none"
                     title="PDF Document Viewer"
                     allow="fullscreen"

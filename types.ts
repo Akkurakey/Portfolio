@@ -18,6 +18,7 @@ export interface Project {
   videoPosition?: 'top' | 'bottom'; // Control where the video appears
   spotifyUrl?: string; // Optional URL for Spotify albums/tracks
   pdfUrl?: string; // Optional URL for academic PDF files (often used as posters in this portfolio)
+  pdfAspect?: string; // CSS aspect-ratio of the PDF page (e.g. '756/1008') so the viewer frame matches it exactly
   paperUrl?: string; // Direct link to the research paper
   prototypeUrl?: string; // Optional URL for prototype applications/demos
   githubUrl?: string; // Optional URL for source code repositories
