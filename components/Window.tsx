@@ -7,6 +7,11 @@ import { DESKTOP_ICON_COLUMN_RATIO } from '../constants';
 // as a fraction of viewport width
 const ABOUT_CENTER_RATIO = 0.27;
 
+const MIN_WIDTH = 200;
+const MIN_HEIGHT = 150;
+
+type ResizeCorner = 'nw' | 'ne' | 'sw' | 'se';
+
 interface WindowProps {
   id: string;
   title: string;
@@ -183,23 +188,25 @@ const Window: React.FC<WindowProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [isMaximized, initialWidth, isAbout, isCV]);
 
-  const interactionRef = useRef<{ 
-    type: 'resize' | 'drag' | null; 
-    startX: number; 
-    startY: number; 
-    startW: number; 
+  const interactionRef = useRef<{
+    type: 'resize' | 'drag' | null;
+    corner?: ResizeCorner;
+    startX: number;
+    startY: number;
+    startW: number;
     startH: number;
     startXPos: number;
     startYPos: number;
   } | null>(null);
 
-  const startResizing = (e: React.MouseEvent | React.TouchEvent) => {
+  const startResizing = (e: React.MouseEvent | React.TouchEvent, corner: ResizeCorner) => {
     const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
-    
+
     setIsInteracting(true);
     interactionRef.current = {
       type: 'resize',
+      corner,
       startX: clientX,
       startY: clientY,
       startW: size.width,
@@ -239,10 +246,33 @@ const Window: React.FC<WindowProps> = ({
       const deltaY = clientY - interactionRef.current.startY;
       
       if (interactionRef.current.type === 'resize') {
-        setSize({
-          width: Math.max(200, interactionRef.current.startW + deltaX),
-          height: Math.max(150, interactionRef.current.startH + deltaY)
-        });
+        // Dragging a west or north corner keeps the opposite edge pinned, so the
+        // window grows away from the hand rather than sliding
+        const { corner = 'se', startW, startH, startXPos, startYPos } = interactionRef.current;
+        const right = startXPos + startW;
+        const bottom = startYPos + startH;
+        let width = startW;
+        let height = startH;
+        let x = startXPos;
+        let y = startYPos;
+
+        if (corner === 'se' || corner === 'ne') {
+          width = Math.max(MIN_WIDTH, startW + deltaX);
+        } else {
+          x = Math.min(startXPos + deltaX, right - MIN_WIDTH);
+          width = right - x;
+        }
+
+        if (corner === 'se' || corner === 'sw') {
+          height = Math.max(MIN_HEIGHT, startH + deltaY);
+        } else {
+          // Never let the title bar slide under the menu bar
+          y = Math.min(Math.max(32, startYPos + deltaY), bottom - MIN_HEIGHT);
+          height = bottom - y;
+        }
+
+        setSize({ width, height });
+        if (corner !== 'se') setPosition({ x, y });
       } else if (interactionRef.current.type === 'drag') {
         const nextX = interactionRef.current.startXPos + deltaX;
         const nextY = Math.max(32, interactionRef.current.startYPos + deltaY);
@@ -353,15 +383,33 @@ const Window: React.FC<WindowProps> = ({
             {children}
           </div>
 
-          {/* Resize Handle - Restored to original clean styling */}
+          {/* Resize Handles - all four corners; only the bottom-right one shows a grip.
+              The top pair stays narrow so it clears the traffic lights. */}
           {!isMaximized && (
-            <div 
-              onMouseDown={startResizing}
-              onTouchStart={startResizing}
-              className="absolute bottom-0 right-0 w-8 h-8 cursor-nwse-resize z-[100] bg-transparent flex items-end justify-end p-1"
-            >
-              <div className="w-3.5 h-3.5 border-r-2 border-b-2 border-black/10 rounded-br-[2px]" />
-            </div>
+            <>
+              <div
+                onMouseDown={(e) => startResizing(e, 'nw')}
+                onTouchStart={(e) => startResizing(e, 'nw')}
+                className="absolute top-0 left-0 w-3.5 h-3.5 cursor-nwse-resize z-[110]"
+              />
+              <div
+                onMouseDown={(e) => startResizing(e, 'ne')}
+                onTouchStart={(e) => startResizing(e, 'ne')}
+                className="absolute top-0 right-0 w-3.5 h-3.5 cursor-nesw-resize z-[110]"
+              />
+              <div
+                onMouseDown={(e) => startResizing(e, 'sw')}
+                onTouchStart={(e) => startResizing(e, 'sw')}
+                className="absolute bottom-0 left-0 w-5 h-5 cursor-nesw-resize z-[110]"
+              />
+              <div
+                onMouseDown={(e) => startResizing(e, 'se')}
+                onTouchStart={(e) => startResizing(e, 'se')}
+                className="absolute bottom-0 right-0 w-8 h-8 cursor-nwse-resize z-[100] bg-transparent flex items-end justify-end p-1"
+              >
+                <div className="w-3.5 h-3.5 border-r-2 border-b-2 border-black/10 rounded-br-[2px]" />
+              </div>
+            </>
           )}
         </motion.div>
       )}
