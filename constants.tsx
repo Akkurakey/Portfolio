@@ -279,7 +279,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'ai-4',
       title: 'Mandarin FM',
-      description: 'Digital platform for Mandarin language learning and curated cultural audio content.',
+      description: 'A digital platform for learning Mandarin through music lyrics.',
       imageUrl: '/images/web_ai/mandarin-fm.png',
       images: ['/images/web_ai/mandarin-fm.png'],
       tags: ['Audio', 'Language', 'Culture'],

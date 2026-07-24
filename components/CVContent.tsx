@@ -168,6 +168,11 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenFolder, onOpenProjectById }
                   S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <LinkSpan id="hci-2">"AIs or Humans in Luxury Shopping? A Design Study of VR Shopping Assistants."</LinkSpan> <span className="italic">2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW)</span>, 2026.
                 </p>
               </div>
+              <div className="group relative">
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. "Who Should Serve You in Metaverse Luxury Stores? A Comparative Study of 3D Avatars, AI Agents, Webcam Staff, and Voice Assistants." <span className="italic">Electronic Commerce Research and Applications</span>, under review, 2026.
+                </p>
+              </div>
             </div>
           </section>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Bell } from 'lucide-react';
+import { Search, X, Bell, ArrowUpRight } from 'lucide-react';
 import { WindowState, WindowID, Project } from './types';
 import { FOLDERS, PROJECTS, DESKTOP_ICON_COLUMN_RATIO } from './constants';
 import DesktopIcon from './components/DesktopIcon';
@@ -9,6 +9,47 @@ import ProjectGrid from './components/ProjectGrid';
 import AboutContent from './components/AboutContent';
 import CVContent from './components/CVContent';
 import ProjectDetail from './components/ProjectDetail';
+
+// Navigation guide inline links: in-site jumps stay plain blue, external ones
+// carry an arrow so it is clear they leave the page
+// A span rather than a button: buttons are atomic inline boxes in Chrome, so a
+// multi-word link inside a paragraph would refuse to break across lines
+const NavLink: React.FC<{ onClick: () => void; children: React.ReactNode }> = ({ onClick, children }) => (
+  <span
+    role="button"
+    tabIndex={0}
+    onClick={onClick}
+    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }}
+    className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 hover:decoration-blue-400 underline-offset-4 transition-all cursor-pointer"
+  >
+    {children}
+  </span>
+);
+
+const NavExternalLink: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 hover:decoration-blue-400 underline-offset-4 transition-all"
+  >
+    {children}
+    <ArrowUpRight size={10} className="inline-block align-[-0.12em] ml-px text-gray-400" />
+  </a>
+);
+
+const NavSection: React.FC<{ title: string; onOpen: () => void; children: React.ReactNode }> = ({ title, onOpen, children }) => (
+  <section className="space-y-3">
+    <button
+      onClick={onOpen}
+      className="group inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-blue-600 hover:text-blue-500 transition-colors"
+    >
+      {title}
+      <ArrowUpRight size={12} className="text-blue-300 group-hover:text-blue-500 transition-colors" />
+    </button>
+    <div className="text-gray-600 text-[13px] leading-[1.8] space-y-7">{children}</div>
+  </section>
+);
 
 const App: React.FC = () => {
   const [windows, setWindows] = useState<WindowState[]>(() => {
@@ -386,52 +427,50 @@ const App: React.FC = () => {
           {win.id === 'kcl_nav' && (
             <div className="w-full h-full bg-white flex flex-col p-8 sm:p-12 overflow-y-auto custom-scrollbar">
               <div className="max-w-2xl mx-auto space-y-10">
-                <header className="border-b border-gray-100 pb-6">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Hi, welcome!</h2>
-                  <p className="text-gray-500 text-sm font-medium">Here's a guide to navigate my portfolio:</p>
+                <header className="border-b border-gray-100 pb-8 space-y-4">
+                  <h2 className="text-2xl font-bold text-gray-900">Hi, welcome!</h2>
+                  <p className="text-gray-600 text-[13px] leading-[1.8]">
+                    I'm an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
+                  </p>
+                  <p className="text-gray-600 text-[13px] leading-[1.8]">
+                    You can view my <NavLink onClick={() => openWindow('cv')}>CV</NavLink> here.
+                  </p>
                 </header>
 
-                <section className="space-y-4">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">1. About → <button onClick={() => openWindow('cv')} className="hover:text-blue-500 underline decoration-gray-200 underline-offset-4 transition-all">CV</button></h3>
-                  <p className="text-gray-600 text-[13px] leading-relaxed">
-                    My academic background, research training, and current status are outlined in the CV section.
-                  </p>
-                </section>
-
-                <section className="space-y-6">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">2. HCI Research <span className="normal-case tracking-tighter font-medium opacity-80">(also accessible via link in the CV)</span></h3>
-                  <div className="space-y-6 pl-2 border-l-2 border-gray-50">
-                    <div className="space-y-2">
-                      <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-1')}>Comparison of VR and AR in Virtual Exposure</h4>
-                      <p className="text-gray-500 text-[12px] leading-relaxed">Comparing the experience intensity of VR and AR in virtual exposure scenarios for spider phobia and contamination fear.</p>
-                    </div>
-                    <div className="space-y-2">
-                      <h4 className="font-bold text-gray-900 text-sm underline decoration-gray-100 underline-offset-2 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => openProjectById('hci-2')}>Virtual Shopping Assistants Study</h4>
-                      <p className="text-gray-500 text-[12px] leading-relaxed">Examining psychological burden, trust, and social behaviour across different virtual shopping assistant modalities (3D avatar, webcam, voice, and AI).</p>
-                    </div>
-                  </div>
-                </section>
-
-                <section className="space-y-4">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">3. Game & XR Development</h3>
-                  <div className="space-y-2">
-                    <p className="text-gray-600 text-[13px] leading-relaxed">
-                      This folder contains XR applications and game development projects, primarily developed in Unity.
+                <NavSection title="HCI Research" onOpen={() => openWindow('hci')}>
+                  <div className="space-y-1">
+                    <p>
+                      <NavLink onClick={() => openProjectById('hci-1')}>Comparing AR and VR in Exposure Scenarios</NavLink>
+                    </p>
+                    <p>
+                      My master's project, supervised by Prof. Chris Greenhalgh. I built the VR/AR spider and contamination exposure prototypes and conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data. Accepted at <NavExternalLink href="/docs/dual-phobia-paper.pdf">Virtual Reality (Springer)</NavExternalLink>.
                     </p>
                   </div>
-                </section>
+                  <div className="space-y-1">
+                    <p>
+                      <NavLink onClick={() => openProjectById('hci-2')}>Virtual Shopping Assistants Study</NavLink>
+                    </p>
+                    <p>
+                      A collaboration on trust, psychological burden, and social behaviour across four assistant modalities (3D avatar, webcam, voice, and AI). I ran the user study and the experiment. Published as a workshop short paper and poster at <NavExternalLink href="https://doi.org/10.1109/VRW70859.2026.00252">IEEE VR 2026</NavExternalLink>, with an extended paper under review at Electronic Commerce Research and Applications.
+                    </p>
+                  </div>
+                </NavSection>
 
-                <section className="space-y-4">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">4. Web & AI Experiments</h3>
-                  <p className="text-gray-600 text-[13px] leading-relaxed">
-                    This section includes web development and AI interaction explorations. One example is <button onClick={() => openProjectById('ai-2')} className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 underline-offset-4 transition-all">ScholarStream</button>, a prototype platform that allows users to:
+                <NavSection title="Game & XR Development" onOpen={() => openWindow('game_xr')}>
+                  <p>
+                    XR applications and games built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure prototypes</NavLink> from the study above. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, is a WebXR emotional safe space built with Three.js and Gaussian splatting. The room is generated from the user's own check-in, and an LLM + TTS voice pipeline lets them talk with it in real time.
                   </p>
-                  <ul className="space-y-1 text-[12px] text-gray-500 italic pl-4">
-                    <li>• Follow specific academic fields</li>
-                    <li>• Subscribe to newly published papers</li>
-                    <li>• Navigate research visually</li>
-                  </ul>
-                </section>
+                </NavSection>
+
+                <NavSection title="Graphic & Branding" onOpen={() => openWindow('graphic')}>
+                  <p>Earlier branding and visual design work. Projects I'm still fond of.</p>
+                </NavSection>
+
+                <NavSection title="Web & AI" onOpen={() => openWindow('web_ai')}>
+                  <p>
+                    Little web products: AI art with image generation, Mandarin learning through music lyrics, and an academic tool for following new papers. All are live, give them a try.
+                  </p>
+                </NavSection>
 
                 <footer className="pt-8 border-t border-gray-50 text-gray-400 text-[12px] italic">
                   <p>Feel free to <a href="mailto:rakeyyang@gmail.com" className="underline decoration-gray-200 hover:text-blue-500 transition-colors font-bold italic">reach out</a> if you'd like to discuss any project in detail.</p>
