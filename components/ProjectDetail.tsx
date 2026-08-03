@@ -27,6 +27,37 @@ const CaptionedFigure: React.FC<{ src: string; caption: string; rate?: number }>
   </div>
 );
 
+// Cover image that pans horizontally with the cursor, revealing the left/right
+// portions that object-cover crops off. Desktop hover only; touch stays centred.
+const HoverPanImage: React.FC<{ src: string; className?: string }> = ({ src, className }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [posX, setPosX] = useState(50);
+
+  const handleMove = (e: React.MouseEvent) => {
+    const r = ref.current?.getBoundingClientRect();
+    if (!r) return;
+    const x = (e.clientX - r.left) / r.width;
+    setPosX(Math.min(Math.max(x, 0), 1) * 100);
+  };
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMove}
+      onMouseLeave={() => setPosX(50)}
+      className="flex-1 overflow-hidden rounded-xl flex justify-center bg-gray-50/50"
+    >
+      <img
+        src={src}
+        alt=""
+        style={{ objectPosition: `${posX}% 50%` }}
+        className={className}
+        loading="lazy"
+      />
+    </div>
+  );
+};
+
 // Bold the keyword marker inside abstract text
 const renderAbstractContent = (text: string) => {
   const keywordMarkers = ['Keywords:', 'Index Terms:'];
@@ -441,9 +472,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
             <img src={project.images[0]} alt="" className="w-full h-auto max-h-[80vh] object-contain shadow-md border border-black/[0.03] transition-all duration-700" loading="lazy" />
           </div>
           <div className="flex flex-col md:flex-row gap-4 md:gap-8 w-full md:w-[90%] lg:w-[85%] xl:w-[80%] items-stretch">
-            <div className="flex-1 overflow-hidden rounded-xl flex justify-center bg-gray-50/50">
-              <img src={project.images[1]} alt="" className="w-full h-full min-h-[30vh] md:min-h-[40vh] object-cover shadow-md border border-black/[0.03] transition-all duration-700" loading="lazy" />
-            </div>
+            <HoverPanImage
+              src={project.images[1]}
+              className="w-full h-full min-h-[30vh] md:min-h-[40vh] object-cover shadow-md border border-black/[0.03] transition-[object-position] duration-150 ease-out"
+            />
             <div className="flex-1 overflow-hidden rounded-xl flex justify-center bg-gray-50/50">
               <img src={project.images[2]} alt="" className="w-full h-full min-h-[30vh] md:min-h-[40vh] object-cover shadow-md border border-black/[0.03] transition-all duration-700" loading="lazy" />
             </div>
