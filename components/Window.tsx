@@ -5,7 +5,7 @@ import { DESKTOP_ICON_COLUMN_RATIO } from '../constants';
 
 // Horizontal midpoint of the About window (and, offset from it, Certification),
 // as a fraction of viewport width
-const ABOUT_CENTER_RATIO = 0.27;
+const ABOUT_CENTER_RATIO = 0.35;
 
 const MIN_WIDTH = 200;
 const MIN_HEIGHT = 150;

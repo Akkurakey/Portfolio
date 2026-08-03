@@ -236,16 +236,6 @@ const App: React.FC = () => {
     });
   };
 
-  // About opened from the navigation guide steps aside a little so the guide
-  // window stays identifiable underneath; from the menu bar it opens as usual
-  const openAboutFromNav = () => {
-    if (window.innerWidth < 768) {
-      openWindow('about');
-      return;
-    }
-    openWindow('about', { x: -60, y: 30 });
-  };
-
   const openProjectWindow = (project: Project, side?: 'left' | 'right') => {
     setWindows((prev) => {
       const existingId = `project-${project.id}`;
@@ -447,7 +437,7 @@ const App: React.FC = () => {
                     I'm an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
                   </p>
                   <p className="text-gray-600 text-[13px] leading-[1.8]">
-                    You can find more <NavLink onClick={openAboutFromNav}>about me</NavLink> here.
+                    You can view my <NavExternalLink href="/docs/rakey-yang-cv.pdf">CV</NavExternalLink> here.
                   </p>
                 </header>
 
