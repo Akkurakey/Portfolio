@@ -119,23 +119,23 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
         <section>
           <h2 className={SECTION_HEADER}>Education</h2>
           <p className="text-[15px] text-gray-700 leading-relaxed">
-            Rakey holds an MSc in Human-Computer Interaction (Distinction) from the University of Nottingham.
+            I hold an MSc in Human-Computer Interaction (Distinction) from the University of Nottingham.
           </p>
         </section>
 
         {/* What I'm interested in */}
         <section>
-          <h2 className={SECTION_HEADER}>What she's interested in</h2>
+          <h2 className={SECTION_HEADER}>What I'm interested in</h2>
           <p className="text-[15px] text-gray-700 leading-relaxed">
-            Rakey is interested in what it takes for a technology to hold someone. Most of her work is with people in emotionally demanding or excluded situations, where the design question is less about what a system can do and more about what it can make room for.
+            I'm interested in what it takes for a technology to hold someone. Most of my work is with people in emotionally demanding or excluded situations, where the design question is less about what a system can do and more about what it can make room for.
           </p>
         </section>
 
         {/* What I do */}
         <section>
-          <h2 className={SECTION_HEADER}>What she does</h2>
+          <h2 className={SECTION_HEADER}>What I do</h2>
           <p className="text-[15px] text-gray-700 leading-relaxed">
-            Rakey works with extended reality and AI. She designs and builds the systems herself, then runs mixed methods studies to find out what they actually did.
+            I work with extended reality and AI. I design and build the systems myself, then run mixed methods studies to find out what they actually did.
           </p>
         </section>
 
