@@ -112,12 +112,12 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
           </div>
         </div>
 
-        {/* View CV Button */}
-        <button 
+        {/* View more Button */}
+        <button
           onClick={onViewCV}
           className="px-5 py-1.5 bg-[#4d4d4d] hover:bg-[#5a5a5a] active:bg-[#3a3a3a] border border-[#666666] text-white transition-all text-[12px] sm:text-[13px] font-medium rounded-lg shadow-sm mb-10 sm:mb-12"
         >
-          View CV...
+          View more...
         </button>
 
         {/* Footer */}

@@ -63,10 +63,10 @@ const App: React.FC = () => {
     }));
     return [
       ...base,
-      { id: 'cv', title: 'Curriculum Vitae', isOpen: false, isMinimized: false, zIndex: 50, type: 'cv' as const },
+      { id: 'cv', title: 'More About Rakey Yang', isOpen: false, isMinimized: false, zIndex: 50, type: 'cv' as const },
       { id: 'about', title: 'About Rakey Yang', isOpen: false, isMinimized: false, zIndex: 51, type: 'about' as const },
       { id: 'certification', title: 'Regulatory Certification', isOpen: false, isMinimized: false, zIndex: 52, type: 'project' as const },
-      { id: 'kcl_nav', title: 'Website Navigation', isOpen: false, isMinimized: false, zIndex: 53, type: 'folder' as const }
+      { id: 'kcl_nav', title: "Rakey's Message", isOpen: false, isMinimized: false, zIndex: 53, type: 'folder' as const }
     ];
   });
 
@@ -338,7 +338,7 @@ const App: React.FC = () => {
             </div>
             <div className="flex-grow flex flex-col justify-center min-w-0">
               <h3 className="text-white text-[13px] font-bold leading-tight">Visitors from Academia?</h3>
-              <p className="text-white/70 text-[12px] leading-tight mt-0.5">Click here to view the navigation guide.</p>
+              <p className="text-white/70 text-[12px] leading-tight mt-0.5">A message from Rakey.</p>
             </div>
             <button 
               className="absolute top-2 right-2 p-1 rounded-full hover:bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -426,7 +426,7 @@ const App: React.FC = () => {
           }
         >
           {win.type === 'about' && <AboutContent onViewCV={() => openWindow('cv')} onOpenCertification={() => openWindow('certification')} />}
-          {win.type === 'cv' && <CVContent onOpenFolder={openWindow} onOpenProjectById={openProjectById} />}
+          {win.type === 'cv' && <CVContent onOpenProjectById={openProjectById} />}
           {win.type === 'folder' && win.id !== 'kcl_nav' && <ProjectGrid title={win.title} projects={PROJECTS[win.id as WindowID] || []} onOpenProject={openProjectWindow} />}
           {win.id === 'kcl_nav' && (
             <div className="w-full h-full bg-white flex flex-col p-8 sm:p-12 overflow-y-auto custom-scrollbar">
@@ -434,7 +434,7 @@ const App: React.FC = () => {
                 <header className="border-b border-gray-100 pb-8 space-y-4">
                   <h2 className="text-2xl font-bold text-gray-900">Hi, welcome!</h2>
                   <p className="text-gray-600 text-[13px] leading-[1.8]">
-                    I'm an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
+                    I'm Rakey Yang, an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
                   </p>
                   <p className="text-gray-600 text-[13px] leading-[1.8]">
                     You can view my <NavExternalLink href="/docs/rakey-yang-cv.pdf">CV</NavExternalLink> here.
