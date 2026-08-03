@@ -115,12 +115,13 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
       </div>
 
       <div className="space-y-14">
-        {/* Education */}
+        {/* Background */}
         <section>
-          <h2 className={SECTION_HEADER}>Education</h2>
-          <p className="text-[15px] text-gray-700 leading-relaxed">
-            I hold an MSc in Human-Computer Interaction (Distinction) from the University of Nottingham.
-          </p>
+          <h2 className={SECTION_HEADER}>Background</h2>
+          <div className="space-y-2.5 text-[15px] text-gray-700 leading-relaxed">
+            <p>I hold an MSc in Human-Computer Interaction (Distinction) from the University of Nottingham.</p>
+            <p>I've worked at O Shaped in London as an AI Specialist Intern, and previously as a freelance visual designer.</p>
+          </div>
         </section>
 
         {/* What I'm interested in */}

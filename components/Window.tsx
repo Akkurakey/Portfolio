@@ -132,8 +132,9 @@ const Window: React.FC<WindowProps> = ({
     const staggerIndex = Math.max(0, zIndex - 10);
 
     if (!isMobile && id === 'kcl_nav') {
-      // Navigation guide opens centred, nudged slightly left, no stagger
-      return clampToViewport(centerX - 80, centerY);
+      // Nudged slightly left and dropped a little below centre so its title bar
+      // does not sit perfectly level with the About window when both are open
+      return clampToViewport(centerX - 80, centerY + 44);
     }
 
     if (!isMobile && isFolderGrid) {
@@ -338,7 +339,7 @@ const Window: React.FC<WindowProps> = ({
             WebkitBackfaceVisibility: 'hidden',
             backfaceVisibility: 'hidden',
           }}
-          className={`absolute flex flex-col macos-glass macos-shadow border border-white/20 select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden'}`}
+          className={`absolute flex flex-col macos-glass macos-shadow select-none touch-none ${isAbout ? 'overflow-visible' : 'overflow-hidden border border-white/20'}`}
         >
           {/* Header Bar */}
           <div 
