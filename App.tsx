@@ -63,7 +63,7 @@ const App: React.FC = () => {
     }));
     return [
       ...base,
-      { id: 'cv', title: 'More About Rakey Yang', isOpen: false, isMinimized: false, zIndex: 50, type: 'cv' as const },
+      { id: 'cv', title: 'More about Rakey Yang', isOpen: false, isMinimized: false, zIndex: 50, type: 'cv' as const },
       { id: 'about', title: 'About Rakey Yang', isOpen: false, isMinimized: false, zIndex: 51, type: 'about' as const },
       { id: 'certification', title: 'Regulatory Certification', isOpen: false, isMinimized: false, zIndex: 52, type: 'project' as const },
       { id: 'kcl_nav', title: "Rakey's Message", isOpen: false, isMinimized: false, zIndex: 53, type: 'folder' as const }
@@ -415,7 +415,7 @@ const App: React.FC = () => {
             win.id === 'kcl_nav' ? 640 :
             win.type === 'project' ? 950 : 
             win.type === 'about' ? 330 : 
-            (win.id === 'cv' ? 900 : undefined)
+            (win.id === 'cv' ? 820 : undefined)
           }
           initialHeight={
             win.id === 'certification' ? 300 : 

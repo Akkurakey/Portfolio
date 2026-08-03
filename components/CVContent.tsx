@@ -171,7 +171,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
               <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-rose-600 ring-4 ring-white" />
               <span className="block text-[10px] font-sans font-bold text-gray-400 tracking-widest mb-1">2026</span>
               <p className="text-sm text-gray-800 leading-relaxed">
-                GOSIM AI Spotlight, Paris <span className="text-gray-500">(Top 10 Frontier Creators)</span>
+                GOSIM AI Spotlight, Paris <span className="text-gray-500">(Presenter)</span>
               </p>
               <div className="mt-3 w-full max-w-[480px] overflow-hidden rounded-lg border border-gray-200 shadow-sm">
                 <img
