@@ -109,7 +109,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
       <div className="border-b border-gray-200 pb-6 mb-12">
         <h1 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold tracking-tight uppercase leading-none mb-3.5">RAKEY / RUOQING YANG</h1>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs font-sans font-medium text-gray-400">
-          <span className="flex items-center gap-1.5"><Mail size={12} className="shrink-0" /> rakeyyang@gmail.com</span>
+          <span className="flex items-center gap-1.5"><Mail size={12} className="shrink-0" /> rakeyyang[at]gmail.com</span>
           <span className="flex items-center gap-1.5"><Globe size={12} className="shrink-0" /> United Kingdom</span>
         </div>
       </div>
