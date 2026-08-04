@@ -181,7 +181,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
                   className="w-full block scale-[1.05] origin-[75%_50%]"
                 />
               </div>
-              <p className="text-sm text-gray-800 leading-relaxed mt-6">RealityX (AI×XR) Hackathon: Best AI Use Prize</p>
+              <p className="text-sm text-gray-800 leading-relaxed mt-6">RealityX AI×XR Hackathon: Best AI Use Prize</p>
             </div>
             <div className="relative">
               <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-rose-600 ring-4 ring-white" />

@@ -1,10 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface AboutContentProps {
   onViewCV?: () => void;
   onOpenCertification?: () => void;
 }
+
+// Segmented tooltip beside the role labels. Hidden on mobile; on desktop it pops
+// to its preferred side but flips to the other side if it would cross the viewport
+// edge, so it never overflows.
+const SideTooltip: React.FC<{ label: string; preferred: 'left' | 'right'; children: React.ReactNode }> = ({ label, preferred, children }) => {
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const [side, setSide] = useState<'left' | 'right'>(preferred);
+
+  const TOOLTIP_W = 240; // matches w-60
+  const NEED = TOOLTIP_W + 20 + 8; // width + gap + margin
+
+  const handleEnter = () => {
+    const r = triggerRef.current?.getBoundingClientRect();
+    if (!r) return;
+    const spaceLeft = r.left;
+    const spaceRight = window.innerWidth - r.right;
+    let s = preferred;
+    if (preferred === 'left' && spaceLeft < NEED && spaceRight >= NEED) s = 'right';
+    else if (preferred === 'right' && spaceRight < NEED && spaceLeft >= NEED) s = 'left';
+    setSide(s);
+  };
+
+  return (
+    <div ref={triggerRef} onMouseEnter={handleEnter} className="group relative inline-block cursor-help">
+      <span className="hover:text-white transition-colors">{label}</span>
+      <div className={`hidden sm:block absolute top-0 ${side === 'left' ? 'right-[calc(100%+20px)]' : 'left-[calc(100%+20px)]'} w-60 p-4 bg-white text-gray-900 text-[11px] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-[200] font-serif normal-case tracking-normal leading-relaxed border border-black/5 text-left italic`}>
+        {children}
+        {side === 'left'
+          ? <div className="absolute top-4 left-full -ml-1 border-[6px] border-transparent border-l-white" />
+          : <div className="absolute top-4 right-full -mr-1 border-[6px] border-transparent border-r-white" />}
+      </div>
+    </div>
+  );
+};
 
 const PROFILE_IMAGES = [
   "/images/about/profile-1.png",
@@ -60,28 +94,16 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
           <h1 className="text-2xl sm:text-[32px] font-bold text-white leading-tight">Rakey Yang</h1>
           <div className="text-[#a1a1a1] text-xs sm:text-[13px] font-medium mt-1 flex justify-center gap-1.5 flex-wrap">
             
-            {/* HCI Researcher with Tooltip popping to the LEFT */}
-            <div className="group relative inline-block cursor-help">
-              <span className="hover:text-white transition-colors">HCI Researcher</span>
-              <div className="absolute top-0 right-[calc(100%+20px)] w-48 sm:w-64 p-4 bg-white text-gray-900 text-[10px] sm:text-[11px] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[200] font-serif normal-case tracking-normal leading-relaxed border border-black/5 text-left italic">
-                <p>I build systems and use them to study how immersive technologies and AI shape what people notice, feel, and understand.</p>
-                {/* Arrow pointing to the text from the right */}
-                <div className="absolute top-4 left-full -ml-1 border-[6px] border-transparent border-l-white"></div>
-              </div>
-            </div>
+            <SideTooltip label="HCI Researcher" preferred="left">
+              <p>I build systems and use them to study how immersive technologies and AI shape what people notice, feel, and understand.</p>
+            </SideTooltip>
 
             <span>&</span>
 
-            {/* Designer with Tooltip popping to the Right */}
-            <div className="group relative inline-block cursor-help">
-              <span className="hover:text-white transition-colors">Designer</span>
-              <div className="absolute top-0 left-[calc(100%+20px)] w-48 sm:w-64 p-4 bg-white text-gray-900 text-[10px] sm:text-[11px] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[200] font-serif normal-case tracking-normal leading-relaxed border border-black/5 text-left italic">
-                <p className="mb-2">Design is a natural part of my practice.</p>
-                <p>I learn through creating and enjoy the process. I also take a design-led approach in my research.</p>
-                {/* Arrow pointing to the text from the left */}
-                <div className="absolute top-4 right-full -mr-1 border-[6px] border-transparent border-r-white"></div>
-              </div>
-            </div>
+            <SideTooltip label="Designer" preferred="right">
+              <p className="mb-2">Design is a natural part of my practice.</p>
+              <p>I learn through creating and enjoy the process. I also take a design-led approach in my research.</p>
+            </SideTooltip>
 
           </div>
         </div>
@@ -117,7 +139,7 @@ const AboutContent: React.FC<AboutContentProps> = ({ onViewCV, onOpenCertificati
           onClick={onViewCV}
           className="px-5 py-1.5 bg-[#4d4d4d] hover:bg-[#5a5a5a] active:bg-[#3a3a3a] border border-[#666666] text-white transition-all text-[12px] sm:text-[13px] font-medium rounded-lg shadow-sm mb-10 sm:mb-12"
         >
-          View more...
+          View more..
         </button>
 
         {/* Footer */}
