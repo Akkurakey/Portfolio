@@ -128,7 +128,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
         <section>
           <h2 className={SECTION_HEADER}>What I'm interested in</h2>
           <p className="text-[15px] text-gray-700 leading-relaxed">
-            I'm interested in what it takes for a technology to hold someone. Most of my work is with people in emotionally demanding or excluded situations, where the design question is less about what a system can do and more about what it can make room for.
+            I'm interested in what it takes for a technology to hold someone. My work is about not just what a system can do, but what it makes room for. That usually means moments when a person needs space to think or feel, whether they are working through anxiety or in the middle of a decision.
           </p>
         </section>
 
