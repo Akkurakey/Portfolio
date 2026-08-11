@@ -288,7 +288,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'ai-2',
       title: 'Scholar Stream',
-      description: 'AI-enhanced academic streaming and knowledge sharing platform for global education.',
+      description: 'A platform for following STEM papers through a personalised topic feed.',
       imageUrl: '/images/web_ai/scholar-stream.png',
       images: ['/images/web_ai/scholar-stream.png'],
       tags: ['Education', 'AI', 'Streaming'],
@@ -297,7 +297,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'ai-3',
       title: 'Dream Core Generator',
-      description: 'Experimental AI visual generator for creative storytelling and conceptual visual design.',
+      description: 'A website that turns three words into a dreamcore "safe zone" scene and mood.',
       imageUrl: '/images/web_ai/dream-core.png',
       images: ['/images/web_ai/dream-core.png'],
       tags: ['AI', 'Generation', 'Visuals'],
