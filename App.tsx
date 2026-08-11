@@ -447,7 +447,7 @@ const App: React.FC = () => {
                       <NavLink onClick={() => openProjectById('hci-1')}>Comparing AR and VR in Exposure Scenarios</NavLink>
                     </p>
                     <p>
-                      My master's project, supervised by Prof. Chris Greenhalgh. I built the VR/AR spider and contamination exposure prototypes and conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data. Accepted at <span className="whitespace-nowrap"><NavExternalLink href="/docs/vet-paper.pdf">Virtual Reality (Springer)</NavExternalLink>.</span>
+                      My master's project, supervised by Prof. Chris Greenhalgh. I built the VR/AR spider and contamination exposure prototypes and conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data. Accepted at <span className="whitespace-nowrap"><NavExternalLink href="https://doi.org/10.1007/s10055-026-01450-y">Virtual Reality (Springer)</NavExternalLink>.</span>
                     </p>
                   </div>
                   <div className="space-y-1">

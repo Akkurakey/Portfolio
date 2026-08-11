@@ -36,7 +36,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       tags: ['VR', 'AR', 'Therapy', 'Unity', 'Research'],
       pdfUrl: '/docs/dual-phobia-poster.pdf',
       pdfAspect: '756/1008',
-      paperUrl: '/docs/vet-paper.pdf',
+      paperUrl: 'https://doi.org/10.1007/s10055-026-01450-y',
       relatedProjectId: 'xr-3',
       relatedProjectTitle: 'More Prototype Details',
       fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\n\nGuided 31 participants through a within-subjects session of about 40 minutes, covering spider and contamination scenarios in both AR and VR (four conditions, randomised order), with hand-tracked tasks that scaled from observing a static stimulus to picking it up, triggering its movement, and interacting more closely.\nParticipants completed an initial questionnaire, then a questionnaire after each scenario, thinking aloud throughout, and closed with a follow-up interview.\n\nCollected questionnaire data, think-aloud feedback, and follow-up interviews; analysed and interpreted the results using SPSS.'
