@@ -20,7 +20,7 @@ const NavLink: React.FC<{ onClick: () => void; children: React.ReactNode }> = ({
     tabIndex={0}
     onClick={onClick}
     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }}
-    className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 hover:decoration-blue-400 underline-offset-4 transition-all cursor-pointer"
+    className="font-normal text-gray-800 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 transition-all cursor-pointer"
   >
     {children}
   </span>
@@ -31,23 +31,22 @@ const NavExternalLink: React.FC<{ href: string; children: React.ReactNode }> = (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="font-bold text-gray-900 hover:text-blue-600 underline decoration-gray-200 hover:decoration-blue-400 underline-offset-4 transition-all"
+    className="font-normal text-gray-800 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 transition-all"
   >
     {children}
-    <ArrowUpRight size={10} className="inline-block align-[-0.12em] ml-px text-gray-400" />
   </a>
 );
 
 const NavSection: React.FC<{ title: string; onOpen: () => void; children: React.ReactNode }> = ({ title, onOpen, children }) => (
-  <section className="space-y-3">
+  <section className="space-y-5">
     <button
       onClick={onOpen}
-      className="group inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-blue-600 hover:text-blue-500 transition-colors"
+      className="inline-flex items-center text-xs font-black uppercase tracking-[0.2em] text-gray-900 hover:text-gray-500 transition-colors"
     >
       {title}
-      <ArrowUpRight size={12} className="text-blue-300 group-hover:text-blue-500 transition-colors" />
+      <ArrowUpRight size={10} className="ml-1 text-gray-400 translate-y-[2px]" />
     </button>
-    <div className="text-gray-600 text-[13px] leading-[1.8] space-y-7">{children}</div>
+    <div className="text-gray-500 font-light text-sm leading-[1.7] space-y-11">{children}</div>
   </section>
 );
 
@@ -429,20 +428,20 @@ const App: React.FC = () => {
           {win.type === 'cv' && <CVContent onOpenProjectById={openProjectById} />}
           {win.type === 'folder' && win.id !== 'kcl_nav' && <ProjectGrid title={win.title} projects={PROJECTS[win.id as WindowID] || []} onOpenProject={openProjectWindow} />}
           {win.id === 'kcl_nav' && (
-            <div className="w-full h-full bg-white flex flex-col p-8 sm:p-12 overflow-y-auto custom-scrollbar">
-              <div className="max-w-2xl mx-auto space-y-10">
+            <div className="w-full h-full bg-white flex flex-col p-10 sm:p-16 overflow-y-auto custom-scrollbar">
+              <div className="max-w-2xl mx-auto space-y-16">
                 <header className="border-b border-gray-100 pb-8 space-y-4">
                   <h2 className="text-2xl font-bold text-gray-900">Hi, welcome!</h2>
-                  <p className="text-gray-600 text-[13px] leading-[1.8]">
+                  <p className="text-gray-500 font-light text-sm leading-[1.7]">
                     I'm Rakey Yang, an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
                   </p>
-                  <p className="text-gray-600 text-[13px] leading-[1.8]">
+                  <p className="text-gray-500 font-light text-sm leading-[1.7]">
                     You can view more <NavLink onClick={() => openWindow('about')}>about me</NavLink> here.
                   </p>
                 </header>
 
                 <NavSection title="HCI Research" onOpen={() => openWindow('hci')}>
-                  <div className="space-y-1">
+                  <div className="space-y-2.5">
                     <p>
                       <NavLink onClick={() => openProjectById('hci-1')}>Comparing AR and VR in Exposure Scenarios</NavLink>
                     </p>
@@ -450,7 +449,7 @@ const App: React.FC = () => {
                       My master's project, supervised by Prof. Chris Greenhalgh. I built the VR/AR spider and contamination exposure prototypes and conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data. Accepted at <span className="whitespace-nowrap"><NavExternalLink href="https://doi.org/10.1007/s10055-026-01450-y">Virtual Reality (Springer)</NavExternalLink>.</span>
                     </p>
                   </div>
-                  <div className="space-y-1">
+                  <div className="space-y-2.5">
                     <p>
                       <NavLink onClick={() => openProjectById('hci-2')}>Virtual Shopping Assistants Study</NavLink>
                     </p>
@@ -471,14 +470,17 @@ const App: React.FC = () => {
                 </NavSection>
 
                 <NavSection title="Web & AI" onOpen={() => openWindow('web_ai')}>
-                  <p>
-                    Little web products: AI art with image generation, Mandarin learning through music lyrics, and an academic tool for following new papers. All are live, give them a try.
-                  </p>
+                  <div className="space-y-2">
+                    <p>
+                      Little web products: <NavLink onClick={() => openProjectById('ai-shrine')}>AI art with image generation</NavLink>, <NavLink onClick={() => openProjectById('ai-4')}>Mandarin learning through music lyrics</NavLink>, and <NavLink onClick={() => openProjectById('ai-2')}>an academic tool for following new papers</NavLink>.
+                    </p>
+                    <p>All are live, give them a try.</p>
+                  </div>
                 </NavSection>
 
-                <footer className="pt-8 border-t border-gray-50 text-gray-400 text-[12px] italic">
-                  <p>Feel free to <a href="mailto:rakeyyang@gmail.com" className="underline decoration-gray-200 hover:text-blue-500 transition-colors font-bold italic">reach out</a> if you'd like to discuss any project in detail.</p>
-                  <div className="mt-8 not-italic text-gray-300 text-lg select-none">：）</div>
+                <footer className="-mt-6 pt-8 border-t border-gray-50 text-gray-400 text-[12px]">
+                  <p>Feel free to <a href="mailto:rakeyyang@gmail.com" className="text-gray-600 underline decoration-gray-200 hover:text-gray-800 transition-colors">reach out</a> if you'd like to discuss any project in detail.</p>
+                  <div className="mt-8 text-gray-300 text-lg select-none">：）</div>
                 </footer>
               </div>
             </div>

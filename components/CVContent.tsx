@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, Mail, Globe } from 'lucide-react';
+import { Mail, Globe, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS } from '../constants';
 
@@ -63,7 +63,7 @@ const QuickLookPreview = ({
   );
 };
 
-const SECTION_HEADER = "text-[10px] font-black uppercase tracking-[0.3em] text-rose-600 mb-5 border-b border-gray-100 pb-2";
+const SECTION_HEADER = "text-[10px] font-black uppercase tracking-[0.3em] text-gray-900 mb-5";
 
 const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
   const pdfUrl = "/docs/rakey-yang-cv.pdf";
@@ -97,48 +97,50 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
       onMouseEnter={() => handleMouseEnter(id)}
       onMouseLeave={handleMouseLeave}
       onClick={() => handleProjectLink(id)}
-      className="preview-trigger underline decoration-gray-300 hover:decoration-blue-500 hover:text-blue-600 cursor-pointer transition-colors relative"
+      className="preview-trigger text-gray-900 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 cursor-pointer transition-all relative"
     >
       {children}
     </span>
   );
 
   return (
-    <div className="p-6 sm:p-8 md:p-10 max-w-2xl mx-auto bg-white shadow-inner min-h-full font-serif text-gray-900 overflow-visible relative">
+    <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 max-w-2xl mx-auto bg-white shadow-inner min-h-full text-gray-900 overflow-visible relative">
       {/* Header */}
       <div className="border-b border-gray-200 pb-6 mb-12">
-        <h1 className="text-2xl sm:text-3xl lg:text-[2rem] font-bold tracking-tight uppercase leading-none mb-3.5">RAKEY / RUOQING YANG</h1>
+        <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold tracking-tight uppercase leading-none mb-3.5">RAKEY / RUOQING YANG</h1>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs font-sans font-medium text-gray-400">
           <span className="flex items-center gap-1.5"><Mail size={12} className="shrink-0" /> rakeyyang[at]gmail.com</span>
           <span className="flex items-center gap-1.5"><Globe size={12} className="shrink-0" /> United Kingdom</span>
         </div>
       </div>
 
-      <div className="space-y-14">
+      <div className="space-y-24">
+        <div className="space-y-12">
         {/* Background */}
         <section>
           <h2 className={SECTION_HEADER}>Background</h2>
-          <div className="space-y-2.5 text-[15px] text-gray-700 leading-relaxed">
+          <div className="space-y-3 text-sm text-gray-500 font-light leading-[1.7]">
             <p>I hold an MSc in Human-Computer Interaction (Distinction) from the University of Nottingham.</p>
-            <p>I've worked at O Shaped in London as an AI Specialist Intern, and previously as a freelance visual designer.</p>
+            <p>I've worked at <a href="https://oshaped.com/" target="_blank" rel="noopener noreferrer" className="text-gray-900 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 transition-all">O Shaped<ArrowUpRight size={10} className="inline-block align-[-0.12em] ml-px text-gray-400" /></a> in London as an AI Specialist Intern, and previously as a freelance visual designer.</p>
           </div>
         </section>
 
         {/* What I'm interested in */}
         <section>
           <h2 className={SECTION_HEADER}>What I'm interested in</h2>
-          <p className="text-[15px] text-gray-700 leading-relaxed">
-            I'm interested in what it takes for a technology to hold someone. My work is about not just what a system can do, but what it makes room for. That usually means moments when a person needs space to think or feel, whether they are working through anxiety or in the middle of a decision.
+          <p className="text-sm text-gray-500 font-light leading-[1.7]">
+            I'm interested in what it takes for a technology to hold someone. My work is about what a system can make room for. That usually means moments when a person needs space to think or feel, whether they are working through anxiety or in the middle of a decision.
           </p>
         </section>
 
         {/* What I do */}
         <section>
           <h2 className={SECTION_HEADER}>What I do</h2>
-          <p className="text-[15px] text-gray-700 leading-relaxed">
+          <p className="text-sm text-gray-500 font-light leading-[1.7]">
             I work with extended reality and AI. I design and build the systems myself, then run mixed methods studies to find out what they actually did.
           </p>
         </section>
+        </div>
 
         {/* Papers */}
         <section onMouseLeave={() => setHoveredProjectId(null)}>
@@ -146,19 +148,19 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
           <div className="space-y-8" onMouseMove={handleContainerMouseMove}>
             <div className="group relative">
               <QuickLookPreview projectId="hci-1" isVisible={hoveredProjectId === 'hci-1'} />
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="text-sm text-gray-500 font-light leading-relaxed">
                 <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1">"Comparing Experience Intensity of AR and VR for Contrasting Phobia Stimuli."</LinkSpan> <span className="italic">Virtual Reality</span>, in press, 2026.
               </p>
             </div>
             <div className="group relative">
               <QuickLookPreview projectId="hci-2" isVisible={hoveredProjectId === 'hci-2'} />
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="text-sm text-gray-500 font-light leading-relaxed">
                 S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <LinkSpan id="hci-2">"AIs or Humans in Luxury Shopping? A Design Study of VR Shopping Assistants."</LinkSpan> <span className="italic">2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW)</span>, pp. 1155-1156, 2026.
               </p>
             </div>
             <div className="group relative">
-              <p className="text-sm text-gray-700 leading-relaxed">
-                S. Jin, <span className="font-bold">R. Yang</span>, and L. H. Lee. "Who Should Serve You in Metaverse Luxury Stores? A Comparative Study of 3D Avatars, AI Agents, Webcam Staff, and Voice Assistants." <span className="italic">Electronic Commerce Research and Applications</span>, under review, 2026.
+              <p className="text-sm text-gray-500 font-light leading-relaxed">
+                S. Jin, <span className="font-bold">R. Yang</span>, and L. H. Lee. <span className="text-gray-900">"Who Should Serve You in Metaverse Luxury Stores? A Comparative Study of 3D Avatars, AI Agents, Webcam Staff, and Voice Assistants."</span> <span className="italic">Electronic Commerce Research and Applications</span>, under review, 2026.
               </p>
             </div>
           </div>
@@ -169,9 +171,9 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
           <h2 className={SECTION_HEADER}>Activities</h2>
           <div className="relative border-l border-gray-200 pl-6 ml-1 space-y-7">
             <div className="relative">
-              <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-rose-600 ring-4 ring-white" />
+              <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300 ring-4 ring-white" />
               <span className="block text-[10px] font-sans font-bold text-gray-400 tracking-widest mb-1">2026</span>
-              <p className="text-sm text-gray-800 leading-relaxed">
+              <p className="text-sm text-gray-500 font-light leading-relaxed">
                 GOSIM AI Spotlight, Paris <span className="text-gray-500">(Presenter)</span>
               </p>
               <div className="mt-3 w-full max-w-[480px] overflow-hidden rounded-lg border border-gray-200 shadow-sm">
@@ -181,38 +183,38 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
                   className="w-full block scale-[1.05] origin-[75%_50%]"
                 />
               </div>
-              <p className="text-sm text-gray-800 leading-relaxed mt-6">RealityX AI×XR Hackathon: Best AI Use Prize</p>
+              <p className="text-sm text-gray-500 font-light leading-relaxed mt-6">RealityX AI×XR Hackathon: Best AI Use Prize</p>
             </div>
             <div className="relative">
-              <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-rose-600 ring-4 ring-white" />
+              <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300 ring-4 ring-white" />
               <span className="block text-[10px] font-sans font-bold text-gray-400 tracking-widest mb-1">2025</span>
-              <p className="text-sm text-gray-800 leading-relaxed">Cambridge EduX Hackathon: First Prize <span className="text-gray-500">(AI Education)</span></p>
+              <p className="text-sm text-gray-500 font-light leading-relaxed">Cambridge EduX Hackathon: First Prize <span className="text-gray-500">(AI Education)</span></p>
             </div>
             <div className="relative">
-              <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-rose-600 ring-4 ring-white" />
+              <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300 ring-4 ring-white" />
               <span className="block text-[10px] font-sans font-bold text-gray-400 tracking-widest mb-1">2021</span>
-              <p className="text-sm text-gray-800 leading-relaxed">
+              <p className="text-sm text-gray-500 font-light leading-relaxed">
                 <span
                   onClick={() => handleProjectLink('gd-album')}
-                  className="underline decoration-gray-300 hover:decoration-blue-500 hover:text-blue-600 cursor-pointer transition-colors"
+                  className="group text-gray-600 hover:text-gray-900 cursor-pointer transition-colors"
                 >
-                  Kan Tai-Keung Design Award
-                </span>: Winning Work
+                  Kan Tai-Keung Design Award: Winning Work<ArrowUpRight size={10} className="inline-block ml-1 text-gray-400 group-hover:text-gray-600 transition-colors translate-y-[2px]" />
+                </span>
               </p>
             </div>
           </div>
         </section>
       </div>
 
-      <div className="flex justify-center pt-16 no-print">
+      <div className="flex justify-start pt-24 no-print">
         <a
           href={pdfUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 px-10 py-4 bg-gray-900 text-white rounded-full hover:bg-black transition-all shadow-xl font-sans text-[10px] font-black uppercase tracking-[0.2em]"
+          className="flex items-center gap-1.5 px-10 py-4 bg-gray-900 text-white rounded-full hover:bg-black transition-all shadow-xl font-sans text-[10px] font-black uppercase tracking-[0.2em]"
         >
-          <Download size={14} />
-          Full Resume PDF
+          Resume
+          <ArrowUpRight size={11} />
         </a>
       </div>
     </div>
