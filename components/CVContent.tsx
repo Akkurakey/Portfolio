@@ -10,17 +10,25 @@ interface CVContentProps {
 interface QuickLookPreviewProps {
   projectId: string;
   isVisible: boolean;
+  placement?: 'top' | 'bottom' | 'right';
 }
 
 // Quick Look Preview Component for Project Snapshots
 const QuickLookPreview = ({
   projectId,
-  isVisible
+  isVisible,
+  placement = 'top'
 }: QuickLookPreviewProps) => {
   const allProjects = Object.values(PROJECTS).flat();
   const project = allProjects.find(p => p.id === projectId);
 
   if (!project) return null;
+
+  const posStyle = placement === 'right'
+    ? { left: 'calc(100% + 28px)', bottom: '-8px' }
+    : placement === 'bottom'
+      ? { top: 'calc(100% + 12px)', right: '0' }
+      : { bottom: 'calc(100% + 12px)', right: '0' };
 
   return (
     <AnimatePresence>
@@ -32,8 +40,7 @@ const QuickLookPreview = ({
           transition={{ duration: 0.2, ease: "easeOut" }}
           style={{
             position: 'absolute',
-            bottom: 'calc(100% + 12px)',
-            right: '0',
+            ...posStyle,
             zIndex: 3000,
             pointerEvents: 'none',
           }}
@@ -65,6 +72,25 @@ const QuickLookPreview = ({
 
 const SECTION_HEADER = "text-[10px] font-black uppercase tracking-[0.3em] text-gray-900 mb-5";
 
+// Defined at module scope so its identity stays stable across CVContent re-renders;
+// an inline definition would remount the span on every hover and flicker the underline.
+const LinkSpan: React.FC<{
+  id: string;
+  children?: React.ReactNode;
+  onEnter: (id: string) => void;
+  onLeave: () => void;
+  onOpen: (id: string) => void;
+}> = ({ id, children, onEnter, onLeave, onOpen }) => (
+  <span
+    onMouseEnter={() => onEnter(id)}
+    onMouseLeave={onLeave}
+    onClick={() => onOpen(id)}
+    className="preview-trigger text-gray-900 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 cursor-pointer transition-colors relative"
+  >
+    {children}
+  </span>
+);
+
 const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
   const pdfUrl = "/docs/rakey-yang-cv.pdf";
 
@@ -91,17 +117,6 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
   const handleProjectLink = (id: string) => {
     if (onOpenProjectById) onOpenProjectById(id);
   };
-
-  const LinkSpan = ({ children, id }: { children?: React.ReactNode; id: string }) => (
-    <span
-      onMouseEnter={() => handleMouseEnter(id)}
-      onMouseLeave={handleMouseLeave}
-      onClick={() => handleProjectLink(id)}
-      className="preview-trigger text-gray-900 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 cursor-pointer transition-all relative"
-    >
-      {children}
-    </span>
-  );
 
   return (
     <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 max-w-2xl mx-auto bg-white shadow-inner min-h-full text-gray-900 overflow-visible relative">
@@ -149,13 +164,13 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
             <div className="group relative">
               <QuickLookPreview projectId="hci-1" isVisible={hoveredProjectId === 'hci-1'} />
               <p className="text-sm text-gray-500 font-light leading-relaxed">
-                <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1">"Comparing Experience Intensity of AR and VR for Contrasting Phobia Stimuli."</LinkSpan> <span className="italic">Virtual Reality</span>, in press, 2026.
+                <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1" onEnter={handleMouseEnter} onLeave={handleMouseLeave} onOpen={handleProjectLink}>"Comparing Experience Intensity of AR and VR for Contrasting Phobia Stimuli."</LinkSpan> <span className="italic">Virtual Reality</span>, in press, 2026.
               </p>
             </div>
             <div className="group relative">
               <QuickLookPreview projectId="hci-2" isVisible={hoveredProjectId === 'hci-2'} />
               <p className="text-sm text-gray-500 font-light leading-relaxed">
-                S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <LinkSpan id="hci-2">"AIs or Humans in Luxury Shopping? A Design Study of VR Shopping Assistants."</LinkSpan> <span className="italic">2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW)</span>, pp. 1155-1156, 2026.
+                S. Jin, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <LinkSpan id="hci-2" onEnter={handleMouseEnter} onLeave={handleMouseLeave} onOpen={handleProjectLink}>"AIs or Humans in Luxury Shopping? A Design Study of VR Shopping Assistants."</LinkSpan> <span className="italic">2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW)</span>, pp. 1155-1156, 2026.
               </p>
             </div>
             <div className="group relative">
@@ -167,7 +182,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
         </section>
 
         {/* Activities */}
-        <section>
+        <section onMouseLeave={() => setHoveredProjectId(null)}>
           <h2 className={SECTION_HEADER}>Activities</h2>
           <div className="relative border-l border-gray-200 pl-6 ml-1 space-y-7">
             <div className="relative">
@@ -194,12 +209,11 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
               <span className="absolute -left-[29px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300 ring-4 ring-white" />
               <span className="block text-[10px] font-sans font-bold text-gray-400 tracking-widest mb-1">2021</span>
               <p className="text-sm text-gray-500 font-light leading-relaxed">
-                <span
-                  onClick={() => handleProjectLink('gd-album')}
-                  className="group text-gray-600 hover:text-gray-900 cursor-pointer transition-colors"
-                >
-                  Kan Tai-Keung Design Award: Winning Work<ArrowUpRight size={10} className="inline-block ml-1 text-gray-400 group-hover:text-gray-600 transition-colors translate-y-[2px]" />
+                <span className="relative inline-block">
+                  <QuickLookPreview projectId="gd-album" isVisible={hoveredProjectId === 'gd-album'} placement="right" />
+                  <LinkSpan id="gd-album" onEnter={handleMouseEnter} onLeave={handleMouseLeave} onOpen={handleProjectLink}>Kan Tai-Keung Design Award: Winning Work</LinkSpan>
                 </span>
+                <ArrowUpRight size={10} className="inline-block ml-1 text-gray-400 translate-y-[2px]" />
               </p>
             </div>
           </div>
