@@ -461,7 +461,7 @@ const App: React.FC = () => {
 
                 <NavSection title="Game & XR Development" onOpen={() => openWindow('game_xr')}>
                   <p>
-                    XR applications and games built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure prototypes</NavLink> from the study above. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, is a WebXR emotional safe space built with Three.js and Gaussian splatting. The room is generated from the user's own check-in, and an LLM + TTS voice pipeline lets them talk with it in real time.
+                    XR applications and games built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure prototypes</NavLink> from the study above. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, is a personalised WebXR space that adapts its atmosphere to the user's affective state. The room is generated from the user's own check-in, and an LLM + TTS voice pipeline lets them talk with it in real time.
                   </p>
                 </NavSection>
 

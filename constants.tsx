@@ -70,7 +70,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'xr-oor',
       title: "One's Own Room",
-      description: 'A self-created virtual safe room built with Gaussian splatting and WebXR.',
+      description: 'A personalised WebXR space that adapts its atmosphere to the user’s affective state, supporting reflection and restoration.',
       imageUrl: '/images/game_xr/oor-cover.jpg',
       images: [
         '/images/game_xr/oor-listen.mp4',
@@ -88,7 +88,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         { label: 'Rendering', value: 'Gaussian Splatting' },
         { label: 'Voice', value: 'LLM + TTS Pipeline' }
       ],
-      fullContent: "The name is inspired by A Room of One's Own by Virginia Woolf: the idea that everyone needs a space of their own, free from interruption. In the context of an emotional safe zone, this room is a self-governed virtual space created through the user's own agency.\n\nThe project deliberately avoids framing itself as therapy, meditation, or a guided wellbeing experience, because those imply that the room is a service that does something to the user. Instead, the room does nothing. It simply exists. Everything is determined by the person who inhabits it. The voice you converse with is the room itself, and the space gradually reveals itself through your own input.\n\nThe system is built in three layers: AI-generated Gaussian splat rooms from Marble world-model prompts, real-time atmosphere shader parameters driven by a Valence × Arousal check-in (Russell's Circumplex Model, assessed with SAM), and a turn-based voice pipeline (LLM + TTS). Inside, holding the orb begins a conversation; ignoring it means solitude. The room will never initiate conversation."
+      fullContent: "The name is inspired by A Room of One's Own by Virginia Woolf: the idea that everyone needs a space of their own, free from interruption. In the context of an emotional safe zone, this room is a personalised, self-governed WebXR space created through the user's own agency, supporting reflection and restoration.\n\nThe project deliberately avoids framing itself as therapy, meditation, or a guided wellbeing experience, because those imply that the room is a service that does something to the user. Instead, the room does nothing. It simply exists. Everything is determined by the person who inhabits it. The voice you converse with is the room itself, and the space gradually reveals itself through your own input.\n\nThe adaptive pipeline combines GenAI 3D worlds generated from Marble prompts, affect-based real-time atmosphere adjustment driven by a Valence × Arousal check-in (Russell's Circumplex Model, assessed with SAM), and real-time voice interaction through an LLM + TTS pipeline. Inside, holding the orb begins a conversation; ignoring it means solitude. The room will never initiate conversation."
     },
     {
       id: 'xr-3',
