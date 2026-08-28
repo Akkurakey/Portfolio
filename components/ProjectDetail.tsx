@@ -59,22 +59,6 @@ const HoverPanImage: React.FC<{ src: string; className?: string }> = ({ src, cla
 };
 
 // Bold the keyword marker inside abstract text
-const renderAbstractContent = (text: string) => {
-  const keywordMarkers = ['Keywords:', 'Index Terms:'];
-  let markerFound = keywordMarkers.find(marker => text.includes(marker));
-  
-  if (!markerFound) return text;
-  
-  const parts = text.split(markerFound);
-  return (
-    <>
-      {parts[0]}
-      <span className="font-bold not-italic">{markerFound}</span>
-      {parts[1]}
-    </>
-  );
-};
-
 interface ProjectDetailProps {
   project: Project;
   onTagClick?: (tag: string) => void;
@@ -307,15 +291,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         { src: byKey('vet-contamination-vr'), mode: 'VR' },
       ].filter(withModeSrc);
       const uiFigures = [
-        { src: byKey('vet-instructions'), caption: 'Instruction cards introduce and start each session' },
+        { src: byKey('vet-instructions'), caption: 'Instruction cards' },
         { src: byKey('vet-menu-access'), caption: 'Rotate the right hand to open the menu' },
         { src: byKey('vet-menu-scenario'), caption: 'Switching scenario' },
         { src: byKey('vet-menu-mode'), caption: 'Switching between AR and VR' },
       ].filter(withSrc);
-      const prose = (text: string) => (
+      const prose = (text: string, font: 'a' | 'b' = 'a') => (
         <div className="w-full md:w-[85%] lg:w-[75%] mx-auto pt-3 sm:pt-5 space-y-2.5">
           {text.split('\n').map((line, i) => line.trim() && (
-            <p key={i} className="text-gray-500 font-serif text-[13px] sm:text-[13.5px] leading-[1.8]">{line}</p>
+            <p key={i} className={font === 'a' ? 'text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light' : 'text-gray-500 text-[13px] sm:text-[13.5px] leading-[1.8]'}>{line}</p>
           ))}
         </div>
       );
@@ -392,7 +376,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
               <div className="border border-dashed border-gray-200 rounded-xl p-6 sm:p-8 md:p-10">
                 <h4 className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-300 mb-8">Spider Movement</h4>
                 <div className="flex flex-col sm:flex-row items-center gap-10 md:gap-14">
-                  <p className="flex-1 text-gray-500 font-serif text-[13px] sm:text-[13.5px] leading-[1.8]">
+                  <p className="flex-1 text-gray-500 font-light text-[13px] sm:text-[13.5px] leading-[1.8]">
                     Each spider has two states: static and moving. When static, it plays small idle animations. Touching or pinching it triggers a fast forward crawl with animated legs. This mimics how real spiders behave, and follows research showing that moving animals cause more fear than still ones.
                   </p>
                   <div className="w-full sm:w-1/2 relative aspect-square overflow-hidden rounded-xl border border-black/[0.03] shrink-0">
@@ -427,7 +411,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           {/* Experimental procedure */}
           <div className="w-full space-y-8 pb-14 md:pb-20">
             <ScholarlySectionHeading>Experimental Procedure</ScholarlySectionHeading>
-            <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+            <p className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
               I designed and conducted this within-subjects user study (n=20). Each session began with a welcome and an initial questionnaire, followed by a VR tutorial covering avatar movement, teleportation, and object interaction (grabbing, rotating, and scaling). The participant then completed four 10-minute shopping tasks, one per assistant condition, sequenced by a Latin square to minimise carryover effects, filling in a 20-dimension shopping-experience questionnaire and NASA-TLX after each. Once all four conditions were complete, a 10-dimension comparative preference questionnaire and a semi-structured interview closed the session.
             </p>
             <CaptionedFigure src={procedureImg} caption="Overall Experimental Procedure" />
@@ -438,13 +422,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
             <ScholarlySectionHeading>Interaction Details</ScholarlySectionHeading>
             <div className="space-y-14 md:space-y-24 mt-4">
               <div className="space-y-8">
-                <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                <p className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
                   In every condition, the participant worked through the same six-stage luxury shopping task with the assistant: welcome, store introduction, product introduction, product comparison, Q&A (price, colour, brand, function, and bargaining), and checkout. Only the modality of the assistant changed between conditions.
                 </p>
                 <CaptionedFigure src={interactionImg} caption="Interaction Details between Consumers and Shopping Assistants" />
               </div>
               <div className="space-y-8">
-                <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                <p className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
                   In the 3D avatar condition, for example, the avatar welcomes the consumer with body gestures, gives a store tour, and introduces the product. The consumer then compares products while the avatar interacts in between, asks questions about price, colour, brand, and function, and finally checks out with the avatar serving the purchase.
                 </p>
                 <div className="w-full md:w-[85%] lg:w-[78%] mx-auto">
@@ -452,7 +436,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                 </div>
               </div>
               <div className="space-y-8">
-                <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                <p className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
                   In the webcam condition, the assistant opens a webcam on the PC side and the live video is streamed into the VR store, so the consumer sees the assistant's authentic facial expressions and gestures while moving through the same stages, from the welcome and store introduction to product comparison, questions, and checkout.
                 </p>
                 <div className="w-full md:w-[85%] lg:w-[78%] mx-auto">
@@ -525,7 +509,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         {/* Step 1: Text + Scenario GIF Grid + Jump Link */}
         <div className="space-y-6">
           <ScholarlySectionHeading>Prototype Design</ScholarlySectionHeading>
-          <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+          <p className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
             {lines[0]}
           </p>
           <div className="space-y-16 md:space-y-20 pt-4">
@@ -591,7 +575,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
             <ScholarlySectionHeading>Experimental Procedure</ScholarlySectionHeading>
             <div className="space-y-3">
               {lines[1].split('\n').map((para, i) => para.trim() && (
-                <p key={i} className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+                <p key={i} className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
                   {para}
                 </p>
               ))}
@@ -607,7 +591,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         <div className="space-y-8">
           <div className="space-y-6">
             <ScholarlySectionHeading>Data Analysis</ScholarlySectionHeading>
-            <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+            <p className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
               {lines[2]}
             </p>
           </div>
@@ -652,7 +636,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <ScholarlySectionHeading>Live Prototype</ScholarlySectionHeading>
-            <p className="text-[9px] sm:text-[10px] text-gray-400 font-serif italic">Interactive application for {project.title}</p>
+            <p className="text-[9px] sm:text-[10px] text-gray-400 ">Interactive application for {project.title}</p>
           </div>
           <div className="flex gap-2">
              <a href={project.prototypeUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-blue-500 transition-colors">
@@ -720,7 +704,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           <div className="max-w-3xl mx-auto space-y-12 px-4 sm:px-0">
             <div className="space-y-4">
               <h2 className="text-2xl font-black uppercase tracking-tight text-gray-900">Technical Foundation</h2>
-              <p className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light">
+              <p className="text-gray-500 text-[13px] sm:text-[13.5px] leading-[1.8]">
                 Developed immersive VR environments in Unity with Spatial Audio and dynamic VFX. Designed gesture-based interactions using Perceptual-Motor Coupling theory to minimise latency and enhance flow.
               </p>
             </div>
@@ -767,7 +751,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 leading-[1] sm:leading-[0.85] tracking-tighter uppercase mb-4 break-words">
             {project.title}
           </h1>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-6 md:mb-10">
+          <div className="relative flex flex-wrap items-center gap-x-3 gap-y-2 mb-6 md:mb-16">
             <div className="flex flex-wrap gap-x-3 gap-y-2">
               {project.tags.map(tag => (
                 <button key={tag} onClick={() => onTagClick?.(tag)} className="text-[9px] md:text-xs text-gray-400 hover:text-blue-500 font-bold uppercase tracking-[0.2em] border-b border-gray-100 pb-1 transition-all duration-300">
@@ -816,55 +800,44 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                 </a>
               )}
             </div>
+            {/* Handwritten annotation; absolute so it never affects the tag-to-intro gap */}
+            {(() => {
+              const annotation = project.githubUrl ? 'view-code'
+                : project.paperUrl ? 'read-paper'
+                : project.prototypeUrl ? 'demo'
+                : project.spotifyUrl ? 'spotify'
+                : (project.externalUrl && !isIframeMode) ? 'visit-site'
+                : null;
+              if (!annotation) return null;
+              return (
+                <img src={`/images/annotations/${annotation}.png`} alt="" aria-hidden="true" className={`pointer-events-none select-none absolute right-2 sm:right-5 top-full mt-1 sm:mt-1.5 ${annotation === 'demo' ? 'h-6 sm:h-8' : 'h-8 sm:h-10'} w-auto opacity-65`} />
+              );
+            })()}
           </div>
-          {/* Handwritten annotation pointing at the header action buttons */}
-          {(() => {
-            const annotation = project.githubUrl ? 'view-code'
-              : project.paperUrl ? 'read-paper'
-              : project.prototypeUrl ? 'demo'
-              : project.spotifyUrl ? 'spotify'
-              : (project.externalUrl && !isIframeMode) ? 'visit-site'
-              : null;
-            if (!annotation) return null;
-            return (
-              <div className="flex justify-end pr-2 sm:pr-5 -mt-5 sm:-mt-6 pointer-events-none select-none" aria-hidden="true">
-                <img src={`/images/annotations/${annotation}.png`} alt="" className={`${annotation === 'demo' ? 'h-6 sm:h-8' : 'h-8 sm:h-10'} w-auto opacity-65`} />
-              </div>
-            );
-          })()}
           {/* One-line intro (same text as the folder card) for projects without an abstract; Dual Phobia opts in */}
           {(!project.abstract || project.detailIntro) && (project.detailIntro || project.description) && (
-            <p className={`mt-1 md:mt-2 max-w-lg lg:max-w-xl font-serif text-[13px] sm:text-[13.5px] leading-[1.8] whitespace-pre-line ${
-              // VET trial: intro and body prose swap their font treatments
-              isVet ? 'text-gray-600 italic font-light' : 'text-gray-400'
-            }`}>
+            <p className="mt-1 md:mt-2 max-w-lg lg:max-w-xl font-serif italic font-thin text-[#838a97] text-[13px] sm:text-[13.5px] leading-[1.8] whitespace-pre-line">
               {project.detailIntro || project.description}
             </p>
           )}
         </div>
 
         <div className="space-y-12 md:space-y-24 lg:space-y-32">
-          {/* Scholarly Headers (Abstract & Research Questions) with unified spacing */}
-          {project.abstract || (project.researchQuestions && project.researchQuestions.length > 0) ? (
-            <div className={`space-y-16 ${isDualPhobia ? '' : 'border-b'} pb-12 border-gray-100`}>
-              {project.abstract && (
-                <div>
-                  <ScholarlySectionHeading>Abstract</ScholarlySectionHeading>
-                  <div className="text-gray-600 font-serif italic text-xs sm:text-[13px] leading-relaxed whitespace-pre-line">
-                    {renderAbstractContent(project.abstract)}
-                  </div>
-                </div>
-              )}
-              
+          {/* Research Questions and, for Dual Phobia, its video + experimental flow */}
+          {(project.researchQuestions && project.researchQuestions.length > 0) || isDualPhobia ? (
+            <div className={`space-y-16 border-t pt-12 ${isDualPhobia ? '' : 'border-b'} pb-12 border-gray-100`}>
               {project.researchQuestions && project.researchQuestions.length > 0 && (
-                <div>
+                <div className="space-y-6">
                   <ScholarlySectionHeading>Research Questions</ScholarlySectionHeading>
                   <div className="space-y-4">
-                    {project.researchQuestions.map((rq, idx) => (
-                      <p key={idx} className="text-gray-800 font-serif font-bold italic text-sm sm:text-base leading-snug">
-                        {rq}
-                      </p>
-                    ))}
+                    {project.researchQuestions.map((rq, idx) => {
+                      const m = rq.match(/^(Q\d+\.)\s*([\s\S]*)$/);
+                      return (
+                        <p key={idx} className="text-gray-600 text-sm sm:text-[15px] leading-[1.8] font-light">
+                          {m ? <><span className="font-bold">{m[1]}</span> {m[2]}</> : rq}
+                        </p>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -974,13 +947,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
                   <p className="text-[10px] text-gray-300 font-mono uppercase tracking-[0.2em] whitespace-pre-line">{coordinates}</p>
                   {project.award && (
                     <div className="pt-4 border-t border-gray-50 max-w-[160px]">
-                      <p className="text-[10px] sm:text-[11px] text-rose-400 font-serif italic tracking-wide leading-relaxed">{project.award}</p>
+                      <p className="text-[10px] sm:text-[11px] text-rose-400 tracking-wide leading-relaxed">{project.award}</p>
                     </div>
                   )}
                 </div>
                 {project.fullContent && project.fullContent.trim() && !isDualPhobia && (
                   <div className="lg:w-2/3">
-                    <div className="text-gray-600 font-serif italic text-sm sm:text-[15px] leading-[1.8] font-light space-y-5">
+                    <div className="text-gray-600 text-sm sm:text-[15px] font-light leading-[1.8] space-y-5">
                       <span className="block text-xl font-bold not-italic mb-2 text-gray-900">*</span>
                       {(project.fullContent || project.description).split('\n').map((para, idx) => (
                         para.trim() && <p key={idx} className="whitespace-pre-line">{para}</p>
