@@ -436,7 +436,7 @@ const App: React.FC = () => {
                     I'm Rakey Yang, an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
                   </p>
                   <p className="text-gray-500 font-light text-sm leading-[1.7]">
-                    You can view more <NavLink onClick={() => openWindow('about')}>about me</NavLink> and my <NavLink onClick={() => openWindow('cv')}>CV</NavLink> here.
+                    You can view more <NavLink onClick={() => openWindow('about')}>about me</NavLink> and my <NavExternalLink href="https://www.rakeyyang.com/docs/rakey-yang-cv.pdf">CV</NavExternalLink> here.
                   </p>
                 </header>
 
