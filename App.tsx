@@ -436,7 +436,7 @@ const App: React.FC = () => {
                     I'm Rakey Yang, an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
                   </p>
                   <p className="text-gray-500 font-light text-sm leading-[1.7]">
-                    You can view more <NavLink onClick={() => openWindow('about')}>about me</NavLink> here.
+                    You can view more <NavLink onClick={() => openWindow('about')}>about me</NavLink> and my <NavLink onClick={() => openWindow('cv')}>CV</NavLink> here.
                   </p>
                 </header>
 
@@ -451,17 +451,17 @@ const App: React.FC = () => {
                   </div>
                   <div className="space-y-2.5">
                     <p>
-                      <NavLink onClick={() => openProjectById('hci-2')}>Virtual Shopping Assistants Study</NavLink>
+                      <NavLink onClick={() => openProjectById('hci-2')}>Human-AI Shopping Assistants Study</NavLink>
                     </p>
                     <p>
-                      A collaboration on trust, psychological burden, and social behaviour across four assistant modalities (3D avatar, webcam, voice, and AI). I ran the user study and the experiment. Published as a workshop short paper and poster at <NavExternalLink href="https://doi.org/10.1109/VRW70859.2026.00252">IEEE VR 2026</NavExternalLink>, with an extended paper under review at Electronic Commerce Research and Applications.
+                      A user study comparing human (3D avatar, webcam, and voice) and AI shopping assistant modalities in a virtual luxury store. I co-designed and ran the experiment, with hands-on involvement in the AI setup, including GPT-based dialogue, speech, and avatar integration. Published as a workshop paper and poster at <NavExternalLink href="https://doi.org/10.1109/VRW70859.2026.00252">IEEE VR 2026</NavExternalLink>, with an extended paper under review at Electronic Commerce Research and Applications.
                     </p>
                   </div>
                 </NavSection>
 
                 <NavSection title="Game & XR Development" onOpen={() => openWindow('game_xr')}>
                   <p>
-                    XR applications and games built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure prototypes</NavLink> from the study above. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, is a personalised WebXR space that adapts its atmosphere to the user's affective state. The room is generated from the user's own check-in, and an LLM + TTS voice pipeline lets them talk with it in real time.
+                    XR applications and games built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure prototypes</NavLink> from the study above. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, is an AI-personalised WebXR space that adapts its atmosphere to the user's affective state. The room is generated from the user's own check-in, and an LLM + TTS voice pipeline lets them talk with it in real time.
                   </p>
                 </NavSection>
 

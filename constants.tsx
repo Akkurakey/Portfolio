@@ -43,9 +43,9 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'hci-2',
-      title: 'VR Shopping Assistants',
+      title: 'Human-AI Shopping Assistants',
       description: 'Research collaboration on user perception of shopping assistants in luxury VR retail.',
-      detailIntro: 'A research collaboration in which I helped design a within-subjects study comparing four shopping-assistant modes (3D avatar, webcam, voice, and AI) in a luxury VR retail setting, defining the experimental conditions, participant tasks, and interaction protocols. I co-built the VR retail scenes in Unity and ran the user study (n=20), collecting and cleaning the multi-source perceptual and behavioural data.',
+      detailIntro: 'A research collaboration. I helped design a within-subjects study comparing human (3D avatar, webcam, and voice) and AI shopping assistant modalities in a luxury VR retail setting, defining the experimental conditions, participant tasks, and interaction protocols. I co-built the VR retail scenes in Unity, contributed to the AI interaction setup, and ran the user study (n=20), collecting and cleaning multi-source perceptual and behavioural data.',
       imageUrl: '/images/hci/vr-shopping-cover.jpg',
       abstract: 'This study investigates four shopping assistant types (3D avatar, webcam, AI, voice) in VR luxury environments through user studies with 20 participants using NASA-TLX, questionnaires, and interviews. Results show 3D avatar assistants excelled in immersion, trust, and satisfaction, while human-operated assistants outperformed AI in realism and satisfaction. Webcam achieved 50% immersion preference versus 75% for 3D avatars despite strong trustworthiness. The study pioneers PC-VR asymmetric interaction systems, providing design insights and optimization strategies for luxury retail VR shopping assistants.',
       researchQuestions: [
@@ -70,7 +70,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'xr-oor',
       title: "One's Own Room",
-      description: 'A personalised WebXR space that adapts its atmosphere to the user’s affective state, supporting reflection and restoration.',
+      description: 'An AI-personalised WebXR space that adapts its atmosphere to the user’s affective state, supporting reflection and restoration.',
       imageUrl: '/images/game_xr/oor-cover.jpg',
       images: [
         '/images/game_xr/oor-listen.mp4',
