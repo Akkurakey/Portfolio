@@ -751,7 +751,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onTagClick, onOp
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 leading-[1] sm:leading-[0.85] tracking-tighter uppercase mb-4 break-words">
             {project.title}
           </h1>
-          <div className="relative flex flex-wrap items-center gap-x-3 gap-y-2 mb-6 md:mb-16">
+          <div className="relative flex flex-wrap items-center gap-x-3 gap-y-2 mb-12 sm:mb-14 md:mb-16">
             <div className="flex flex-wrap gap-x-3 gap-y-2">
               {project.tags.map(tag => (
                 <button key={tag} onClick={() => onTagClick?.(tag)} className="text-[9px] md:text-xs text-gray-400 hover:text-blue-500 font-bold uppercase tracking-[0.2em] border-b border-gray-100 pb-1 transition-all duration-300">
