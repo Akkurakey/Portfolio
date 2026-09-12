@@ -5,7 +5,8 @@ import { DESKTOP_ICON_COLUMN_RATIO } from '../constants';
 
 // Horizontal midpoint of the About window (and, offset from it, Certification),
 // as a fraction of viewport width
-const ABOUT_CENTER_RATIO = 0.27;
+const ABOUT_CENTER_RATIO = 0.30;
+const ABOUT_VERTICAL_OFFSET = -24;
 
 const MIN_WIDTH = 200;
 const MIN_HEIGHT = 150;
@@ -115,7 +116,7 @@ const Window: React.FC<WindowProps> = ({
       const aboutCenterX = window.innerWidth * ABOUT_CENTER_RATIO;
       return clampToViewport(
         aboutCenterX - currentSize.width / 2 + (openOffset?.x ?? 0),
-        centerY + (openOffset?.y ?? 0)
+        centerY + ABOUT_VERTICAL_OFFSET + (openOffset?.y ?? 0)
       );
     }
 
