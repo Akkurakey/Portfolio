@@ -274,7 +274,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       imageUrl: '/images/web_ai/ai-shrine.jpg',
       images: ['/images/web_ai/ai-shrine.jpg'],
       tags: ['Creative AI', 'Web', 'Culture'],
-      externalUrl: 'https://aishrine.space/'
+      externalUrl: 'https://ai-shrine.ai.studio/'
     },
     {
       id: 'ai-4',
