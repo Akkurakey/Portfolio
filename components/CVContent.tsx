@@ -119,7 +119,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
   };
 
   return (
-    <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 max-w-2xl mx-auto bg-white shadow-inner min-h-full text-gray-900 overflow-visible relative">
+    <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 max-w-[736px] mx-auto bg-white shadow-inner min-h-full text-gray-900 overflow-visible relative">
       {/* Header */}
       <div className="border-b border-gray-200 pb-6 mb-12">
         <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold tracking-tight uppercase leading-none mb-3.5">RAKEY / RUOQING YANG</h1>
@@ -129,14 +129,13 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
         </div>
       </div>
 
-      <div className="space-y-24">
-        <div className="space-y-12">
+      <div className="space-y-20">
         {/* Background */}
         <section>
           <h2 className={SECTION_HEADER}>Background</h2>
           <div className="space-y-3 text-sm text-gray-500 font-light leading-[1.7]">
             <p>I hold an MSc in Human-Computer Interaction (Distinction) from the University of Nottingham.</p>
-            <p>I've worked at <a href="https://oshaped.com/" target="_blank" rel="noopener noreferrer" className="text-gray-900 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 transition-all">O Shaped<ArrowUpRight size={10} className="inline-block align-[-0.12em] ml-px text-gray-400" /></a> in London as an AI Specialist Intern, and previously as a freelance visual designer.</p>
+            <p>I've worked at <a href="https://oshaped.com/" target="_blank" rel="noopener noreferrer" className="text-gray-900 no-underline hover:underline decoration-gray-600 decoration-2 underline-offset-4 transition-all">O Shaped<ArrowUpRight size={10} className="inline-block align-[-0.12em] ml-px text-gray-400" /></a> in London as an AI Specialist Intern, and previously as a freelance creative designer.</p>
           </div>
         </section>
 
@@ -144,18 +143,9 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
         <section>
           <h2 className={SECTION_HEADER}>What I'm interested in</h2>
           <p className="text-sm text-gray-500 font-light leading-[1.7]">
-            I'm interested in what it takes for a technology to hold someone. My work is about what a system can make room for. That usually means moments when a person needs space to think or feel, whether they are working through anxiety or in the middle of a decision.
+            My work explores adaptive XR, human–AI interaction, and cognitive and emotional experience. I am interested in how immersive systems can provide appropriate levels of support while preserving user agency.
           </p>
         </section>
-
-        {/* What I do */}
-        <section>
-          <h2 className={SECTION_HEADER}>What I do</h2>
-          <p className="text-sm text-gray-500 font-light leading-[1.7]">
-            I work with extended reality and AI. I design and build the systems myself, then run mixed methods studies to find out what they actually did.
-          </p>
-        </section>
-        </div>
 
         {/* Papers */}
         <section onMouseLeave={() => setHoveredProjectId(null)}>
@@ -164,7 +154,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
             <div className="group relative">
               <QuickLookPreview projectId="hci-1" isVisible={hoveredProjectId === 'hci-1'} />
               <p className="text-sm text-gray-500 font-light leading-relaxed">
-                <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1" onEnter={handleMouseEnter} onLeave={handleMouseLeave} onOpen={handleProjectLink}>"Comparing Experience Intensity of AR and VR for Contrasting Phobia Stimuli."</LinkSpan> <span className="italic">Virtual Reality</span>, in press, 2026.
+                <span className="font-bold">R. Yang</span> and C. Greenhalgh. <LinkSpan id="hci-1" onEnter={handleMouseEnter} onLeave={handleMouseLeave} onOpen={handleProjectLink}>"Comparing Experience Intensity of AR and VR for Contrasting Phobia Stimuli."</LinkSpan> <span className="italic">Virtual Reality</span>, 2026.
               </p>
             </div>
             <div className="group relative">
@@ -175,7 +165,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
             </div>
             <div className="group relative">
               <p className="text-sm text-gray-500 font-light leading-relaxed">
-                S. Jin, <span className="font-bold">R. Yang</span>, and L. H. Lee. <span className="text-gray-900">"Who Should Serve You in Metaverse Luxury Stores? A Comparative Study of 3D Avatars, AI Agents, Webcam Staff, and Voice Assistants."</span> <span className="italic">Electronic Commerce Research and Applications</span>, under review, 2026.
+                S. Jin, <span className="font-bold">R. Yang</span>, T. Bohn, W. Tong, and L. H. Lee. <span className="text-gray-900">"Comparing Assistant Configurations in Simulated VR Luxury Shopping: A Mixed-Methods Study."</span> <span className="italic">Virtual Reality</span>, under review, 2026.
               </p>
             </div>
           </div>

@@ -6,9 +6,9 @@ export const DESKTOP_ICON_COLUMN_RATIO = 0.82;
 
 export const FOLDERS: { id: WindowID; name: string }[] = [
   { id: 'hci', name: 'HCI Research' },
-  { id: 'game_xr', name: 'Game_XR' },
-  { id: 'graphic', name: 'Graphic_\nBranding' },
-  { id: 'web_ai', name: 'Web_AI' },
+  { id: 'game_xr', name: 'XR Projects' },
+  { id: 'graphic', name: 'Visual Design' },
+  { id: 'web_ai', name: 'AI Experiments' },
 ];
 
 export const PROJECTS: Record<WindowID, Project[]> = {
@@ -17,7 +17,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       id: 'hci-1',
       title: 'VR/AR Phobia Stimuli',
       description: 'A comparative analysis of VR and AR efficacy in treating spider phobia and contamination fear.',
-      detailIntro: 'MSc dissertation at the University of Nottingham, accepted by the Virtual Reality journal.\nI developed VR and AR exposure scenarios using Unity, conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data.',
+      detailIntro: 'MSc dissertation at the University of Nottingham, accepted by the Virtual Reality journal.\nI developed VR and AR exposure scenarios using Unity, conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data.\nThis study made me interested in adaptive XR systems that can change the level of immersion or support according to users’ states and needs.',
       imageUrl: '/images/hci/dual-phobia-cover.png',
       abstract: 'Exposure therapy is a common psychological intervention for phobias and anxiety disorders, and immersive exposure simulations using virtual reality (VR) and augmented reality (AR) have been evaluated as a practical extension of this method, producing similar experience through simulated stimuli. This study compares participants’ responses to VR and AR exposure simulations under different types of stimuli. The study investigates two types of fear-based stimuli: spiders and contamination, for which both VR and AR prototypes were developed. A within-subjects experimental design was employed, involving 31 participants drawn from a healthy adult student population who reported their experience intensity and qualitative feedback following exposure to virtual stimuli across both modalities. The type of technology significantly affected the experience intensity: VR elicited a significantly higher experience intensity overall, although the strength of this effect varied depending on the stimulus type. Specifically, VR produced a much stronger experience in the contamination scenario, while AR performed comparably and showed ecological advantages in the spider scenario. We suggest that future virtual exposure system designs could integrate both AR and VR components in a staged approach. AR may be more suitable for early-stage or animal-focused exposure simulations, whereas VR is better suited for scenarios that demand complete environmental control.',
       researchQuestions: [
@@ -39,7 +39,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       paperUrl: 'https://doi.org/10.1007/s10055-026-01450-y',
       relatedProjectId: 'xr-3',
       relatedProjectTitle: 'More Prototype Details',
-      fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\n\nGuided 31 participants through a within-subjects session of about 40 minutes, covering spider and contamination scenarios in both AR and VR (four conditions, randomised order), with hand-tracked tasks that scaled from observing a static stimulus to picking it up, triggering its movement, and interacting more closely.\nParticipants completed an initial questionnaire, then a questionnaire after each scenario, thinking aloud throughout, and closed with a follow-up interview.\n\nCollected questionnaire data, think-aloud feedback, and follow-up interviews; analysed and interpreted the results using SPSS.'
+      fullContent: 'Designed and developed AR and VR exposure prototypes using the Unity engine.\n\nGuided 31 participants through a within-subjects session of about 40 minutes, covering spider and contamination scenarios in both AR and VR (four conditions, randomised order), with hand-tracked tasks that scaled from observing a static stimulus to picking it up, triggering its movement, and interacting more closely.\nParticipants completed an initial questionnaire, then a questionnaire after each scenario, thinking aloud throughout, and closed with a follow-up interview.\n\nCollected questionnaire data, think-aloud feedback, and follow-up interviews; analysed and interpreted the results.'
     },
     {
       id: 'hci-2',
@@ -70,7 +70,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'xr-oor',
       title: "One's Own Room",
-      description: 'An AI-personalised WebXR space that adapts its atmosphere to the user’s affective state, supporting reflection and restoration.',
+      description: 'An experimental XR environment exploring affect-aware adaptation, conversational interaction, and user agency.',
       imageUrl: '/images/game_xr/oor-cover.jpg',
       images: [
         '/images/game_xr/oor-listen.mp4',
@@ -125,6 +125,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'ai-1',
+      archived: true,
       title: 'AR Warehouse System',
       description: 'PC + AR-based 3D warehouse management and navigation system designed to enhance inventory management efficiency.',
       imageUrl: '/images/game_xr/ar-logistics-interface.jpg',
@@ -145,6 +146,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'xr-2',
+      archived: true,
       title: 'AR Gallery Treasure Hunt',
       description: 'A gamified AR exploration experience for interactive gallery engagement.',
       imageUrl: '/images/game_xr/ar-gallery-cover.jpg',
@@ -167,6 +169,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'xr-1',
+      archived: true,
       title: 'VR Hand-gesture Rhythm Game',
       description: 'An immersive VR environment using hand-tracking and spatial audio for an enhanced flow state.',
       imageUrl: '/images/game_xr/rhythm-game-cover.png',
@@ -189,6 +192,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'xr-4',
+      archived: true,
       title: 'Lab Cat Escape',
       description: 'Play as a kitten avoiding security robots in an abandoned high-tech laboratory.',
       imageUrl: '/images/game_xr/lab-cat-cover.jpg',
@@ -234,7 +238,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/stamp-5.mp4'
       ],
       tags: ['Graphic', 'Illustration', 'Motion', 'Stamp Design'],
-      fullContent: 'This project investigates the intersection of traditional philately and modern digital motion. By applying geometric abstraction to cultural narratives, the resulting stamp set functions both as a static artefact and a kinetic visual experience.'
+      fullContent: 'This project explores how traditional stamp art can be combined with modern digital technology. Geometric abstract elements are used in cultural storytelling. The stamps can work as both static artworks and dynamic visual experiences.'
     },
     {
       id: 'gd-msi',
@@ -249,7 +253,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/msi-4.jpg'
       ],
       tags: ['Graphic', 'Branding', 'Logistics', 'Industrial'],
-      fullContent: 'MSI FULFILLMENT is a visual exploration of logistics efficiency and industrial design. The project focuses on creating a robust identity that communicates reliability while maintaining a high level of aesthetic sophistication. The design language utilises bold grids and structured colour palettes to reflect the precision required in modern fulfilment operations.'
+      fullContent: 'MSI FULFILLMENT is a visual identity project for the logistics industry. It focuses on efficiency, reliability, and industrial design. The Meishan Red Bridge is used as a landmark reference and is integrated into the visual system.'
     },
     {
       id: 'gd-live-show',

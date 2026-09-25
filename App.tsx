@@ -37,7 +37,8 @@ const NavExternalLink: React.FC<{ href: string; children: React.ReactNode }> = (
   </a>
 );
 
-const NavSection: React.FC<{ title: string; onOpen: () => void; children: React.ReactNode }> = ({ title, onOpen, children }) => (
+// `archived` hides a section without deleting its copy; remove the prop to restore it
+const NavSection: React.FC<{ title: string; onOpen: () => void; archived?: boolean; children: React.ReactNode }> = ({ title, onOpen, archived, children }) => archived ? null : (
   <section className="space-y-5">
     <button
       onClick={onOpen}
@@ -291,10 +292,10 @@ const App: React.FC = () => {
 
   const filteredResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
-    return allProjects.filter(p => 
+    return allProjects.filter(p => !p.archived && (
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
       p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
+      p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())))
     );
   }, [searchQuery, allProjects]);
 
@@ -426,7 +427,7 @@ const App: React.FC = () => {
         >
           {win.type === 'about' && <AboutContent onViewCV={() => openWindow('cv')} onOpenCertification={() => openWindow('certification')} />}
           {win.type === 'cv' && <CVContent onOpenProjectById={openProjectById} />}
-          {win.type === 'folder' && win.id !== 'kcl_nav' && <ProjectGrid title={win.title} projects={PROJECTS[win.id as WindowID] || []} onOpenProject={openProjectWindow} />}
+          {win.type === 'folder' && win.id !== 'kcl_nav' && <ProjectGrid title={win.title} projects={(PROJECTS[win.id as WindowID] || []).filter(p => !p.archived)} onOpenProject={openProjectWindow} />}
           {win.id === 'kcl_nav' && (
             <div className="w-full h-full bg-white flex flex-col p-10 sm:p-16 overflow-y-auto custom-scrollbar">
               <div className="max-w-2xl mx-auto space-y-16">
@@ -459,17 +460,17 @@ const App: React.FC = () => {
                   </div>
                 </NavSection>
 
-                <NavSection title="Game & XR Development" onOpen={() => openWindow('game_xr')}>
+                <NavSection title="XR Projects" onOpen={() => openWindow('game_xr')}>
                   <p>
-                    XR applications and games built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure prototypes</NavLink> from the study above. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, is an AI-personalised WebXR space that adapts its atmosphere to the user's affective state. The room is generated from the user's own check-in, and an LLM + TTS voice pipeline lets them talk with it in real time.
+                    XR applications and prototypes built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure systems</NavLink> used in my research. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, explores personalised and adaptive immersive environments for reflection and restoration.
                   </p>
                 </NavSection>
 
-                <NavSection title="Graphic & Branding" onOpen={() => openWindow('graphic')}>
+                <NavSection title="Visual Design" archived onOpen={() => openWindow('graphic')}>
                   <p>Earlier branding and visual design work. Projects I'm still fond of.</p>
                 </NavSection>
 
-                <NavSection title="Web & AI" onOpen={() => openWindow('web_ai')}>
+                <NavSection title="AI Experiments" archived onOpen={() => openWindow('web_ai')}>
                   <div className="space-y-2">
                     <p>
                       Little web products: <NavLink onClick={() => openProjectById('ai-shrine')}>AI art with image generation</NavLink>, <NavLink onClick={() => openProjectById('ai-4')}>Mandarin learning through music lyrics</NavLink>, and <NavLink onClick={() => openProjectById('ai-2')}>an academic tool for following new papers</NavLink>.

@@ -26,6 +26,7 @@ export interface Project {
   relatedProjectId?: string; // Link to another project ID
   relatedProjectTitle?: string; // Display name for the related project link
   specs?: { label: string; value: string }[]; // Technical specifications
+  archived?: boolean; // Hidden from folders and search, but still openable by id; remove to restore
 }
 
 export interface WindowState {
