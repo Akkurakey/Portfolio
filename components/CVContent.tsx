@@ -139,12 +139,15 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
           </div>
         </section>
 
-        {/* What I'm interested in */}
+        {/* Research Interests */}
         <section>
-          <h2 className={SECTION_HEADER}>What I'm interested in</h2>
-          <p className="text-sm text-gray-500 font-light leading-[1.7]">
-            My work explores adaptive XR, human–AI interaction, and cognitive and emotional experience. I am interested in how immersive systems can provide appropriate levels of support while preserving user agency.
-          </p>
+          <h2 className={SECTION_HEADER}>Research Interests</h2>
+          <div className="space-y-3 text-sm text-gray-500 font-light leading-[1.7]">
+            <p>My research focuses on personalised and adaptive immersive systems. I am interested in how generative AI and machine learning can help XR environments adapt their content, spatial structure, and interaction to individuals.</p>
+            <p>A focus of my work is the relationship between immersive technology and cognitive/emotional experiences. I view vulnerability as a natural part of human experience. I am exploring how to support people during uncertain, emotionally demanding, or vulnerable states.</p>
+            <p>Across these areas, I also want to explore when systems should intervene, how they should adapt, and when they should step back to preserve user agency.</p>
+            <p>My current work combines XR prototyping, human-centred AI, and user research.</p>
+          </div>
         </section>
 
         {/* Papers */}
