@@ -28,7 +28,7 @@ const SideTooltip: React.FC<{ label: string; preferred: 'left' | 'right'; childr
   };
 
   return (
-    <div ref={triggerRef} onMouseEnter={handleEnter} className="group relative inline-block cursor-help">
+    <div ref={triggerRef} onMouseEnter={handleEnter} className="group relative inline-block cursor-default">
       <span className="hover:text-white transition-colors">{label}</span>
       <div className={`hidden sm:block absolute top-0 ${side === 'left' ? 'right-[calc(100%+20px)]' : 'left-[calc(100%+20px)]'} w-60 p-4 bg-white text-gray-900 text-[11px] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-[200] font-serif normal-case tracking-normal leading-relaxed border border-black/5 text-left italic`}>
         {children}
