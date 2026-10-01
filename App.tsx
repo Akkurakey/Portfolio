@@ -447,7 +447,7 @@ const App: React.FC = () => {
                       <NavLink onClick={() => openProjectById('hci-1')}>Comparing AR and VR in Exposure Scenarios</NavLink>
                     </p>
                     <div className="py-3">
-                      <img src="/images/hci/nav-dual-phobia.png" alt="Spider and contamination exposure scenarios in AR and VR" className="w-[96%]" />
+                      <img src="/images/hci/nav-dual-phobia.jpg" alt="Spider and contamination exposure scenarios in AR and VR" className="w-[96%]" />
                     </div>
                     <p>
                       My MSc research explored how the same exposure experience changes when it is presented in AR or VR.
@@ -464,7 +464,7 @@ const App: React.FC = () => {
                       <NavLink onClick={() => openProjectById('hci-2')}>Human-AI Shopping Assistants Study</NavLink>
                     </p>
                     <div className="py-3">
-                      <img src="/images/hci/nav-vr-shopping.png" alt="3D avatar, webcam, AI, and voice shopping assistant conditions" className="w-[96%]" />
+                      <img src="/images/hci/nav-vr-shopping.jpg" alt="3D avatar, webcam, AI, and voice shopping assistant conditions" className="w-[96%]" />
                     </div>
                     <p>
                       This was a collaborative research project. The study explored how different forms of shopping assistance shape the experience of a virtual luxury store. We compared four assistant types: 3D avatar, webcam, voice-only, and AI.
@@ -481,7 +481,7 @@ const App: React.FC = () => {
                 <NavSection title="XR Projects" onOpen={() => openWindow('game_xr')}>
                   <div className="space-y-2.5">
                     <div className="pb-3">
-                      <img src="/images/game_xr/nav-oor.png" alt="One’s Own Room: a dark particle room and a generated cloud bedroom" className="w-full" />
+                      <img src="/images/game_xr/nav-oor.jpg" alt="One’s Own Room: a dark particle room and a generated cloud bedroom" className="w-full" />
                       {/* <video src="/images/game_xr/oor-room.mp4" autoPlay loop muted playsInline className="w-[96%]" /> */}
                     </div>
                     <p>
