@@ -47,7 +47,7 @@ const NavSection: React.FC<{ title: string; onOpen: () => void; archived?: boole
       {title}
       <ArrowUpRight size={10} className="ml-1 text-gray-400 translate-y-[2px]" />
     </button>
-    <div className="text-gray-500 font-light text-sm leading-[1.7] space-y-11">{children}</div>
+    <div className="text-gray-500 font-light text-sm leading-[1.7] space-y-16">{children}</div>
   </section>
 );
 
@@ -430,14 +430,14 @@ const App: React.FC = () => {
           {win.type === 'folder' && win.id !== 'kcl_nav' && <ProjectGrid title={win.title} projects={(PROJECTS[win.id as WindowID] || []).filter(p => !p.archived)} onOpenProject={openProjectWindow} />}
           {win.id === 'kcl_nav' && (
             <div className="w-full h-full bg-white flex flex-col p-10 sm:p-16 overflow-y-auto custom-scrollbar">
-              <div className="max-w-2xl mx-auto space-y-16">
+              <div className="max-w-2xl mx-auto space-y-16 [&>header+section]:!mt-10">
                 <header className="border-b border-gray-100 pb-8 space-y-4">
                   <h2 className="text-2xl font-bold text-gray-900">Hi, welcome!</h2>
                   <p className="text-gray-500 font-light text-sm leading-[1.7]">
                     I'm Rakey Yang, an HCI researcher and designer. I design, build, and evaluate immersive and AI-driven interfaces, working through design as a way of doing research. I have also worked as a freelance designer.
                   </p>
                   <p className="text-gray-500 font-light text-sm leading-[1.7]">
-                    You can view more <NavLink onClick={() => openWindow('about')}>about me</NavLink> and my <NavExternalLink href="https://www.rakeyyang.com/docs/rakey-yang-cv.pdf">CV</NavExternalLink> here.
+                    You can view more <NavLink onClick={() => openWindow('cv')}>about me</NavLink> and my <NavExternalLink href="https://www.rakeyyang.com/docs/rakey-yang-cv.pdf">CV</NavExternalLink> here.
                   </p>
                 </header>
 
@@ -446,24 +446,51 @@ const App: React.FC = () => {
                     <p>
                       <NavLink onClick={() => openProjectById('hci-1')}>Comparing AR and VR in Exposure Scenarios</NavLink>
                     </p>
+                    <div className="py-3">
+                      <img src="/images/hci/nav-dual-phobia.png" alt="Spider and contamination exposure scenarios in AR and VR" className="w-[96%]" />
+                    </div>
                     <p>
-                      My master's project, supervised by Prof. Chris Greenhalgh. I built the VR/AR spider and contamination exposure prototypes and conducted a mixed-methods user study (n = 31), applying hypothesis testing to quantitative data and reflexive thematic analysis to qualitative data. Accepted at <span className="whitespace-nowrap"><NavExternalLink href="https://doi.org/10.1007/s10055-026-01450-y">Virtual Reality (Springer)</NavExternalLink>.</span>
+                      My MSc research explored how the same exposure experience changes when it is presented in AR or VR.
+                    </p>
+                    <p>
+                      The study found that VR generally produced stronger responses, while AR often felt safer because participants remained connected to their familiar surroundings. These differences also raised the possibility of moving between AR and VR at different stages of an exposure experience.
+                    </p>
+                    <p>
+                      This work was supervised by Prof. Chris Greenhalgh and published in <span className="whitespace-nowrap"><NavExternalLink href="https://doi.org/10.1007/s10055-026-01450-y">Virtual Reality (Springer)</NavExternalLink>.</span>
                     </p>
                   </div>
                   <div className="space-y-2.5">
                     <p>
                       <NavLink onClick={() => openProjectById('hci-2')}>Human-AI Shopping Assistants Study</NavLink>
                     </p>
+                    <div className="py-3">
+                      <img src="/images/hci/nav-vr-shopping.png" alt="3D avatar, webcam, AI, and voice shopping assistant conditions" className="w-[96%]" />
+                    </div>
                     <p>
-                      A user study comparing human (3D avatar, webcam, and voice) and AI shopping assistant modalities in a virtual luxury store. I co-designed and ran the experiment, with hands-on involvement in the AI setup, including GPT-based dialogue, speech, and avatar integration. Published as a workshop paper and poster at <NavExternalLink href="https://doi.org/10.1109/VRW70859.2026.00252">IEEE VR 2026</NavExternalLink>, with an extended paper under review at Electronic Commerce Research and Applications.
+                      This was a collaborative research project. The study explored how different forms of shopping assistance shape the experience of a virtual luxury store. We compared four assistant types: 3D avatar, webcam, voice-only, and AI.
+                    </p>
+                    <p>
+                      The findings showed trade-offs between realism, immersion, social presence, and users’ willingness to engage with an assistant. Participants also preferred assistance to be available on demand rather than constantly present.
+                    </p>
+                    <p>
+                      The work was published as a paper and poster at <NavExternalLink href="https://doi.org/10.1109/VRW70859.2026.00252">IEEE VR 2026</NavExternalLink>, with an extended journal paper currently under review at <span className="italic">Virtual Reality (Springer)</span>.
                     </p>
                   </div>
                 </NavSection>
 
                 <NavSection title="XR Projects" onOpen={() => openWindow('game_xr')}>
-                  <p>
-                    XR applications and prototypes built in Unity and WebXR, including the <NavLink onClick={() => openProjectById('xr-3')}>AR/VR exposure systems</NavLink> used in my research. My current project, <NavLink onClick={() => openProjectById('xr-oor')}>One's Own Room</NavLink>, explores personalised and adaptive immersive environments for reflection and restoration.
-                  </p>
+                  <div className="space-y-2.5">
+                    <div className="pb-3">
+                      <img src="/images/game_xr/nav-oor.png" alt="One’s Own Room: a dark particle room and a generated cloud bedroom" className="w-full" />
+                      {/* <video src="/images/game_xr/oor-room.mp4" autoPlay loop muted playsInline className="w-[96%]" /> */}
+                    </div>
+                    <p>
+                      I always wanted to create a personal place in XR, a private, immersive space that could support me emotionally. This idea became <NavLink onClick={() => openProjectById('xr-oor')}>One’s Own Room</NavLink>.
+                    </p>
+                    <p>
+                      I use AI-generated spaces and affect-based atmosphere adjustment to create personalised environments that users can interact with, while talking in real time with an AI “presence” inside the room.
+                    </p>
+                  </div>
                 </NavSection>
 
                 <NavSection title="Visual Design" archived onOpen={() => openWindow('graphic')}>
