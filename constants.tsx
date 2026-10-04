@@ -238,7 +238,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/stamp-5.mp4'
       ],
       tags: ['Graphic', 'Illustration', 'Motion', 'Stamp Design'],
-      fullContent: 'A Chinese-inspired stamp series created for a TV variety show themed around Luoyang, one of China’s ancient capitals.\n\nThe project gives traditional stamp design a more modern look, while keeping a clear Chinese influence. The visuals are simple, open, and minimal.\n\nEach stamp is linked to both Luoyang’s culture and the guest’s name or personal style. For example, “Zhou” is shown through the image of a boat moving across green water, while “Jiuzhou” is turned into a pavilion signboard.\n\nThe designs are also extended into digital media through motion and interactive elements, making the theme feel more dynamic.'
+      fullContent: 'A Chinese-inspired stamp series created for a TV variety show themed around Luoyang, one of China’s ancient capitals.\n\nThe project gives traditional stamp design a more modern look, while keeping a clear Chinese influence. The visuals are simple, open, and minimal.\n\nEach stamp is linked to both Luoyang’s culture and the guest’s name or personal style. For example, “Zhou” (舟), meaning “boat,” is expressed through the image of a boat moving across green water. “Jiuzhou” (九州), a traditional name associated with ancient China, is reimagined as a pavilion signboard.\n\nThe designs are also extended into digital media through motion and interactive elements, making the theme feel more dynamic.'
     },
     {
       id: 'gd-msi',
