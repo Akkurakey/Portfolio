@@ -238,7 +238,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/stamp-5.mp4'
       ],
       tags: ['Graphic', 'Illustration', 'Motion', 'Stamp Design'],
-      fullContent: 'This project explores how traditional stamp art can be combined with modern digital technology. Geometric abstract elements are used in cultural storytelling. The stamps can work as both static artworks and dynamic visual experiences.'
+      fullContent: 'This project combines traditional stamp art with digital technology. It uses simple geometric forms to tell cultural stories, turning stamps from static artworks into more interactive and dynamic visual experiences.'
     },
     {
       id: 'gd-msi',
@@ -267,7 +267,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       ],
       tags: ['Graphic', 'Poster', 'Live Show', 'Branding'],
       externalUrl: 'https://wap.showstart.com/pages/activity/detail/detail?ssfrom=user-8688&activityId=174046',
-      fullContent: 'This series explores the raw energy of live performances. Each poster is a translation of a specific musical atmosphere into a visual identity, utilising experimental layouts and distressed textures to echo the intensity of the scene.'
+      fullContent: 'Live show posters designed for the band Dashline, for their show themed 留步旷野 (Pause in the Wild). The show was eventually cancelled due to the pandemic.'
     }
   ],
   web_ai: [
