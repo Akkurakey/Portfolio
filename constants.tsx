@@ -238,7 +238,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/stamp-5.mp4'
       ],
       tags: ['Graphic', 'Illustration', 'Motion', 'Stamp Design'],
-      fullContent: 'This project combines traditional stamp art with digital technology. It uses simple geometric forms to tell cultural stories, turning stamps from static artworks into more interactive and dynamic visual experiences.'
+      fullContent: 'A Chinese-inspired stamp series created for a TV variety show themed around Luoyang, one of China’s ancient capitals.\n\nThe project gives traditional stamp design a more modern look, while keeping a clear Chinese influence. The visuals are simple, open, and minimal.\n\nEach stamp is linked to both Luoyang’s culture and the guest’s name or personal style. For example, “Zhou” is shown through the image of a boat moving across green water, while “Jiuzhou” is turned into a pavilion signboard.\n\nThe designs are also extended into digital media through motion and interactive elements, making the theme feel more dynamic.'
     },
     {
       id: 'gd-msi',
@@ -253,7 +253,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
         '/images/graphic/msi-4.jpg'
       ],
       tags: ['Graphic', 'Branding', 'Logistics', 'Industrial'],
-      fullContent: 'MSI FULFILLMENT is a visual identity project for the logistics industry. It focuses on efficiency, reliability, and industrial design. The Meishan Red Bridge is used as a landmark reference and is integrated into the visual system.'
+      fullContent: 'MSI FULFILLMENT is a visual identity project for the logistics industry. It covers the logo, on-site installations, logistics packaging, and truck livery.\n\nThe Meishan Red Bridge is used as a landmark reference and is integrated into the visual system.'
     },
     {
       id: 'gd-live-show',
@@ -267,7 +267,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
       ],
       tags: ['Graphic', 'Poster', 'Live Show', 'Branding'],
       externalUrl: 'https://wap.showstart.com/pages/activity/detail/detail?ssfrom=user-8688&activityId=174046',
-      fullContent: 'Live show posters designed for the band Dashline, for their show themed 留步旷野 (Pause in the Wild). The show was eventually cancelled due to the pandemic.'
+      fullContent: 'Posters designed for the band Dashline, for their live show themed 留步旷野 (Pause in the Wild).\n\nThe show was eventually cancelled due to the pandemic.'
     }
   ],
   web_ai: [
