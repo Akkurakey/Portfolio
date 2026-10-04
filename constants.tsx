@@ -212,7 +212,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'gd-album',
       title: 'Album Design',
-      description: 'A visual homage to the "Dash Line" band, capturing the solitude of youth on an isolated island.',
+      description: 'An album cover design for the band Dashline.',
       imageUrl: '/images/graphic/album-cover.jpg',
       images: [
         '/images/graphic/album-cover.jpg',
@@ -228,7 +228,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'gd-5',
       title: 'Stamp Set Design',
-      description: 'A conceptual philatelic exploration focused on geometry and cultural narrative.',
+      description: 'A modern Chinese-style stamp series.',
       imageUrl: '/images/graphic/stamp-cover.jpg',
       images: [
         '/images/graphic/stamp-1.jpg',
@@ -243,7 +243,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'gd-msi',
       title: 'MSI FULFILLMENT',
-      description: 'A visual identity and logistics design system focusing on industrial aesthetic clarity.',
+      description: 'A visual identity design project for a logistics centre.',
       imageUrl: '/images/graphic/msi-cover.png',
       images: [
         '/images/graphic/msi-1.png',
@@ -258,7 +258,7 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     {
       id: 'gd-live-show',
       title: 'Live Show Poster',
-      description: 'Experimental poster designs for underground live music events, blending bold typography with raw textures.',
+      description: 'Poster designs for a live music show.',
       imageUrl: '/images/graphic/live-show-cover.png',
       images: [
         '/images/graphic/live-show-1.jpg',
