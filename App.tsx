@@ -481,7 +481,7 @@ const App: React.FC = () => {
                 <NavSection title="XR Projects" onOpen={() => openWindow('game_xr')}>
                   <div className="space-y-2.5">
                     <div className="pb-3">
-                      <img src="/images/game_xr/nav-oor.jpg" alt="One’s Own Room: a dark particle room and a generated cloud bedroom" className="w-full" />
+                      <img src="/images/game_xr/nav-oor.jpg" alt="One’s Own Room: a dark particle room and a generated cloud bedroom" className="w-[96%]" />
                       {/* <video src="/images/game_xr/oor-room.mp4" autoPlay loop muted playsInline className="w-[96%]" /> */}
                     </div>
                     <p>
