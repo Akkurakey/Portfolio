@@ -125,7 +125,6 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'ai-1',
-      archived: true,
       title: 'AR Warehouse System',
       description: 'PC + AR-based 3D warehouse management and navigation system designed to enhance inventory management efficiency.',
       imageUrl: '/images/game_xr/ar-logistics-interface.jpg',
@@ -146,7 +145,6 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'xr-2',
-      archived: true,
       title: 'AR Gallery Treasure Hunt',
       description: 'A gamified AR exploration experience for interactive gallery engagement.',
       imageUrl: '/images/game_xr/ar-gallery-cover.jpg',
@@ -169,7 +167,6 @@ export const PROJECTS: Record<WindowID, Project[]> = {
     },
     {
       id: 'xr-1',
-      archived: true,
       title: 'VR Hand-gesture Rhythm Game',
       description: 'An immersive VR environment using hand-tracking and spatial audio for an enhanced flow state.',
       imageUrl: '/images/game_xr/rhythm-game-cover.png',
