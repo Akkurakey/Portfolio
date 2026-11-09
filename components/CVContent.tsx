@@ -168,7 +168,7 @@ const CVContent: React.FC<CVContentProps> = ({ onOpenProjectById }) => {
             </div>
             <div className="group relative">
               <p className="text-sm text-gray-500 font-light leading-relaxed">
-                S. Jin, <span className="font-bold">R. Yang</span>, T. Bohn, W. Tong, and L. H. Lee. <span className="text-gray-900">"Comparing Assistant Configurations in Simulated VR Luxury Shopping: A Mixed-Methods Study."</span> <span className="italic">Virtual Reality</span>, under review, 2026.
+                S. Jin, T. Bohné, <span className="font-bold">R. Yang</span>, W. Tong, and L. H. Lee. <span className="text-gray-900">"Comparing Assistant Configurations in Simulated VR Luxury Shopping: A Mixed-Methods Study."</span> <span className="italic">Virtual Reality</span>, accepted, 2026.
               </p>
             </div>
           </div>

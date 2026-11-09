@@ -473,7 +473,7 @@ const App: React.FC = () => {
                       The findings showed trade-offs between realism, immersion, social presence, and users’ willingness to engage with an assistant. Participants also preferred assistance to be available on demand rather than constantly present.
                     </p>
                     <p>
-                      The work was published as a paper and poster at <NavExternalLink href="https://doi.org/10.1109/VRW70859.2026.00252">IEEE VR 2026</NavExternalLink>, with an extended journal paper currently under review at <span className="italic">Virtual Reality (Springer)</span>.
+                      The work was published as a paper and poster at <NavExternalLink href="https://doi.org/10.1109/VRW70859.2026.00252">IEEE VR 2026</NavExternalLink>, with an extended journal paper accepted at <span className="italic">Virtual Reality (Springer)</span>.
                     </p>
                   </div>
                 </NavSection>
